@@ -1,5 +1,9 @@
 ---
-
+import DownloadIcon from "./icons/Download.astro";
+import LinkedInIcon from "./icons/LinkedIn.astro";
+import TelegramIcon from "./icons/Telegram.astro";
+import GoogleIcon from "./icons/Google.astro";
+import SocialPill from "./SocialPill.astro";
 ---
 
 <div class="max-w-xl">
@@ -26,20 +30,7 @@
                 <span
                     class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0 inline-flex items-center text-lg"
                 >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        class="w-6 h-6 mr-2"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
-                        ></path>
-                    </svg>
+                    <DownloadIcon />
                     Descargar CV
                 </span>
             </a>
@@ -57,4 +48,18 @@
         <strong>Desarrollador FullStack de Aplicaciones Web</strong>
         de Misiones, Argentina 🇦🇷.
     </p>
+    <nav class="flex flex-wrap gap-4 mt-8">
+        <SocialPill href="https://www.linkedin.com/in/facundo-joel-rodriguez/">
+            <LinkedInIcon class="size-4" />
+            LinkedIn
+        </SocialPill>
+        <SocialPill href="mailto:facurodri00@gmail.com">
+            <GoogleIcon class="size-4" />
+            Gmail
+        </SocialPill>
+        <SocialPill href="https://t.me/facurodrij">
+            <TelegramIcon class="size-4" />
+            Telegram
+        </SocialPill>
+    </nav>
 </div>
