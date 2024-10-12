@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Transition } from "@headlessui/react";
 import GitHubIcon from "./icons/Github";
 import FlaskIcon from "./icons/Flask";
 import TailwindIcon from "./icons/Tailwind";
@@ -114,54 +115,66 @@ const Projects = () => {
 
     return (
         <>
-            <div className="flex flex-col gap-y-12">
+            <div className="flex flex-col gap-y-12 transition duration-500 ease-in-out transform md:gap-y-16">
                 {
                     visibleProjects.map(({ image, title, description, tools, link, github }) => (
-                        <article className="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0">
-                            <div className="w-full md:w-1/2">
-                                <div className="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
-                                    <img alt="" className="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105" loading="eager" src={image} />
+                        <Transition
+                            key={title}
+                            show={showAll ? visibleProjects.length == PROJECTS.length : true}
+                            appear={showAll ? visibleProjects.length == PROJECTS.length : true}
+                            enter='ease-out duration-300'
+                            enterFrom='opacity-0 scale-95'
+                            enterTo='opacity-100 scale-100'
+                            leave='ease-in duration-300'
+                            leaveFrom='opacity-100 scale-100'
+                            leaveTo='opacity-0 scale-95'
+                        >
+                            <article className="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0">
+                                <div className="w-full md:w-1/2">
+                                    <div className="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
+                                        <img alt="" className="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105" loading="eager" src={image} />
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div className="w-full md:w-1/2 md:max-w-lg">
-                                <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
-                                    {title}
-                                </h3>
-                                <div className="flex flex-wrap mt-2 w-full">
-                                    <ul className="flex flex-wrap gap-x-2 w-full">
-                                        {tools.map((tool) => (
-                                            <li className="mb-2" key={tool.name}>
-                                                <aside className="inline-flex items-center justify-between px-1 py-1 pr-3 text-sm text-gray-700 bg-gray-100 rounded-full dark:bg-gray-800 dark:text-white">
-                                                    <span
-                                                        className={`flex items-center gap-x-2 rounded-full text-xs ${tool.className} py-1 px-2`}
-                                                    >
-                                                        <tool.icon className="size-6" />
-                                                    </span>
-                                                    <span className="text-sm font-medium px-1">{tool.name}</span>
-                                                </aside>
-                                            </li>
-                                        ))}
-                                    </ul>
+                                <div className="w-full md:w-1/2 md:max-w-lg">
+                                    <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
+                                        {title}
+                                    </h3>
+                                    <div className="flex flex-wrap mt-2 w-full">
+                                        <ul className="flex flex-wrap gap-x-2 w-full">
+                                            {tools.map((tool) => (
+                                                <li className="mb-2" key={tool.name}>
+                                                    <aside className="inline-flex items-center justify-between px-1 py-1 pr-3 text-sm text-gray-700 bg-gray-100 rounded-full dark:bg-gray-800 dark:text-white">
+                                                        <span
+                                                            className={`flex items-center gap-x-2 rounded-full text-xs ${tool.className} py-1 px-2`}
+                                                        >
+                                                            <tool.icon className="size-6" />
+                                                        </span>
+                                                        <span className="text-sm font-medium px-1">{tool.name}</span>
+                                                    </aside>
+                                                </li>
+                                            ))}
+                                        </ul>
 
-                                    <div className="mt-2 text-gray-700 dark:text-gray-400">{description}</div>
-                                    <footer className="flex items-end justify-start mt-4 gap-x-4">
-                                        {github && (
-                                            <LinkButton href={github}>
-                                                <GitHubIcon className="size-6" />
-                                                Code
-                                            </LinkButton>
-                                        )}
-                                        {link && (
-                                            <LinkButton href={link}>
-                                                <GitHubIcon className="size-6" />
-                                                Preview
-                                            </LinkButton>
-                                        )}
-                                    </footer>
+                                        <div className="mt-2 text-gray-700 dark:text-gray-400">{description}</div>
+                                        <footer className="flex items-end justify-start mt-4 gap-x-4">
+                                            {github && (
+                                                <LinkButton href={github}>
+                                                    <GitHubIcon className="size-6" />
+                                                    Code
+                                                </LinkButton>
+                                            )}
+                                            {link && (
+                                                <LinkButton href={link}>
+                                                    <GitHubIcon className="size-6" />
+                                                    Preview
+                                                </LinkButton>
+                                            )}
+                                        </footer>
+                                    </div>
                                 </div>
-                            </div>
-                        </article>
+                            </article>
+                        </Transition>
                     ))
                 }
             </div>
