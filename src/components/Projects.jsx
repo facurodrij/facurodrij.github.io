@@ -12,6 +12,7 @@ import JQueryIcon from "./icons/Jquery";
 import DjangoIcon from "./icons/Django";
 import SolidityIcon from "./icons/Solidity";
 import TruffleIcon from "./icons/Truffle";
+import ReadIcon from "./icons/Read";
 
 const LinkButton = ({ href, children }) => {
     return (
@@ -80,7 +81,7 @@ const PROJECTS = [
         description:
             "Sistema para Repuestos Stock Car, una empresa dedicada a la venta de repuestos automotores. Actualmente se encuentra en producción dentro de la empresa y en constante actualización.",
         github: "https://github.com/facurodrij/stockcar-gestion",
-        image: "/projects/stockcar-gestion.png",
+        image: "/projects/1.png",
         tools: [TOOLS.FLASK, TOOLS.REACT],
     },
     {
@@ -88,7 +89,8 @@ const PROJECTS = [
         description:
             "Aplicación web integrando una blockchain de prueba mediante Web3.py y un Smart Contract para garantizar la integridad y confiabilidad de las presentaciones digitales de las rendiciones de cuentas municipales.",
         github: "https://github.com/facurodrij/TrabajoFinal_LSI",
-        image: "",
+        image: "/projects/2.png",
+        doc: "/projects/Tesis_LSI_Facundo_Rodriguez.pdf",
         tools: [TOOLS.SOLIDITY, TOOLS.TRUFFLE, TOOLS.DJANGO, TOOLS.BOOTSTRAP],
     },
     {
@@ -117,7 +119,7 @@ const Projects = () => {
         <>
             <div className="flex flex-col gap-y-12 transition duration-500 ease-in-out transform md:gap-y-16">
                 {
-                    visibleProjects.map(({ image, title, description, tools, link, github }) => (
+                    visibleProjects.map(({ image, title, description, tools, link, github, doc }) => (
                         <Transition
                             key={title}
                             show={showAll ? visibleProjects.length == PROJECTS.length : true}
@@ -168,6 +170,12 @@ const Projects = () => {
                                                 <LinkButton href={link}>
                                                     <GitHubIcon className="size-6" />
                                                     Preview
+                                                </LinkButton>
+                                            )}
+                                            {doc && (
+                                                <LinkButton href={doc}>
+                                                    <ReadIcon className="size-6" />
+                                                    Leer documento
                                                 </LinkButton>
                                             )}
                                         </footer>
