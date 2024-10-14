@@ -96,10 +96,10 @@ const PROJECTS = [
     {
         title: "Sueldos y RRHH - Sistema de gestión de sueldos y recursos humanos",
         description:
-            "Aplicación web para la gestión de sueldos y recursos humanos. Parte del curso de Recursos Humanos de la Universidad Nacional de Misiones.",
+            "Aplicación web para la gestión de sueldos y recursos humanos. Parte de la cátedra Recursos Humanos de la Universidad Nacional de Misiones.",
         github: "https://github.com/facurodrij/sueldo-rrhh",
         image: "",
-        tools: [TOOLS.DOTNET],
+        tools: [TOOLS.DOTNET, TOOLS.BOOTSTRAP, TOOLS.JQUERY],
     },
     {
         title: "RESERVÁ - Sistema de gestión de clubes deportivos",
