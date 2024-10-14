@@ -7,6 +7,8 @@ import CodeIcon from "../components/icons/Code.astro";
 import Projects from "../components/Projects.jsx";
 import ProfileCheckIcon from "../components/icons/ProfileCheck.astro";
 import AboutMe from "../components/AboutMe.astro";
+import Briefcase from "../components/icons/Briefcase.astro";
+import Experience from "../components/Experience.astro";
 ---
 
 <Layout title="My Astro Portfolio">
@@ -15,6 +17,13 @@ import AboutMe from "../components/AboutMe.astro";
 			<Hero />
 		</Container>
 		<div class="space-y-24">
+			<Container id="experiencia">
+				<TitleSection>
+					<Briefcase class="size-8" />
+					Experiencia laboral
+				</TitleSection>
+				<Experience />
+			</Container>
 			<Container id="proyectos">
 				<TitleSection>
 					<CodeIcon class="size-7" />
