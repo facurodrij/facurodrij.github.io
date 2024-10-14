@@ -106,7 +106,7 @@ const PROJECTS = [
         description:
             "Sistema de gestión de reservas de canchas, manejo de eventos y administración de socios para clubes. Integración con la API de MercadoPago para el cobro de reservas, tickets y membresías.",
         github: "https://github.com/facurodrij/TrabajoFinal_ASC",
-        image: "",
+        image: "/projects/4.png",
         tools: [TOOLS.DJANGO, TOOLS.BOOTSTRAP, TOOLS.JQUERY],
     },
 ]
