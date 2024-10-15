@@ -81,7 +81,7 @@ const PROJECTS = [
         description:
             "Sistema para Repuestos Stock Car, una empresa dedicada a la venta de repuestos automotores. Actualmente se encuentra en producción dentro de la empresa y en constante actualización.",
         github: "https://github.com/facurodrij/stockcar-gestion",
-        image: "/portfolio/projects/1.png",
+        image: "/portfolio/projects/1.webp",
         tools: [TOOLS.FLASK, TOOLS.REACT],
     },
     {
@@ -89,7 +89,7 @@ const PROJECTS = [
         description:
             "Aplicación web integrando una blockchain de prueba mediante Web3.py y un Smart Contract para garantizar la integridad y confiabilidad de las presentaciones digitales de las rendiciones de cuentas municipales.",
         github: "https://github.com/facurodrij/TrabajoFinal_LSI",
-        image: "/portfolio/projects/2.png",
+        image: "/portfolio/projects/2.webp",
         doc: "/portfolio/projects/Tesis_LSI_Facundo_Rodriguez.pdf",
         tools: [TOOLS.SOLIDITY, TOOLS.TRUFFLE, TOOLS.DJANGO, TOOLS.BOOTSTRAP],
     },
@@ -98,7 +98,7 @@ const PROJECTS = [
         description:
             "Aplicación web para la gestión de sueldos y recursos humanos. Parte de la cátedra Recursos Humanos de la Universidad Nacional de Misiones.",
         github: "https://github.com/facurodrij/sueldo-rrhh",
-        image: "/portfolio/projects/3.png",
+        image: "/portfolio/projects/3.webp",
         tools: [TOOLS.DOTNET, TOOLS.BOOTSTRAP, TOOLS.JQUERY],
     },
     {
@@ -106,7 +106,7 @@ const PROJECTS = [
         description:
             "Sistema de gestión de reservas de canchas, manejo de eventos y administración de socios para clubes. Integración con la API de MercadoPago para el cobro de reservas, tickets y membresías.",
         github: "https://github.com/facurodrij/TrabajoFinal_ASC",
-        image: "/portfolio/projects/4.png",
+        image: "/portfolio/projects/4.webp",
         tools: [TOOLS.DJANGO, TOOLS.BOOTSTRAP, TOOLS.JQUERY],
     },
 ]
