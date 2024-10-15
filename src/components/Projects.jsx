@@ -98,7 +98,7 @@ const PROJECTS = [
         description:
             "Aplicación web para la gestión de sueldos y recursos humanos. Parte de la cátedra Recursos Humanos de la Universidad Nacional de Misiones.",
         github: "https://github.com/facurodrij/sueldo-rrhh",
-        image: "",
+        image: "/projects/3.png",
         tools: [TOOLS.DOTNET, TOOLS.BOOTSTRAP, TOOLS.JQUERY],
     },
     {
