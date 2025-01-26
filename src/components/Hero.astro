@@ -6,7 +6,7 @@ import GithubIcon from "./icons/Github";
 import SocialPill from "./SocialPill.astro";
 ---
 
-<div class="max-w-xl">
+<div class="max-w-2xl">
     <div class="flex gap-4 mb-4 items-center">
         <a
             href="https://www.linkedin.com/in/facundo-joel-rodriguez/"
@@ -16,24 +16,10 @@ import SocialPill from "./SocialPill.astro";
         >
             <img
                 class="rounded-full shadow-lg size-24 md:size-44 lg:size-52"
-                src="/portfolio/me.webp"
+                src="/me.webp"
                 alt="Foto de Facundo Joel Rodriguez"
             />
         </a>
-        <div class="flex items-center">
-            <a
-                class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-tr from-blue-800 to-orange-700 group-hover:from-blue-800 group-hover:to-orange-700 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800"
-                href="/portfolio/curriculum_vitae.pdf"
-                download="Facundo Joel Rodriguez - CV"
-            >
-                <span
-                    class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0 inline-flex items-center text-lg"
-                >
-                    <DownloadIcon />
-                    Descargar CV
-                </span>
-            </a>
-        </div>
     </div>
     <h1
         class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl dark:text-white"
@@ -48,6 +34,10 @@ import SocialPill from "./SocialPill.astro";
         de Misiones, Argentina 🇦🇷.
     </p>
     <nav class="flex flex-wrap gap-4 mt-8">
+        <SocialPill href="/curriculum_vitae.pdf">
+            <DownloadIcon class="size-4" />
+            Resume / CV
+        </SocialPill>
         <SocialPill href="https://www.linkedin.com/in/facundo-joel-rodriguez/">
             <LinkedInIcon class="size-4" />
             LinkedIn
