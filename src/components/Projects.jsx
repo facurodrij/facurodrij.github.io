@@ -85,7 +85,7 @@ const PROJECTS = [
         tools: [TOOLS.FLASK, TOOLS.REACT],
     },
     {
-        title: "Tesis de Grado - Blockchain y Smart Contracts aplicado a la rendición de cuentas municipales",
+        title: "Tesis de Grado - Blockchain y Smart Contracts aplicado a la rendición de cuentas municipales (Académico)",
         description:
             "Aplicación web integrando una blockchain de prueba mediante Web3.py y un Smart Contract para garantizar la integridad y confiabilidad de las presentaciones digitales de las rendiciones de cuentas municipales.",
         github: "https://github.com/facurodrij/TrabajoFinal_LSI",
@@ -94,7 +94,7 @@ const PROJECTS = [
         tools: [TOOLS.SOLIDITY, TOOLS.TRUFFLE, TOOLS.DJANGO, TOOLS.BOOTSTRAP],
     },
     {
-        title: "Sueldos y RRHH - Sistema de gestión de sueldos y recursos humanos",
+        title: "Sueldos y RRHH - Sistema de gestión de sueldos y recursos humanos (Académico)",
         description:
             "Aplicación web para la gestión de sueldos y recursos humanos. Parte de la cátedra Recursos Humanos de la Universidad Nacional de Misiones.",
         github: "https://github.com/facurodrij/sueldo-rrhh",
@@ -102,7 +102,7 @@ const PROJECTS = [
         tools: [TOOLS.DOTNET, TOOLS.BOOTSTRAP, TOOLS.JQUERY],
     },
     {
-        title: "RESERVÁ - Sistema de gestión de clubes deportivos",
+        title: "RESERVÁ - Sistema de gestión de clubes deportivos (Académico)",
         description:
             "Sistema de gestión de reservas de canchas, manejo de eventos y administración de socios para clubes. Integración con la API de MercadoPago para el cobro de reservas, tickets y membresías.",
         github: "https://github.com/facurodrij/TrabajoFinal_ASC",
