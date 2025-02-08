@@ -6,40 +6,44 @@ import GithubIcon from "./icons/Github";
 import SocialPill from "./SocialPill.astro";
 ---
 
-<div class="max-w-2xl">
-    <div class="flex gap-4 mb-4 items-center">
-        <a
-            href="https://www.linkedin.com/in/facundo-joel-rodriguez/"
-            target="_blank"
-            rel="noopener"
-            class="flex items-center transition md:justify-center md:hover:scale-105"
-        >
-            <img
-                class="rounded-full shadow-lg size-24 md:size-44 lg:size-52"
-                src="/me.webp"
-                alt="Foto de Facundo Joel Rodriguez"
-            />
-        </a>
+<div>
+    <div class="grid grid-cols-3 gap-4">
+        <div class="col-span-3 sm:col-span-2">
+            <h1
+                class="text-3xl font-bold tracking-tight text-gray-800 sm:text-4xl dark:text-white"
+            >
+                Hola! Soy Facundo Joel Rodriguez
+            </h1>
+            <p
+                class="mt-6 text-xl text-gray-800 dark:[&>strong]:text-yellow-200 [&>strong]:text-yellow-500 [&>strong]:font-semibold dark:text-gray-300"
+            >
+                Licenciado en Sistemas de Información.
+                <strong>Desarrollador FullStack de Aplicaciones Web</strong>
+                de Misiones, Argentina.
+            </p>
+        </div>
+        <div class="col-span-3 sm:col-span-1 flex items-center justify-center sm:justify-end">
+            <a
+                href="https://www.linkedin.com/in/facundo-joel-rodriguez/"
+                target="_blank"
+                rel="noopener"
+                class="transition md:hover:scale-105"
+            >
+                <img
+                    class="rounded-lg shadow-lg size-64 sm:size-48 shadow-xl"
+                    src="/me.webp"
+                    alt="Foto de Facundo Joel Rodriguez"
+                />
+            </a>
+        </div>
     </div>
-    <h1
-        class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl dark:text-white"
-    >
-        Hola! Soy Facundo Joel Rodriguez
-    </h1>
-    <p
-        class="mt-6 text-xl text-gray-800 dark:[&>strong]:text-yellow-200 [&>strong]:text-yellow-500 [&>strong]:font-semibold dark:text-gray-300"
-    >
-        Licenciado en Sistemas de Información.
-        <strong>Desarrollador FullStack de Aplicaciones Web</strong>
-        de Misiones, Argentina.
-    </p>
     <nav class="flex flex-wrap gap-4 mt-8">
-        <a    
+                <a
             href="/curriculum_vitae.pdf"
             target="_blank"
             rel="noopener noreferrer"
             role="link"
-            class={`inline-flex items-center justify-center gap-2 px-4 py-1 text-gray-800 transition bg-gray-100 border border-yellow-500 rounded-full dark:bg-gray-800 dark:border-yellow-500 dark:text-white focus-visible:ring-yellow-500/80 text-md hover:bg-yellow-500 hover:border-yellow-600 hover:text-white dark:hover:bg-yellow-500 dark:hover:border-yellow-800 dark:hover:text-black group max-w-fit focus:outline-none focus-visible:outline-none focus-visible:ring focus-visible:ring-white focus-visible:ring-offset-2 active:bg-yellow-700 ${Astro.props.class}`}
+            class={`inline-flex items-center justify-center gap-2 px-4 py-1 text-gray-800 transition bg-gray-100 border border-yellow-500 rounded-full dark:bg-gray-800 dark:border-yellow-200 dark:text-white focus-visible:ring-yellow-500/80 text-md hover:bg-yellow-500 hover:text-white dark:hover:bg-yellow-200 dark:hover:text-black group max-w-fit focus:outline-none focus-visible:outline-none focus-visible:ring focus-visible:ring-white focus-visible:ring-offset-2 ${Astro.props.class}`}
         >
             <DownloadIcon class="size-4" />
             Resume / CV
