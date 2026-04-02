@@ -1,0 +1,217 @@
+---
+import GitHubIcon from "./icons/Github.astro";
+import FlaskIcon from "./icons/Flask.astro";
+import TailwindIcon from "./icons/Tailwind.astro";
+import ReactIcon from "./icons/React.astro";
+import AddIcon from "./icons/Add.astro";
+import SubtractIcon from "./icons/Subtract.astro";
+import DotNetIcon from "./icons/DotNet.astro";
+import BootstrapIcon from "./icons/Bootstrap.astro";
+import JQueryIcon from "./icons/Jquery.astro";
+import DjangoIcon from "./icons/Django.astro";
+import SolidityIcon from "./icons/Solidity.astro";
+import TruffleIcon from "./icons/Truffle.astro";
+import ReadIcon from "./icons/Read.astro";
+
+const linkButtonClass =
+  "inline-flex items-center justify-center gap-2 px-3 py-2 space-x-2 text-base transition bg-gray-100 text-gray-800 border-gray-300 dark:text-white dark:bg-gray-800 border dark:border-gray-600 focus-visible:ring-yellow-500/80 text-md group max-w-fit rounded-xl focus:outline-none focus-visible:outline-none focus-visible:ring focus-visible:ring-white focus-visible:ring-offset-2 active:bg-black hover:bg-gray-900 hover:border-gray-700 hover:text-white dark:hover:bg-gray-100 dark:hover:border-gray-300 dark:hover:text-black";
+
+const toggleButtonClass =
+  "inline-flex items-center justify-center gap-2 px-3 py-2 space-x-2 text-base uppercase transition text-gray-800 dark:text-gray-400 focus-visible:ring-yellow-500/80 text-md group max-w-fit rounded-md focus:outline-none focus-visible:outline-none focus-visible:ring focus-visible:ring-white focus-visible:ring-offset-2 active:bg-gray-800 active:text-white hover:bg-gray-900 hover:border-gray-700 hover:text-white dark:hover:bg-gray-800 dark:hover:border-gray-300 dark:hover:text-white";
+
+const TOOLS = {
+  TAILWIND: {
+    name: "Tailwind CSS",
+    className: "text-[#06B6D4] bg-[#051C2B]",
+    icon: TailwindIcon,
+  },
+  FLASK: {
+    name: "Flask",
+    className: "bg-black text-white",
+    icon: FlaskIcon,
+  },
+  REACT: {
+    name: "React",
+    className: "bg-white text-[#61DAFB]",
+    icon: ReactIcon,
+  },
+  DOTNET: {
+    name: ".NET",
+    className: "bg-[#512BD4] text-white",
+    icon: DotNetIcon,
+  },
+  BOOTSTRAP: {
+    name: "Bootstrap",
+    className: "bg-[#7952B3] text-white",
+    icon: BootstrapIcon,
+  },
+  JQUERY: {
+    name: "jQuery",
+    className: "bg-[#0769AD] text-white",
+    icon: JQueryIcon,
+  },
+  DJANGO: {
+    name: "Django",
+    className: "bg-[#092E20] text-white",
+    icon: DjangoIcon,
+  },
+  SOLIDITY: {
+    name: "Solidity",
+    className: "bg-white text-[#363636]",
+    icon: SolidityIcon,
+  },
+  TRUFFLE: {
+    name: "Truffle",
+    className: "bg-white",
+    icon: TruffleIcon,
+  },
+};
+
+const PROJECTS = [
+  {
+    title: "StockCar Gestión - Sistema de facturación y gestión de inventario",
+    description:
+      "Sistema para Repuestos Stock Car, una empresa dedicada a la venta de repuestos automotores. Actualmente se encuentra en producción dentro de la empresa y en constante actualización.",
+    github: "https://github.com/facurodrij/stockcar-gestion",
+    link: undefined,
+    image: "/projects/1.webp",
+    doc: undefined,
+    tools: [TOOLS.FLASK, TOOLS.REACT],
+  },
+  {
+    title:
+      "Tesis de Grado - Blockchain y Smart Contracts aplicado a la rendición de cuentas municipales (Académico)",
+    description:
+      "Aplicación web integrando una blockchain de prueba mediante Web3.py y un Smart Contract para garantizar la integridad y confiabilidad de las presentaciones digitales de las rendiciones de cuentas municipales.",
+    github: "https://github.com/facurodrij/TrabajoFinal_LSI",
+    link: undefined,
+    image: "/projects/2.webp",
+    doc: "/projects/Tesis_LSI_Facundo_Rodriguez.pdf",
+    tools: [TOOLS.SOLIDITY, TOOLS.TRUFFLE, TOOLS.DJANGO, TOOLS.BOOTSTRAP],
+  },
+  {
+    title: "Sueldos y RRHH - Sistema de gestión de sueldos y recursos humanos (Académico)",
+    description:
+      "Aplicación web para la gestión de sueldos y recursos humanos. Parte de la cátedra Recursos Humanos de la Universidad Nacional de Misiones.",
+    github: "https://github.com/facurodrij/sueldo-rrhh",
+    link: undefined,
+    image: "/projects/3.webp",
+    doc: undefined,
+    tools: [TOOLS.DOTNET, TOOLS.BOOTSTRAP, TOOLS.JQUERY],
+  },
+  {
+    title: "RESERVÁ - Sistema de gestión de clubes deportivos (Académico)",
+    description:
+      "Sistema de gestión de reservas de canchas, manejo de eventos y administración de socios para clubes. Integración con la API de MercadoPago para el cobro de reservas, tickets y membresías.",
+    github: "https://github.com/facurodrij/TrabajoFinal_ASC",
+    link: undefined,
+    image: "/projects/4.webp",
+    doc: undefined,
+    tools: [TOOLS.DJANGO, TOOLS.BOOTSTRAP, TOOLS.JQUERY],
+  },
+];
+---
+
+<div data-projects-root>
+  <div class="flex flex-col gap-y-12 transition duration-500 ease-in-out transform md:gap-y-16">
+    {
+      PROJECTS.map(({ image, title, description, tools, link, github, doc }, index) => (
+        <article
+          class:list={[
+            "project-item flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0",
+            index > 1 && "hidden",
+          ]}
+          data-project-item
+          data-project-hidden={index > 1 ? "true" : "false"}
+        >
+          <div class="w-full md:w-1/2">
+            <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
+              <img alt="" class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105" loading="eager" src={image} />
+            </div>
+          </div>
+
+          <div class="w-full md:w-1/2 md:max-w-lg">
+            <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
+              {title}
+            </h3>
+            <div class="flex flex-wrap mt-2 w-full">
+              <ul class="flex flex-wrap gap-x-2 w-full">
+                {tools.map(({ name, className, icon: Icon }) => (
+                  <li class="mb-2">
+                    <aside class="inline-flex items-center justify-between px-1 py-1 pr-3 text-sm text-gray-700 bg-gray-100 rounded-full dark:bg-gray-800 dark:text-white">
+                      <span class={`flex items-center gap-x-2 rounded-full text-xs ${className} py-1 px-2`}>
+                        <Icon class="size-6" />
+                      </span>
+                      <span class="text-sm font-medium px-1">{name}</span>
+                    </aside>
+                  </li>
+                ))}
+              </ul>
+
+              <div class="mt-2 text-gray-700 dark:text-gray-400">{description}</div>
+              <footer class="flex items-end justify-start mt-4 gap-x-4">
+                {github && (
+                  <a target="_blank" href={github} role="link" class={linkButtonClass}>
+                    <GitHubIcon class="size-6" />
+                    Code
+                  </a>
+                )}
+                {link && (
+                  <a target="_blank" href={link} role="link" class={linkButtonClass}>
+                    <GitHubIcon class="size-6" />
+                    Preview
+                  </a>
+                )}
+                {doc && (
+                  <a target="_blank" href={doc} role="link" class={linkButtonClass}>
+                    <ReadIcon class="size-6" />
+                    Leer documento
+                  </a>
+                )}
+              </footer>
+            </div>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+
+  <div class="flex justify-center mt-8">
+    <button class={toggleButtonClass} data-projects-toggle type="button" aria-expanded="false">
+      <AddIcon class="size-6" data-toggle-icon-add />
+      <SubtractIcon class="size-6 hidden" data-toggle-icon-subtract />
+      <span data-toggle-label>Ver todos</span>
+    </button>
+  </div>
+</div>
+
+<script is:inline>
+  document.querySelectorAll("[data-projects-root]").forEach((root) => {
+    const toggle = root.querySelector("[data-projects-toggle]");
+    const label = root.querySelector("[data-toggle-label]");
+    const addIcon = root.querySelector("[data-toggle-icon-add]");
+    const subtractIcon = root.querySelector("[data-toggle-icon-subtract]");
+    const hiddenItems = Array.from(root.querySelectorAll('[data-project-hidden="true"]'));
+
+    if (!toggle || hiddenItems.length === 0) {
+      return;
+    }
+
+    let expanded = false;
+
+    const syncState = () => {
+      hiddenItems.forEach((item) => item.classList.toggle("hidden", !expanded));
+      toggle.setAttribute("aria-expanded", String(expanded));
+      label.textContent = expanded ? "Ver menos" : "Ver todos";
+      addIcon?.classList.toggle("hidden", expanded);
+      subtractIcon?.classList.toggle("hidden", !expanded);
+    };
+
+    toggle.addEventListener("click", () => {
+      expanded = !expanded;
+      syncState();
+    });
+
+    syncState();
+  });
+</script>
