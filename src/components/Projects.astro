@@ -13,9 +13,9 @@ import SolidityIcon from './icons/Solidity.astro';
 import TruffleIcon from './icons/Truffle.astro';
 import ReadIcon from './icons/Read.astro';
 
-const linkButtonClass = 'ds-button ds-button-secondary';
+const linkButtonClass = 'ds-button ds-button-secondary ds-card-glass';
 
-const toggleButtonClass = 'ds-button ds-button-secondary';
+const toggleButtonClass = 'ds-button ds-button-secondary ds-card-glass';
 
 const TOOLS = {
 	TAILWIND: {
@@ -120,7 +120,7 @@ const PROJECTS = [
 				({ image, title, description, tools, link, github, doc }, index) => (
 					<article
 						class:list={[
-							'project-item ds-card group flex flex-col overflow-hidden p-5 md:flex-row md:gap-8 md:p-6',
+							'project-item ds-card ds-card-glass group flex flex-col overflow-hidden p-5 md:flex-row md:gap-8 md:p-6',
 							index > 1 && 'hidden',
 						]}
 						data-project-item
