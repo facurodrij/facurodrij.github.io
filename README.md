@@ -14,15 +14,15 @@ Este es un portafolio personal construido con Astro, Tailwind CSS y TypeScript. 
 
 Todos los comandos se ejecutan desde la raíz del proyecto, desde una terminal:
 
-| Comando                   | Acción                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Instala las dependencias                         |
-| `npm run dev`             | Inicia el servidor de desarrollo en `localhost:4321` |
-| `npm run build`           | Construye el sitio de producción en `./dist/`    |
+| Comando                   | Acción                                                      |
+| :------------------------ | :---------------------------------------------------------- |
+| `npm install`             | Instala las dependencias                                    |
+| `npm run dev`             | Inicia el servidor de desarrollo en `localhost:4321`        |
+| `npm run build`           | Construye el sitio de producción en `./dist/`               |
 | `npm run preview`         | Previsualiza tu construcción localmente, antes de desplegar |
-| `npm run deploy`          | Despliega la aplicación con GithubPages          |
-| `npm run astro ...`       | Ejecuta comandos CLI como `astro add`, `astro check` |
-| `npm run astro -- --help` | Obtén ayuda usando el CLI de Astro               |
+| `npm run deploy`          | Despliega la aplicación con GithubPages                     |
+| `npm run astro ...`       | Ejecuta comandos CLI como `astro add`, `astro check`        |
+| `npm run astro -- --help` | Obtén ayuda usando el CLI de Astro                          |
 
 ## 👀 ¿Quieres aprender más sobre Astro?
 

@@ -1,71 +1,71 @@
 ---
-import ThemeToggle from "./ThemeToggle.astro";
+import ThemeToggle from './ThemeToggle.astro';
 
 const navItems = [
-    {
-        title: "Experiencia",
-        label: "experiencia",
-        url: "/#experiencia",
-    },
-    {
-        title: "Proyectos",
-        label: "proyectos",
-        url: "/#proyectos",
-    },
-    {
-        title: "Sobre mí",
-        label: "sobre-mi",
-        url: "/#sobre-mi",
-    },
-    {
-        title: "Contacto",
-        label: "contacto",
-        url: "mailto:facurodri00@gmail.com",
-    },
+	{
+		title: 'Experiencia',
+		label: 'experiencia',
+		url: '/#experiencia',
+	},
+	{
+		title: 'Proyectos',
+		label: 'proyectos',
+		url: '/#proyectos',
+	},
+	{
+		title: 'Sobre mí',
+		label: 'sobre-mi',
+		url: '/#sobre-mi',
+	},
+	{
+		title: 'Contacto',
+		label: 'contacto',
+		url: 'mailto:facurodri00@gmail.com',
+	},
 ];
 ---
 
 <header
-    class="fixed top-0 z-10 flex items-center justify-center w-full mx-auto mt-2"
+	class="fixed top-0 z-10 flex items-center justify-center w-full mx-auto mt-2"
 >
-    <nav
-        class="flex px-3 text-sm font-medium rounded-full text-gray-600 dark:text-gray-200 justify-center items-center bg-white/50 dark:bg-gray-800/90"
-    >
-        {
-            navItems.map((link) => (
-                <a
-                    class="relative block px-2 py-2 transition hover:text-yellow-500 dark:hover:text-yellow-200"
-                    aria-label={link.label}
-                    href={link.url}
-                >
-                    {link.title}
-                </a>
-            ))
-        }
-        <ThemeToggle />
-    </nav>
+	<nav
+		class="flex px-3 text-sm font-medium rounded-full text-gray-600 dark:text-gray-200 justify-center items-center bg-white/50 dark:bg-gray-800/90"
+	>
+		{
+			navItems.map((link) => (
+				<a
+					class="relative block px-2 py-2 transition hover:text-yellow-500 dark:hover:text-yellow-200"
+					aria-label={link.label}
+					href={link.url}
+				>
+					{link.title}
+				</a>
+			))
+		}
+		<ThemeToggle />
+	</nav>
 </header>
 
 <style>
-    nav {
-        animation: nav-shadow 1s linear both;
-        animation-timeline: scroll();
-        animation-range: 0 100px;
-    }
+	nav {
+		animation: nav-shadow 1s linear both;
+		animation-timeline: scroll();
+		animation-range: 0 100px;
+	}
 
-    @keyframes nav-shadow {
-        0% {
-            background-color: transparent;
-            box-shadow: none;
-            backdrop-filter: blur(0);
-        }
+	@keyframes nav-shadow {
+		0% {
+			background-color: transparent;
+			box-shadow: none;
+			backdrop-filter: blur(0);
+		}
 
-        to {
-            box-shadow:
-                0 10px 15px -3px rgb(0 0 0 / 0.1),
-                0 4px 6px -4px rgb(0 0 0 / 0.1),
-                0 0 0 1px rgb(255 255 255 / 0.1);
-            backdrop-filter: blur(12px);
-        }
-    }
+		to {
+			box-shadow:
+				0 10px 15px -3px rgb(0 0 0 / 0.1),
+				0 4px 6px -4px rgb(0 0 0 / 0.1),
+				0 0 0 1px rgb(255 255 255 / 0.1);
+			backdrop-filter: blur(12px);
+		}
+	}
 </style>
