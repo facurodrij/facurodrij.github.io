@@ -14,29 +14,31 @@ const { title, company, description, link, date, certification } = Astro.props;
 ---
 
 <div
-	class="relative ml-12 pb-12 grid before:absolute before:left-[-35px] before:block before:h-full before:border-l-2 before:border-black/20 dark:before:border-white/15 before:content-[''] md:grid-cols-5 md:gap-10 md:space-x-4]"
+	class="ds-card relative ml-5 grid gap-6 px-6 py-6 before:absolute before:left-[-20px] before:top-7 before:block before:h-[calc(100%+1.25rem)] before:border-l before:border-[var(--color-border)] before:content-[''] md:ml-8 md:grid-cols-5 md:gap-8"
 >
-	<div class="relative pb-8 md:col-span-2">
-		<div class="sticky top-0">
+	<div class="relative md:col-span-2">
+		<div class="sticky top-24">
 			<span
-				class="text-yellow-500 dark:text-yellow-200 -left-[42px] absolute rounded-full text-5xl"
-				>&bull;</span
-			>
+				aria-hidden="true"
+				class="absolute -left-[2.35rem] top-0.5 h-4 w-4 rounded-full border-4 border-[var(--color-bg)] bg-[var(--color-primary)] shadow-[0_0_0_5px_rgba(0,208,132,0.16)] md:-left-[3rem]"
+			></span>
 
-			<h3 class="text-xl font-bold text-yellow-500 dark:text-yellow-200">
+			<h3
+				data-ui-heading="true"
+				class="text-xl font-bold text-[var(--color-heading)]"
+			>
 				{title}
 			</h3>
-			<h4 class="font-semibold text-xl text-gray-600 dark:text-white">
+			<h4 class="mt-1 text-lg font-semibold text-[var(--color-primary)]">
 				{company}
 			</h4>
-			<time class="p-0 m-0 text-sm text-gray-600/80 dark:text-white/80"
+			<time
+				class="mt-2 inline-flex rounded-full bg-[var(--color-primary-soft)] px-3 py-1 text-sm font-medium text-[var(--color-heading)]"
 				>{date}</time
 			>
 		</div>
 	</div>
-	<div
-		class="relative flex flex-col gap-2 pb-4 text-gray-600 dark:text-gray-300 md:col-span-3"
-	>
+	<div class="ds-body relative flex flex-col gap-3 md:col-span-3">
 		{description}
 		{
 			link && (

@@ -13,11 +13,9 @@ import SolidityIcon from './icons/Solidity.astro';
 import TruffleIcon from './icons/Truffle.astro';
 import ReadIcon from './icons/Read.astro';
 
-const linkButtonClass =
-	'inline-flex items-center justify-center gap-2 px-3 py-2 space-x-2 text-base transition bg-gray-100 text-gray-800 border-gray-300 dark:text-white dark:bg-gray-800 border dark:border-gray-600 focus-visible:ring-yellow-500/80 text-md group max-w-fit rounded-xl focus:outline-none focus-visible:outline-none focus-visible:ring focus-visible:ring-white focus-visible:ring-offset-2 active:bg-black hover:bg-gray-900 hover:border-gray-700 hover:text-white dark:hover:bg-gray-100 dark:hover:border-gray-300 dark:hover:text-black';
+const linkButtonClass = 'ds-button ds-button-secondary rounded-2xl';
 
-const toggleButtonClass =
-	'inline-flex items-center justify-center gap-2 px-3 py-2 space-x-2 text-base uppercase transition text-gray-800 dark:text-gray-400 focus-visible:ring-yellow-500/80 text-md group max-w-fit rounded-md focus:outline-none focus-visible:outline-none focus-visible:ring focus-visible:ring-white focus-visible:ring-offset-2 active:bg-gray-800 active:text-white hover:bg-gray-900 hover:border-gray-700 hover:text-white dark:hover:bg-gray-800 dark:hover:border-gray-300 dark:hover:text-white';
+const toggleButtonClass = 'ds-button ds-button-secondary';
 
 const TOOLS = {
 	TAILWIND: {
@@ -115,24 +113,24 @@ const PROJECTS = [
 
 <div data-projects-root>
 	<div
-		class="flex flex-col gap-y-12 transition duration-500 ease-in-out transform md:gap-y-16"
+		class="flex transform flex-col gap-y-8 transition duration-500 ease-in-out md:gap-y-10"
 	>
 		{
 			PROJECTS.map(
 				({ image, title, description, tools, link, github, doc }, index) => (
 					<article
 						class:list={[
-							'project-item flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0',
+							'project-item ds-card group flex flex-col overflow-hidden p-5 md:flex-row md:gap-8 md:p-6',
 							index > 1 && 'hidden',
 						]}
 						data-project-item
 						data-project-hidden={index > 1 ? 'true' : 'false'}
 					>
 						<div class="w-full md:w-1/2">
-							<div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
+							<div class="relative overflow-hidden rounded-[1.25rem] border border-[var(--color-border)] bg-[var(--color-bg-elevated)] transition duration-500 ease-in-out md:group-hover:-translate-y-1 md:group-hover:shadow-2xl">
 								<img
 									alt=""
-									class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105"
+									class="h-56 w-full object-cover object-top transition duration-500 md:h-full md:scale-105 md:group-hover:scale-100"
 									loading="eager"
 									src={image}
 								/>
@@ -140,29 +138,30 @@ const PROJECTS = [
 						</div>
 
 						<div class="w-full md:w-1/2 md:max-w-lg">
-							<h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
+							<h3
+								data-ui-heading="true"
+								class="text-2xl font-bold text-[var(--color-heading)]"
+							>
 								{title}
 							</h3>
-							<div class="flex flex-wrap mt-2 w-full">
-								<ul class="flex flex-wrap gap-x-2 w-full">
+							<div class="mt-3 flex w-full flex-wrap">
+								<ul class="flex w-full flex-wrap gap-2">
 									{tools.map(({ name, className, icon: Icon }) => (
-										<li class="mb-2">
-											<aside class="inline-flex items-center justify-between px-1 py-1 pr-3 text-sm text-gray-700 bg-gray-100 rounded-full dark:bg-gray-800 dark:text-white">
+										<li>
+											<aside class="inline-flex items-center justify-between rounded-full border border-[var(--color-border)] bg-[var(--color-bg-elevated)] px-1 py-1 pr-3 text-sm text-[var(--color-text)]">
 												<span
 													class={`flex items-center gap-x-2 rounded-full text-xs ${className} py-1 px-2`}
 												>
 													<Icon class="size-6" />
 												</span>
-												<span class="text-sm font-medium px-1">{name}</span>
+												<span class="px-1 text-sm font-medium">{name}</span>
 											</aside>
 										</li>
 									))}
 								</ul>
 
-								<div class="mt-2 text-gray-700 dark:text-gray-400">
-									{description}
-								</div>
-								<footer class="flex items-end justify-start mt-4 gap-x-4">
+								<div class="ds-body mt-4">{description}</div>
+								<footer class="mt-5 flex flex-wrap items-end justify-start gap-3">
 									{github && (
 										<a
 											target="_blank"
@@ -205,7 +204,7 @@ const PROJECTS = [
 		}
 	</div>
 
-	<div class="flex justify-center mt-8">
+	<div class="mt-8 flex justify-center">
 		<button
 			class={toggleButtonClass}
 			data-projects-toggle

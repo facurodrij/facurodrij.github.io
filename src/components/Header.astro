@@ -25,19 +25,14 @@ const navItems = [
 ];
 ---
 
-<header
-	class="fixed top-0 z-10 flex items-center justify-center w-full mx-auto mt-2"
->
+<header class="fixed top-0 z-20 flex w-full justify-center px-4 pt-4">
 	<nav
-		class="flex px-3 text-sm font-medium rounded-full text-gray-600 dark:text-gray-200 justify-center items-center bg-white/50 dark:bg-gray-800/90"
+		id="header-nav"
+		class="flex items-center justify-center rounded-full border px-2 py-2 text-sm font-medium"
 	>
 		{
 			navItems.map((link) => (
-				<a
-					class="relative block px-2 py-2 transition hover:text-yellow-500 dark:hover:text-yellow-200"
-					aria-label={link.label}
-					href={link.url}
-				>
+				<a class="header-link" aria-label={link.label} href={link.url}>
 					{link.title}
 				</a>
 			))
@@ -47,10 +42,38 @@ const navItems = [
 </header>
 
 <style>
-	nav {
+	#header-nav {
+		background: color-mix(
+			in srgb,
+			var(--color-surface-strong) 86%,
+			transparent
+		);
+		border-color: var(--color-border);
+		box-shadow: var(--shadow-soft);
+		backdrop-filter: blur(18px);
 		animation: nav-shadow 1s linear both;
 		animation-timeline: scroll();
 		animation-range: 0 100px;
+	}
+
+	.header-link {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 999px;
+		padding: 0.6rem 0.85rem;
+		font-family: var(--font-heading);
+		font-size: 0.82rem;
+		font-weight: 700;
+		letter-spacing: 0.02em;
+		color: var(--color-text-muted);
+	}
+
+	.header-link:hover,
+	.header-link:focus-visible {
+		background: rgba(56, 189, 248, 0.12);
+		color: var(--color-heading);
+		outline: none;
 	}
 
 	@keyframes nav-shadow {
@@ -61,11 +84,13 @@ const navItems = [
 		}
 
 		to {
-			box-shadow:
-				0 10px 15px -3px rgb(0 0 0 / 0.1),
-				0 4px 6px -4px rgb(0 0 0 / 0.1),
-				0 0 0 1px rgb(255 255 255 / 0.1);
-			backdrop-filter: blur(12px);
+			background: color-mix(
+				in srgb,
+				var(--color-surface-strong) 90%,
+				transparent
+			);
+			box-shadow: var(--shadow-soft);
+			backdrop-filter: blur(18px);
 		}
 	}
 </style>
