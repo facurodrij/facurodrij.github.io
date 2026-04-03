@@ -13,7 +13,7 @@ import SolidityIcon from './icons/Solidity.astro';
 import TruffleIcon from './icons/Truffle.astro';
 import ReadIcon from './icons/Read.astro';
 
-const linkButtonClass = 'ds-button ds-button-secondary rounded-2xl';
+const linkButtonClass = 'ds-button ds-button-secondary';
 
 const toggleButtonClass = 'ds-button ds-button-secondary';
 
@@ -127,7 +127,7 @@ const PROJECTS = [
 						data-project-hidden={index > 1 ? 'true' : 'false'}
 					>
 						<div class="w-full md:w-1/2">
-							<div class="relative overflow-hidden rounded-[1.25rem] border border-[var(--color-border)] bg-[var(--color-bg-elevated)] transition duration-500 ease-in-out md:group-hover:-translate-y-1 md:group-hover:shadow-2xl">
+							<div class="relative overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-bg-elevated)] transition duration-500 ease-in-out md:group-hover:-translate-y-1 md:group-hover:shadow-2xl">
 								<img
 									alt=""
 									class="h-56 w-full object-cover object-top transition duration-500 md:h-full md:scale-105 md:group-hover:scale-100"
@@ -148,9 +148,9 @@ const PROJECTS = [
 								<ul class="flex w-full flex-wrap gap-2">
 									{tools.map(({ name, className, icon: Icon }) => (
 										<li>
-											<aside class="inline-flex items-center justify-between rounded-full border border-[var(--color-border)] bg-[var(--color-bg-elevated)] px-1 py-1 pr-3 text-sm text-[var(--color-text)]">
+											<aside class="inline-flex items-center justify-between rounded-[var(--radius-sm)] border border-[var(--color-border)] bg-[var(--color-bg-elevated)] px-1 py-1 pr-3 text-sm text-[var(--color-text)]">
 												<span
-													class={`flex items-center gap-x-2 rounded-full text-xs ${className} py-1 px-2`}
+													class={`flex items-center gap-x-2 rounded-[calc(var(--radius-sm)-0.125rem)] text-xs ${className} py-1 px-2`}
 												>
 													<Icon class="size-6" />
 												</span>

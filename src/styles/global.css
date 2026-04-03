@@ -1,37 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap');
 @import 'tailwindcss';
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 :root {
-	color-scheme: light dark;
+	color-scheme: dark;
 	--font-heading: 'Space Grotesk', sans-serif;
 	--font-body: 'Inter', sans-serif;
-	--color-bg: #f8fafc;
-	--color-bg-elevated: rgba(255, 255, 255, 0.72);
-	--color-surface: rgba(255, 255, 255, 0.84);
-	--color-surface-strong: rgba(255, 255, 255, 0.92);
-	--color-border: rgba(15, 23, 42, 0.08);
-	--color-text: #0f172a;
-	--color-text-muted: #475569;
-	--color-heading: #020617;
-	--color-primary: #00d084;
-	--color-primary-soft: rgba(0, 208, 132, 0.16);
-	--color-secondary: #38bdf8;
-	--color-secondary-soft: rgba(56, 189, 248, 0.18);
-	--color-support: #64748b;
-	--background-grid-color: rgba(15, 23, 42, 0.05);
-	--background-grid-size: 2.5rem;
-	--background-glow-primary: rgba(0, 208, 132, 0.12);
-	--background-glow-secondary: rgba(56, 189, 248, 0.12);
-	--shadow-soft: 0 20px 45px rgba(15, 23, 42, 0.08);
-	--shadow-strong: 0 24px 80px rgba(15, 23, 42, 0.16);
-	--radius-lg: 1.5rem;
-	--radius-md: 1rem;
-	--radius-sm: 0.75rem;
-}
-
-:root.dark {
 	--color-bg: #020617;
 	--color-bg-elevated: rgba(15, 23, 42, 0.78);
 	--color-surface: rgba(15, 23, 42, 0.82);
@@ -40,11 +13,20 @@
 	--color-text: rgba(226, 232, 240, 0.96);
 	--color-text-muted: #94a3b8;
 	--color-heading: #f8fafc;
+	--color-primary: #00d084;
+	--color-primary-soft: rgba(0, 208, 132, 0.16);
+	--color-secondary: #38bdf8;
+	--color-secondary-soft: rgba(56, 189, 248, 0.18);
+	--color-support: #64748b;
 	--background-grid-color: rgba(148, 163, 184, 0.08);
+	--background-grid-size: 2.5rem;
 	--background-glow-primary: rgba(0, 208, 132, 0.14);
 	--background-glow-secondary: rgba(56, 189, 248, 0.16);
 	--shadow-soft: 0 20px 45px rgba(2, 6, 23, 0.42);
 	--shadow-strong: 0 24px 80px rgba(2, 6, 23, 0.52);
+	--radius-lg: 0.75rem;
+	--radius-md: 0.5rem;
+	--radius-sm: 0.375rem;
 }
 
 html {
@@ -209,7 +191,7 @@ select {
 	align-items: center;
 	gap: 0.5rem;
 	padding: 0.4rem 0.85rem;
-	border-radius: 999px;
+	border-radius: var(--radius-md);
 	border: 1px solid rgba(56, 189, 248, 0.2);
 	background: linear-gradient(
 		135deg,
@@ -264,7 +246,7 @@ select {
 	justify-content: center;
 	gap: 0.65rem;
 	padding: 0.8rem 1.15rem;
-	border-radius: 999px;
+	border-radius: var(--radius-md);
 	border: 1px solid transparent;
 	font-family: var(--font-heading);
 	font-size: 0.95rem;
@@ -317,7 +299,7 @@ select {
 	align-items: center;
 	gap: 0.5rem;
 	padding: 0.375rem 0.75rem;
-	border-radius: 999px;
+	border-radius: var(--radius-sm);
 	background: rgba(100, 116, 139, 0.1);
 	border: 1px solid rgba(100, 116, 139, 0.14);
 	color: var(--color-text);

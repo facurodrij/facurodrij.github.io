@@ -1,75 +1,137 @@
 ---
 import DownloadIcon from './icons/Download.astro';
-import LinkedInIcon from './icons/LinkedIn.astro';
-import TelegramIcon from './icons/Telegram.astro';
 import GithubIcon from './icons/Github.astro';
+import LinkedInIcon from './icons/LinkedIn.astro';
 import SocialPill from './SocialPill.astro';
+
+const metadata = [
+	{
+		label: 'Base',
+		value: 'Misiones, Argentina',
+	},
+	{
+		label: 'Rol actual',
+		value: 'Desarrollador FullStack en Sherpa.wtf',
+	},
+	{
+		label: 'Formación',
+		value: 'Lic. en Sistemas de Información',
+	},
+	{
+		label: 'Intereses',
+		value: 'DevOps, Cloud y Arquitectura',
+	},
+];
 ---
 
-<div class="ds-card-strong overflow-hidden px-6 py-8 sm:px-8 sm:py-10">
+<section class="relative px-1 py-6 sm:py-8">
 	<div
-		class="grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,1.45fr)_minmax(220px,0.7fr)] md:items-center"
+		class="grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,1.3fr)_minmax(280px,0.9fr)] md:items-start"
 	>
 		<div>
-			<span class="ds-eyebrow mb-5">
+			<span
+				class="mb-5 inline-flex items-center gap-3 font-[var(--font-heading)] text-xs font-semibold uppercase tracking-[0.22em] text-[var(--color-primary)]"
+			>
 				<span class="h-2 w-2 rounded-full bg-[var(--color-primary)]"></span>
-				Disponible para nuevos desafíos
+				Available_for_remote // UTC-3
 			</span>
+
 			<h1
 				data-ui-heading="true"
-				class="max-w-3xl text-4xl font-bold sm:text-5xl lg:text-6xl"
+				class="max-w-4xl text-balance text-4xl font-bold tracking-tight text-[var(--color-heading)] sm:text-5xl lg:text-6xl"
 			>
-				Hola! Soy Facundo Joel Rodriguez
+				Facundo Joel Rodriguez
 			</h1>
-			<p
-				class="ds-body mt-6 max-w-2xl text-lg sm:text-xl [&>strong]:font-semibold [&>strong]:text-[var(--color-heading)]"
-			>
-				Licenciado en Sistemas de Información.
-				<strong>Desarrollador FullStack de Aplicaciones Web</strong>
-				de Misiones, Argentina.
+
+			<p class="ds-body mt-6 max-w-3xl text-lg sm:text-xl">
+				Desarrollador FullStack orientado a productos web escalables, con fuerte
+				interés en DevOps, Cloud y arquitectura de software.
 			</p>
+
+			<p class="ds-body mt-4 max-w-2xl text-base sm:text-lg">
+				Trabajo entre producto, backend y frontend para diseñar soluciones
+				mantenibles, claras para el negocio y sólidas para crecer en producción.
+			</p>
+
+			<div class="mt-8 flex flex-wrap items-center gap-3">
+				<a
+					href="/curriculum_vitae.pdf"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="ds-button ds-button-primary"
+				>
+					<DownloadIcon class="size-4" />
+					Descargar CV
+				</a>
+				<SocialPill href="https://www.linkedin.com/in/facundo-joel-rodriguez/">
+					<LinkedInIcon class="size-4" />
+					LinkedIn
+				</SocialPill>
+				<SocialPill href="https://github.com/facurodrij">
+					<GithubIcon class="size-4" />
+					GitHub
+				</SocialPill>
+			</div>
 		</div>
-		<div class="flex items-center justify-center md:justify-end">
-			<a
-				href="https://www.linkedin.com/in/facundo-joel-rodriguez/"
-				target="_blank"
-				rel="noopener"
-				class="group relative block"
-			>
+
+		<div class="group flex justify-center md:justify-end md:self-start">
+			<div class="relative w-full max-w-[25rem]">
 				<div
-					class="absolute inset-0 rounded-[1.75rem] bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.28),transparent_60%)] blur-2xl"
+					class="absolute inset-0 rounded-[var(--radius-lg)] bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.24),transparent_58%)] blur-3xl"
 				>
 				</div>
-				<img
-					class="ds-card relative size-64 rounded-[1.75rem] object-cover shadow-2xl md:size-56 md:group-hover:-translate-y-1"
-					src="/me.webp"
-					alt="Foto de Facundo Joel Rodriguez"
-				/>
-			</a>
+				<div
+					class="pointer-events-none absolute -left-2 -top-2 h-10 w-10 border-l-2 border-t-2 border-[var(--color-primary)]/80"
+				>
+				</div>
+				<div
+					class="pointer-events-none absolute -bottom-2 -right-2 h-10 w-10 border-b-2 border-r-2 border-[var(--color-primary)]/80"
+				>
+				</div>
+				<div
+					class="relative overflow-hidden rounded-[var(--radius-lg)] border border-white/8 bg-[rgba(15,23,42,0.34)] p-3 shadow-[0_18px_48px_rgba(2,6,23,0.35)] backdrop-blur-xl sm:p-4"
+				>
+					<div
+						class="relative overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-bg-elevated)]"
+					>
+						<img
+							class="aspect-[4/5] w-full object-cover object-top transition duration-500 ease-out [filter:saturate(0.58)_contrast(1.12)_brightness(0.74)] group-hover:scale-[1.01] group-hover:[filter:saturate(1)_contrast(1)_brightness(1)]"
+							src="/me.webp"
+							alt="Foto de Facundo Joel Rodriguez"
+						/>
+						<div
+							class="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.1),rgba(2,6,23,0.28))] opacity-100 transition duration-500 ease-out group-hover:opacity-0"
+						>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-	<nav class="mt-8 flex flex-wrap gap-3">
-		<a
-			href="/curriculum_vitae.pdf"
-			target="_blank"
-			rel="noopener noreferrer"
-			role="link"
-			class={`ds-button ds-button-primary ${Astro.props.class}`}
-		>
-			<DownloadIcon class="size-4" />
-			Resume / CV
-		</a>
-		<SocialPill href="https://www.linkedin.com/in/facundo-joel-rodriguez/">
-			<LinkedInIcon class="size-4" />
-			LinkedIn
-		</SocialPill>
-		<SocialPill href="https://github.com/facurodrij">
-			<GithubIcon class="size-4" />
-			Github
-		</SocialPill>
-		<SocialPill href="https://t.me/facurodrij">
-			<TelegramIcon class="size-4" />
-			Telegram
-		</SocialPill>
-	</nav>
-</div>
+
+	<div class="ds-card mt-8 w-full p-5 sm:p-6">
+		<div class="mb-4 flex flex-wrap items-center gap-2">
+			<span
+				class="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--color-primary)]"
+			>
+				Perfil técnico
+			</span>
+			<div class="h-px flex-1 bg-[var(--color-border)]"></div>
+		</div>
+
+		<dl class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+			{
+				metadata.map(({ label, value }) => (
+					<div>
+						<dt class="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--color-text-muted)]">
+							{label}
+						</dt>
+						<dd class="mt-1 text-sm font-medium text-[var(--color-heading)] sm:text-base">
+							{value}
+						</dd>
+					</div>
+				))
+			}
+		</dl>
+	</div>
+</section>
