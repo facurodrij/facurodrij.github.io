@@ -1,3 +1,6 @@
-<h2 data-ui-heading="true" class={`ds-section-title ${Astro.props.className}`}>
+<h2
+	data-ui-heading="true"
+	class={`ds-section-title ${Astro.props.className || ''}`}
+>
 	<slot />
 </h2>

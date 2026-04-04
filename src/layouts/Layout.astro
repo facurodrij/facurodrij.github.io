@@ -31,5 +31,111 @@ const { title } = Astro.props;
 		<slot />
 
 		<Footer />
+
+		<script is:inline>
+			(() => {
+				const setupBackgroundSpotlight = () => {
+					window.__backgroundSpotlightCleanup?.();
+
+					const body = document.body;
+					const root = document.documentElement;
+					if (!body) return;
+
+					const supportsFinePointer =
+						window.matchMedia('(pointer: fine)').matches;
+					const prefersReducedMotion = window.matchMedia(
+						'(prefers-reduced-motion: reduce)',
+					).matches;
+
+					if (!supportsFinePointer || prefersReducedMotion) {
+						body.dataset.pointerFine = 'false';
+						body.dataset.spotlightActive = 'false';
+						body.style.removeProperty('--mouse-x');
+						body.style.removeProperty('--mouse-y');
+						body.style.removeProperty('--background-spotlight-opacity');
+						window.__backgroundSpotlightCleanup = undefined;
+						return;
+					}
+
+					body.dataset.pointerFine = 'true';
+					body.dataset.spotlightActive = 'false';
+
+					let frameId = 0;
+					let nextX = 0;
+					let nextY = 0;
+
+					const updateSpotlightOpacity = (x) => {
+						const viewportWidth = window.innerWidth || 1;
+						const normalizedX = Math.min(Math.max(x / viewportWidth, 0), 1);
+						const centeredWeight = 1 - Math.abs(normalizedX - 0.5) * 2;
+						const easedWeight =
+							centeredWeight * centeredWeight * (3 - 2 * centeredWeight);
+						const minOpacity = 0.32;
+						const maxOpacity = 0.9;
+						const spotlightOpacity =
+							minOpacity + (maxOpacity - minOpacity) * easedWeight;
+
+						body.style.setProperty(
+							'--background-spotlight-opacity',
+							spotlightOpacity.toFixed(3),
+						);
+					};
+
+					const commitPosition = () => {
+						frameId = 0;
+						body.style.setProperty('--mouse-x', `${nextX}px`);
+						body.style.setProperty('--mouse-y', `${nextY}px`);
+						updateSpotlightOpacity(nextX);
+					};
+
+					const queuePosition = (event) => {
+						nextX = event.clientX;
+						nextY = event.clientY;
+						body.dataset.spotlightActive = 'true';
+
+						if (frameId) return;
+						frameId = window.requestAnimationFrame(commitPosition);
+					};
+
+					const deactivate = () => {
+						body.dataset.spotlightActive = 'false';
+					};
+
+					window.addEventListener('pointermove', queuePosition, {
+						passive: true,
+					});
+					root.addEventListener('mouseleave', deactivate);
+					window.addEventListener('pointercancel', deactivate);
+					window.addEventListener('blur', deactivate);
+
+					window.__backgroundSpotlightCleanup = () => {
+						window.removeEventListener('pointermove', queuePosition);
+						root.removeEventListener('mouseleave', deactivate);
+						window.removeEventListener('pointercancel', deactivate);
+						window.removeEventListener('blur', deactivate);
+
+						if (frameId) {
+							window.cancelAnimationFrame(frameId);
+						}
+
+						body.style.removeProperty('--background-spotlight-opacity');
+					};
+				};
+
+				if (document.readyState === 'loading') {
+					document.addEventListener(
+						'DOMContentLoaded',
+						setupBackgroundSpotlight,
+						{
+							once: true,
+						},
+					);
+				} else {
+					setupBackgroundSpotlight();
+				}
+
+				document.addEventListener('astro:page-load', setupBackgroundSpotlight);
+			})();
+		</script>
 	</body>
 </html>

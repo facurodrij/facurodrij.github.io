@@ -18,10 +18,14 @@
 	--color-secondary: #38bdf8;
 	--color-secondary-soft: rgba(56, 189, 248, 0.18);
 	--color-support: #64748b;
-	--background-grid-color: rgba(148, 163, 184, 0.08);
-	--background-grid-size: 2.5rem;
-	--background-glow-primary: rgba(0, 208, 132, 0.14);
-	--background-glow-secondary: rgba(56, 189, 248, 0.16);
+	--background-dot-color: rgba(148, 163, 184, 0.16);
+	--background-dot-color-spotlight: rgba(248, 250, 252, 0.82);
+	--background-dot-size: 0.75px;
+	--background-dot-grid-size: 32px;
+	--background-spotlight-radius: 20rem;
+	--background-spotlight-opacity: 0.78;
+	--mouse-x: 50vw;
+	--mouse-y: 35vh;
 	--shadow-soft: 0 20px 45px rgba(2, 6, 23, 0.42);
 	--shadow-strong: 0 24px 80px rgba(2, 6, 23, 0.52);
 	--radius-lg: 0.75rem;
@@ -84,6 +88,10 @@ select {
 		scroll-behavior: auto;
 	}
 
+	.ds-section-title {
+		animation: none;
+	}
+
 	*,
 	*::before,
 	*::after {
@@ -104,33 +112,22 @@ select {
 	position: fixed;
 	inset: 0;
 	pointer-events: none;
-	background:
-		radial-gradient(
-			circle at top,
-			var(--background-glow-secondary),
-			transparent 34%
-		),
-		radial-gradient(
-			circle at 18% 20%,
-			var(--background-glow-primary),
-			transparent 24%
-		),
-		radial-gradient(
-			circle at 82% 18%,
-			rgba(56, 189, 248, 0.08),
-			transparent 22%
-		),
-		radial-gradient(
-			circle at 72% 82%,
-			rgba(96, 165, 250, 0.06),
-			transparent 28%
-		),
-		radial-gradient(
-			circle at 80% 86%,
-			rgba(125, 211, 252, 0.04),
-			transparent 20%
-		),
-		linear-gradient(to bottom, rgba(2, 6, 23, 0), rgba(2, 6, 23, 0.12));
+	background-image: radial-gradient(
+		circle,
+		var(--background-dot-color) 0,
+		var(--background-dot-color) var(--background-dot-size),
+		transparent calc(var(--background-dot-size) + 0.4px)
+	);
+	background-position: 0 0;
+	background-size: var(--background-dot-grid-size)
+		var(--background-dot-grid-size);
+	mask-image: radial-gradient(
+		circle at center,
+		rgba(0, 0, 0, 0.92) 0%,
+		rgba(0, 0, 0, 0.76) 52%,
+		rgba(0, 0, 0, 0.34) 76%,
+		transparent 100%
+	);
 	opacity: 0.9;
 	z-index: -2;
 }
@@ -140,28 +137,42 @@ select {
 	position: fixed;
 	inset: 0;
 	pointer-events: none;
-	background-image:
-		linear-gradient(
-			to right,
-			var(--background-grid-color) 1px,
-			transparent 1px
-		),
-		linear-gradient(
-			to bottom,
-			var(--background-grid-color) 1px,
-			transparent 1px
-		);
-	background-position: center top;
-	background-size: var(--background-grid-size) var(--background-grid-size);
+	background-image: radial-gradient(
+		circle,
+		var(--background-dot-color-spotlight) 0,
+		var(--background-dot-color-spotlight) var(--background-dot-size),
+		transparent calc(var(--background-dot-size) + 0.4px)
+	);
+	background-position: 0 0;
+	background-size: var(--background-dot-grid-size)
+		var(--background-dot-grid-size);
 	mask-image: radial-gradient(
-		circle at center,
-		rgba(0, 0, 0, 0.85) 0%,
-		rgba(0, 0, 0, 0.72) 46%,
-		rgba(0, 0, 0, 0.28) 72%,
+		circle var(--background-spotlight-radius) at var(--mouse-x) var(--mouse-y),
+		rgba(0, 0, 0, 0.96) 0%,
+		rgba(0, 0, 0, 0.88) 45%,
+		rgba(0, 0, 0, 0.38) 72%,
 		transparent 100%
 	);
-	opacity: 0.5;
+	-webkit-mask-image: radial-gradient(
+		circle var(--background-spotlight-radius) at var(--mouse-x) var(--mouse-y),
+		rgba(0, 0, 0, 0.96) 0%,
+		rgba(0, 0, 0, 0.88) 45%,
+		rgba(0, 0, 0, 0.38) 72%,
+		transparent 100%
+	);
+	opacity: 0;
+	transition: opacity 180ms ease;
 	z-index: -1;
+}
+
+body.ds-shell[data-pointer-fine='true'][data-spotlight-active='true']::after {
+	opacity: var(--background-spotlight-opacity);
+}
+
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+	body.ds-shell[data-pointer-fine='true'][data-spotlight-active='true']::after {
+		opacity: 0;
+	}
 }
 
 .ds-container {
@@ -228,11 +239,38 @@ select {
 .ds-section-title {
 	display: flex;
 	align-items: center;
-	gap: 0.875rem;
+	justify-content: center;
 	margin-bottom: 1.75rem;
 	font-size: clamp(1.65rem, 3vw, 2.15rem);
 	font-weight: 700;
 	line-height: 1.05;
+	text-align: center;
+	background-image: linear-gradient(
+		115deg,
+		#059669 0%,
+		#00d084 18%,
+		#bbf7d0 34%,
+		#00d084 52%,
+		#047857 70%,
+		#00d084 86%,
+		#bbf7d0 100%
+	);
+	background-size: 200% 100%;
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	color: transparent;
+	animation: ds-section-title-shimmer 5s linear infinite;
+}
+
+@keyframes ds-section-title-shimmer {
+	0% {
+		background-position: 200% 0;
+	}
+
+	100% {
+		background-position: -200% 0;
+	}
 }
 
 .ds-section-title svg {

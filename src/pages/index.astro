@@ -2,12 +2,10 @@
 import Container from '../components/Container.astro';
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
+import Technologies from '../components/Technologies.astro';
 import TitleSection from '../components/TitleSection.astro';
-import CodeIcon from '../components/icons/Code.astro';
 import Projects from '../components/Projects.astro';
-import ProfileCheckIcon from '../components/icons/ProfileCheck.astro';
 import AboutMe from '../components/AboutMe.astro';
-import Briefcase from '../components/icons/Briefcase.astro';
 import Experience from '../components/Experience.astro';
 ---
 
@@ -17,25 +15,32 @@ import Experience from '../components/Experience.astro';
 			<Hero />
 		</Container>
 		<div class="space-y-24 pb-8 md:space-y-28">
+			<Container id="tecnologias">
+				<TitleSection>Tecnologías</TitleSection>
+				<Technologies />
+			</Container>
 			<Container id="experiencia">
-				<TitleSection>
-					<Briefcase class="size-8" />
-					Experiencia laboral
-				</TitleSection>
+				<TitleSection>Experiencia laboral</TitleSection>
+				<p class="ds-body mx-auto mb-8 max-w-2xl text-center">
+					Recorrido profesional construyendo soluciones web, productos y
+					arquitecturas orientadas a impacto real.
+				</p>
 				<Experience />
 			</Container>
 			<Container id="proyectos">
-				<TitleSection>
-					<CodeIcon class="size-7" />
-					Proyectos
-				</TitleSection>
+				<TitleSection>Proyectos</TitleSection>
+				<p class="ds-body mx-auto mb-8 max-w-2xl text-center">
+					Selección de proyectos donde apliqué desarrollo full stack,
+					integración de herramientas y criterio técnico.
+				</p>
 				<Projects />
 			</Container>
 			<Container id="sobre-mi">
-				<TitleSection>
-					<ProfileCheckIcon class="size-7" />
-					Sobre mí
-				</TitleSection>
+				<TitleSection>Sobre mí</TitleSection>
+				<p class="ds-body mx-auto mb-8 max-w-2xl text-center">
+					Perfil, enfoque de trabajo e intereses que hoy orientan mi camino en
+					desarrollo, cloud y arquitectura.
+				</p>
 				<AboutMe />
 			</Container>
 		</div>
