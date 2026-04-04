@@ -27,20 +27,20 @@ const {
 <div
 	id={id}
 	class:list={[
-		"ds-experience-item ds-card ds-card-glass relative ml-5 grid gap-6 px-6 py-6 before:absolute before:left-[-20px] before:top-7 before:block before:h-[calc(100%+1.25rem)] before:border-l before:border-[var(--color-border)] before:content-[''] md:ml-8 md:grid-cols-5 md:gap-8",
+		'ds-experience-item ds-card ds-card-glass relative ml-7 grid gap-6 px-6 py-6 md:ml-10 md:grid-cols-5 md:gap-8',
 		{ 'is-current': current },
 	]}
 	data-experience-item
 	data-revealed="false"
 	data-active="false"
 >
+	<span
+		aria-hidden="true"
+		class="ds-experience-marker absolute -left-[2.85rem] top-[1.4rem] h-4 w-4 rounded-full bg-[var(--color-primary)] md:-left-[3.35rem]"
+	></span>
+
 	<div class="relative md:col-span-2">
 		<div class="sticky top-24">
-			<span
-				aria-hidden="true"
-				class="ds-experience-marker absolute -left-[2.35rem] top-0.5 h-4 w-4 rounded-full border-4 border-[var(--color-bg)] bg-[var(--color-primary)] shadow-[0_0_0_5px_rgba(0,208,132,0.16)] md:-left-[3rem]"
-			></span>
-
 			{
 				current && (
 					<span class="ds-eyebrow mb-4 w-fit border-[rgba(0,208,132,0.28)] bg-[linear-gradient(135deg,rgba(0,208,132,0.18),rgba(56,189,248,0.12))] text-[0.7rem]">
@@ -121,6 +121,7 @@ const {
 	.ds-experience-item {
 		opacity: 1;
 		transform: translateY(0);
+		transform-origin: left center;
 		border-color: rgba(148, 163, 184, 0.08);
 		background: linear-gradient(
 			180deg,
@@ -213,16 +214,14 @@ const {
 		filter: none;
 	}
 
-	.ds-experience-item::before {
-		opacity: 0.3;
-		transition:
-			border-color 220ms ease,
-			opacity 220ms ease,
-			box-shadow 220ms ease;
-	}
-
 	.ds-experience-item
-		:is([data-ui-heading='true'], h4, time, .ds-body, .ds-experience-link) {
+		:is(
+			[data-ui-heading='true'],
+			h4,
+			time,
+			.ds-body,
+			:global(.ds-experience-link)
+		) {
 		transition:
 			opacity 220ms ease,
 			color 220ms ease,
@@ -234,7 +233,8 @@ const {
 		opacity: 0.68;
 	}
 
-	.ds-experience-item[data-timeline-state='future'] .ds-experience-link {
+	.ds-experience-item[data-timeline-state='future']
+		:global(.ds-experience-link) {
 		opacity: 0.76;
 	}
 
@@ -243,19 +243,37 @@ const {
 	}
 
 	.ds-experience-item[data-timeline-state='past']
-		:is([data-ui-heading='true'], h4, time, .ds-body, .ds-experience-link) {
+		:is(
+			[data-ui-heading='true'],
+			h4,
+			time,
+			.ds-body,
+			:global(.ds-experience-link)
+		) {
 		opacity: 1;
 		filter: none;
 	}
 
 	.ds-experience-item[data-active='true']
-		:is([data-ui-heading='true'], h4, time, .ds-body, .ds-experience-link) {
+		:is(
+			[data-ui-heading='true'],
+			h4,
+			time,
+			.ds-body,
+			:global(.ds-experience-link)
+		) {
 		opacity: 1;
 		filter: none;
 	}
 
 	.ds-experience-item[data-timeline-state='past']:hover
-		:is([data-ui-heading='true'], h4, time, .ds-body, .ds-experience-link) {
+		:is(
+			[data-ui-heading='true'],
+			h4,
+			time,
+			.ds-body,
+			:global(.ds-experience-link)
+		) {
 		opacity: 1;
 		filter: none;
 	}
@@ -274,21 +292,12 @@ const {
 		transform: translateY(-3px) scale(1.015);
 	}
 
-	.ds-experience-item:hover::before,
-	.ds-experience-item[data-active='true']::before,
-	.ds-experience-item.is-current::before {
-		border-color: rgba(56, 189, 248, 0.22);
-		opacity: 1;
-		box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.06);
-	}
-
-	.ds-experience-item.is-current::before,
-	.ds-experience-item.is-current .ds-experience-marker {
-		border-color: rgba(2, 6, 23, 0.96);
-	}
-
 	.ds-experience-marker {
-		opacity: 0.46;
+		z-index: 1;
+		background: color-mix(in srgb, var(--color-secondary) 68%, #08101f 32%);
+		box-shadow:
+			0 0 0 6px var(--color-bg),
+			0 0 0 7px rgba(56, 189, 248, 0.12);
 		transition:
 			transform 220ms ease,
 			box-shadow 220ms ease,
@@ -300,29 +309,35 @@ const {
 	.ds-experience-item[data-active='true'] .ds-experience-marker,
 	.ds-experience-item[data-timeline-state='past']:hover .ds-experience-marker,
 	.ds-experience-item:hover .ds-experience-marker {
-		opacity: 1;
-		transform: scale(1.18);
+		background: var(--color-secondary);
+		transform: scale(1.12);
 		box-shadow:
-			0 0 0 8px rgba(0, 208, 132, 0.18),
-			0 0 20px rgba(0, 208, 132, 0.32);
+			0 0 0 6px var(--color-bg),
+			0 0 0 8px rgba(56, 189, 248, 0.16),
+			0 0 20px rgba(56, 189, 248, 0.32);
 		filter: saturate(1.2) brightness(1.08);
 	}
 
 	.ds-experience-item.is-current .ds-experience-marker {
-		background: linear-gradient(180deg, #34d399, #00d084);
-		box-shadow: 0 0 0 7px rgba(0, 208, 132, 0.22);
-		opacity: 0.72;
+		background: color-mix(in srgb, var(--color-primary) 72%, #08101f 28%);
+		box-shadow:
+			0 0 0 6px var(--color-bg),
+			0 0 0 7px rgba(0, 208, 132, 0.16);
 	}
 
 	.ds-experience-item.is-current[data-active='true'] .ds-experience-marker {
+		background: var(--color-primary);
 		box-shadow:
-			0 0 0 9px rgba(0, 208, 132, 0.22),
+			0 0 0 6px var(--color-bg),
+			0 0 0 10px rgba(0, 208, 132, 0.18),
 			0 0 24px rgba(0, 208, 132, 0.4);
 	}
 
 	.ds-experience-item.is-current:hover .ds-experience-marker {
+		background: var(--color-primary);
 		box-shadow:
-			0 0 0 9px rgba(0, 208, 132, 0.22),
+			0 0 0 6px var(--color-bg),
+			0 0 0 10px rgba(0, 208, 132, 0.18),
 			0 0 24px rgba(0, 208, 132, 0.4);
 	}
 
@@ -345,41 +360,43 @@ const {
 		color: var(--color-heading);
 	}
 
-	.ds-experience-link {
+	:global(.ds-experience-link) {
 		position: relative;
 		gap: 0.45rem;
 		padding-bottom: 0.1rem;
+		color: var(--color-secondary);
 	}
 
-	.ds-experience-link::after {
+	:global(.ds-experience-link:hover),
+	:global(.ds-experience-link:focus-visible) {
+		color: var(--color-secondary) !important;
+	}
+
+	:global(.ds-experience-link)::after {
 		content: '';
 		position: absolute;
 		left: 0;
 		right: 0;
 		bottom: -0.12rem;
 		height: 1px;
-		background: currentColor;
-		opacity: 0.32;
-		transform: scaleX(0.65);
+		background: var(--color-secondary);
+		transform: scaleX(0);
 		transform-origin: left center;
-		transition:
-			transform 180ms ease,
-			opacity 180ms ease;
-	}
-
-	.ds-experience-link :global(svg) {
 		transition: transform 180ms ease;
 	}
 
-	.ds-experience-link:hover::after,
-	.ds-experience-link:focus-visible::after {
-		opacity: 0.9;
+	:global(.ds-experience-link) :global(svg) {
+		transition: none;
+	}
+
+	:global(.ds-experience-link:hover)::after,
+	:global(.ds-experience-link:focus-visible)::after {
 		transform: scaleX(1);
 	}
 
-	.ds-experience-link:hover :global(svg),
-	.ds-experience-link:focus-visible :global(svg) {
-		transform: translateX(2px);
+	:global(.ds-experience-link:hover) :global(svg),
+	:global(.ds-experience-link:focus-visible) :global(svg) {
+		transform: none;
 	}
 
 	@media (prefers-reduced-motion: reduce) {
@@ -391,8 +408,8 @@ const {
 		.ds-experience-item:hover,
 		.ds-experience-item[data-active='true'] .ds-experience-marker,
 		.ds-experience-item:hover .ds-experience-marker,
-		.ds-experience-link:hover :global(svg),
-		.ds-experience-link:focus-visible :global(svg) {
+		:global(.ds-experience-link:hover) :global(svg),
+		:global(.ds-experience-link:focus-visible) :global(svg) {
 			transform: none;
 		}
 	}
