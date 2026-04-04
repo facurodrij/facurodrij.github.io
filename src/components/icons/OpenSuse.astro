@@ -1,0 +1,7 @@
+---
+import iconUrl from '../../../tmp/openSUSE.svg?url';
+
+const { alt = '', ...props } = Astro.props;
+---
+
+<img src={iconUrl} alt={alt} loading="lazy" decoding="async" {...props} />

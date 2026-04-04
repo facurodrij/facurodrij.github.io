@@ -241,7 +241,7 @@ body.ds-shell[data-pointer-fine='true'][data-spotlight-active='true']::after {
 	align-items: center;
 	justify-content: center;
 	margin-bottom: 1.75rem;
-	font-size: clamp(1.65rem, 3vw, 2.15rem);
+	font-size: clamp(2.15rem, 4vw, 3rem);
 	font-weight: 700;
 	line-height: 1.05;
 	text-align: center;
