@@ -67,8 +67,14 @@ const navItems = [
 				.map((link) => ({
 					link,
 					section: document.getElementById(link.dataset.section || ''),
+					marker: null,
 				}))
-				.filter((item) => item.section);
+				.filter((item) => item.section)
+				.map((item) => ({
+					...item,
+					marker:
+						item.section.querySelector('.ds-section-title') || item.section,
+				}));
 
 			if (!tracked.length) return;
 
@@ -85,18 +91,18 @@ const navItems = [
 			};
 
 			const updateActiveSection = () => {
-				const navOffset = nav.getBoundingClientRect().height + 40;
+				const viewportCenter = window.innerHeight * 0.5;
 				let activeId = '';
 
-				for (const { section } of tracked) {
-					const rect = section.getBoundingClientRect();
+				for (const { section, marker } of tracked) {
+					const rect = marker.getBoundingClientRect();
 
-					if (rect.top <= navOffset && rect.bottom > navOffset) {
+					if (rect.top <= viewportCenter && rect.bottom >= viewportCenter) {
 						activeId = section.id;
 						break;
 					}
 
-					if (rect.top <= navOffset) {
+					if (rect.top <= viewportCenter) {
 						activeId = section.id;
 					}
 				}

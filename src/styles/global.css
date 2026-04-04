@@ -88,7 +88,7 @@ select {
 		scroll-behavior: auto;
 	}
 
-	.ds-section-title {
+	.ds-section-title-shimmer {
 		animation: none;
 	}
 
@@ -240,11 +240,16 @@ body.ds-shell[data-pointer-fine='true'][data-spotlight-active='true']::after {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	gap: 0.5rem;
 	margin-bottom: 1.75rem;
 	font-size: clamp(2.15rem, 4vw, 3rem);
 	font-weight: 700;
 	line-height: 1.05;
 	text-align: center;
+	color: var(--color-heading);
+}
+
+.ds-section-title-shimmer {
 	background-image: linear-gradient(
 		115deg,
 		#059669 0%,
