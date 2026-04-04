@@ -1,12 +1,21 @@
 ---
-const { href } = Astro.props;
+interface Props {
+	href: string;
+	className?: string;
+}
+
+const { href, className } = Astro.props as Props;
 ---
 
 <a
 	href={href}
 	role="link"
 	target="_blank"
-	class="ds-link inline-flex items-center gap-1 text-base md:text-lg"
+	rel="noreferrer"
+	class:list={[
+		'ds-link inline-flex items-center gap-1 text-base md:text-lg',
+		className,
+	]}
 >
 	<slot />
 </a>

@@ -2,30 +2,56 @@
 import LinkInline from './LinkInline.astro';
 
 interface Props {
+	id?: string;
 	title: string;
 	company: string;
 	description: string;
 	link?: string;
 	date: string;
 	certification?: string;
+	current?: boolean;
 }
 
-const { title, company, description, link, date, certification } = Astro.props;
+const {
+	id,
+	title,
+	company,
+	description,
+	link,
+	date,
+	certification,
+	current = false,
+} = Astro.props;
 ---
 
 <div
-	class="ds-card ds-card-glass relative ml-5 grid gap-6 px-6 py-6 before:absolute before:left-[-20px] before:top-7 before:block before:h-[calc(100%+1.25rem)] before:border-l before:border-[var(--color-border)] before:content-[''] md:ml-8 md:grid-cols-5 md:gap-8"
+	id={id}
+	class:list={[
+		"ds-experience-item ds-card ds-card-glass relative ml-5 grid gap-6 px-6 py-6 before:absolute before:left-[-20px] before:top-7 before:block before:h-[calc(100%+1.25rem)] before:border-l before:border-[var(--color-border)] before:content-[''] md:ml-8 md:grid-cols-5 md:gap-8",
+		{ 'is-current': current },
+	]}
+	data-experience-item
+	data-revealed="false"
+	data-active="false"
 >
 	<div class="relative md:col-span-2">
 		<div class="sticky top-24">
 			<span
 				aria-hidden="true"
-				class="absolute -left-[2.35rem] top-0.5 h-4 w-4 rounded-full border-4 border-[var(--color-bg)] bg-[var(--color-primary)] shadow-[0_0_0_5px_rgba(0,208,132,0.16)] md:-left-[3rem]"
+				class="ds-experience-marker absolute -left-[2.35rem] top-0.5 h-4 w-4 rounded-full border-4 border-[var(--color-bg)] bg-[var(--color-primary)] shadow-[0_0_0_5px_rgba(0,208,132,0.16)] md:-left-[3rem]"
 			></span>
+
+			{
+				current && (
+					<span class="ds-eyebrow mb-4 w-fit border-[rgba(0,208,132,0.28)] bg-[linear-gradient(135deg,rgba(0,208,132,0.18),rgba(56,189,248,0.12))] text-[0.7rem]">
+						Actual
+					</span>
+				)
+			}
 
 			<h3
 				data-ui-heading="true"
-				class="text-xl font-bold text-[var(--color-heading)]"
+				class="text-xl font-bold text-[var(--color-heading)] md:text-[1.4rem]"
 			>
 				{title}
 			</h3>
@@ -42,11 +68,11 @@ const { title, company, description, link, date, certification } = Astro.props;
 		{description}
 		{
 			link && (
-				<LinkInline href={link}>
+				<LinkInline href={link} className="ds-experience-link mt-2 w-fit">
 					Saber más{' '}
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
-						class="w-5 icon icon-tabler icon-tabler-chevron-right"
+						class="icon icon-tabler icon-tabler-chevron-right w-5"
 						width="24"
 						height="24"
 						viewBox="0 0 24 24"
@@ -66,11 +92,11 @@ const { title, company, description, link, date, certification } = Astro.props;
 		}
 		{
 			certification && (
-				<LinkInline href={certification}>
+				<LinkInline href={certification} className="ds-experience-link w-fit">
 					Ver certificado{' '}
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
-						class="w-5 icon icon-tabler icon-tabler-chevron-right"
+						class="icon icon-tabler icon-tabler-chevron-right w-5"
 						width="24"
 						height="24"
 						viewBox="0 0 24 24"
@@ -90,3 +116,284 @@ const { title, company, description, link, date, certification } = Astro.props;
 		}
 	</div>
 </div>
+
+<style>
+	.ds-experience-item {
+		opacity: 1;
+		transform: translateY(0);
+		border-color: rgba(148, 163, 184, 0.08);
+		background: linear-gradient(
+			180deg,
+			rgba(9, 15, 28, 0.9),
+			rgba(7, 11, 22, 0.96)
+		);
+		box-shadow: 0 18px 48px rgba(2, 6, 23, 0.28);
+		filter: saturate(0.7) brightness(0.72) contrast(0.9);
+		transition:
+			opacity 260ms ease,
+			transform 260ms ease,
+			filter 260ms ease,
+			border-color 260ms ease,
+			box-shadow 260ms ease,
+			background 260ms ease;
+	}
+
+	.ds-experience-item[data-timeline-state='future'][data-revealed='true'] {
+		opacity: 0.54;
+		filter: saturate(0.7) brightness(0.72) contrast(0.9);
+	}
+
+	.ds-experience-item[data-active='true'] {
+		opacity: 1;
+		transform: translateY(0) scale(1.015);
+		border-color: rgba(56, 189, 248, 0.34);
+		background:
+			radial-gradient(
+				circle at top left,
+				rgba(56, 189, 248, 0.14),
+				transparent 38%
+			),
+			linear-gradient(180deg, rgba(13, 23, 41, 0.98), rgba(8, 14, 28, 0.98));
+		box-shadow:
+			0 30px 80px rgba(2, 6, 23, 0.48),
+			0 0 0 1px rgba(56, 189, 248, 0.2);
+		filter: none;
+	}
+
+	.ds-experience-item[data-timeline-state='past']:hover {
+		opacity: 1;
+		transform: translateY(-3px) scale(1.015);
+		border-color: rgba(56, 189, 248, 0.34);
+		background:
+			radial-gradient(
+				circle at top left,
+				rgba(56, 189, 248, 0.14),
+				transparent 38%
+			),
+			linear-gradient(180deg, rgba(13, 23, 41, 0.98), rgba(8, 14, 28, 0.98));
+		box-shadow:
+			0 30px 80px rgba(2, 6, 23, 0.48),
+			0 0 0 1px rgba(56, 189, 248, 0.2);
+		filter: none;
+	}
+
+	.ds-experience-item.is-current {
+		border-color: rgba(0, 208, 132, 0.22);
+		box-shadow:
+			0 24px 64px rgba(2, 6, 23, 0.36),
+			0 0 0 1px rgba(0, 208, 132, 0.14);
+	}
+
+	.ds-experience-item.is-current[data-active='true'] {
+		border-color: rgba(0, 208, 132, 0.42);
+		background:
+			radial-gradient(
+				circle at top left,
+				rgba(0, 208, 132, 0.18),
+				transparent 40%
+			),
+			linear-gradient(180deg, rgba(11, 24, 28, 0.98), rgba(7, 16, 20, 0.98));
+		box-shadow:
+			0 32px 84px rgba(2, 6, 23, 0.52),
+			0 0 0 1px rgba(0, 208, 132, 0.24);
+	}
+
+	.ds-experience-item.is-current:hover {
+		border-color: rgba(0, 208, 132, 0.42);
+		background:
+			radial-gradient(
+				circle at top left,
+				rgba(0, 208, 132, 0.18),
+				transparent 40%
+			),
+			linear-gradient(180deg, rgba(11, 24, 28, 0.98), rgba(7, 16, 20, 0.98));
+		box-shadow:
+			0 32px 84px rgba(2, 6, 23, 0.52),
+			0 0 0 1px rgba(0, 208, 132, 0.24);
+		filter: none;
+	}
+
+	.ds-experience-item::before {
+		opacity: 0.3;
+		transition:
+			border-color 220ms ease,
+			opacity 220ms ease,
+			box-shadow 220ms ease;
+	}
+
+	.ds-experience-item
+		:is([data-ui-heading='true'], h4, time, .ds-body, .ds-experience-link) {
+		transition:
+			opacity 220ms ease,
+			color 220ms ease,
+			filter 220ms ease;
+	}
+
+	.ds-experience-item[data-timeline-state='future']
+		:is([data-ui-heading='true'], h4, time, .ds-body) {
+		opacity: 0.68;
+	}
+
+	.ds-experience-item[data-timeline-state='future'] .ds-experience-link {
+		opacity: 0.76;
+	}
+
+	.ds-experience-item[data-timeline-state='future'] h4 {
+		color: color-mix(in srgb, var(--color-primary) 68%, white 32%);
+	}
+
+	.ds-experience-item[data-timeline-state='past']
+		:is([data-ui-heading='true'], h4, time, .ds-body, .ds-experience-link) {
+		opacity: 1;
+		filter: none;
+	}
+
+	.ds-experience-item[data-active='true']
+		:is([data-ui-heading='true'], h4, time, .ds-body, .ds-experience-link) {
+		opacity: 1;
+		filter: none;
+	}
+
+	.ds-experience-item[data-timeline-state='past']:hover
+		:is([data-ui-heading='true'], h4, time, .ds-body, .ds-experience-link) {
+		opacity: 1;
+		filter: none;
+	}
+
+	.ds-experience-item:hover {
+		opacity: 0.8;
+		transform: translateY(-3px);
+		border-color: rgba(255, 255, 255, 0.14);
+		box-shadow:
+			0 26px 60px rgba(2, 6, 23, 0.38),
+			0 0 0 1px rgba(255, 255, 255, 0.03);
+	}
+
+	.ds-experience-item[data-active='true']:hover {
+		opacity: 1;
+		transform: translateY(-3px) scale(1.015);
+	}
+
+	.ds-experience-item:hover::before,
+	.ds-experience-item[data-active='true']::before,
+	.ds-experience-item.is-current::before {
+		border-color: rgba(56, 189, 248, 0.22);
+		opacity: 1;
+		box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.06);
+	}
+
+	.ds-experience-item.is-current::before,
+	.ds-experience-item.is-current .ds-experience-marker {
+		border-color: rgba(2, 6, 23, 0.96);
+	}
+
+	.ds-experience-marker {
+		opacity: 0.46;
+		transition:
+			transform 220ms ease,
+			box-shadow 220ms ease,
+			background-color 220ms ease,
+			opacity 220ms ease,
+			filter 220ms ease;
+	}
+
+	.ds-experience-item[data-active='true'] .ds-experience-marker,
+	.ds-experience-item[data-timeline-state='past']:hover .ds-experience-marker,
+	.ds-experience-item:hover .ds-experience-marker {
+		opacity: 1;
+		transform: scale(1.18);
+		box-shadow:
+			0 0 0 8px rgba(0, 208, 132, 0.18),
+			0 0 20px rgba(0, 208, 132, 0.32);
+		filter: saturate(1.2) brightness(1.08);
+	}
+
+	.ds-experience-item.is-current .ds-experience-marker {
+		background: linear-gradient(180deg, #34d399, #00d084);
+		box-shadow: 0 0 0 7px rgba(0, 208, 132, 0.22);
+		opacity: 0.72;
+	}
+
+	.ds-experience-item.is-current[data-active='true'] .ds-experience-marker {
+		box-shadow:
+			0 0 0 9px rgba(0, 208, 132, 0.22),
+			0 0 24px rgba(0, 208, 132, 0.4);
+	}
+
+	.ds-experience-item.is-current:hover .ds-experience-marker {
+		box-shadow:
+			0 0 0 9px rgba(0, 208, 132, 0.22),
+			0 0 24px rgba(0, 208, 132, 0.4);
+	}
+
+	.ds-experience-item[data-active='true'] time {
+		background: rgba(56, 189, 248, 0.18);
+		color: var(--color-heading);
+	}
+
+	.ds-experience-item[data-timeline-state='past']:hover time {
+		background: rgba(56, 189, 248, 0.18);
+		color: var(--color-heading);
+	}
+
+	.ds-experience-item.is-current[data-active='true'] time {
+		background: rgba(0, 208, 132, 0.18);
+	}
+
+	.ds-experience-item.is-current:hover time {
+		background: rgba(0, 208, 132, 0.18);
+		color: var(--color-heading);
+	}
+
+	.ds-experience-link {
+		position: relative;
+		gap: 0.45rem;
+		padding-bottom: 0.1rem;
+	}
+
+	.ds-experience-link::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: -0.12rem;
+		height: 1px;
+		background: currentColor;
+		opacity: 0.32;
+		transform: scaleX(0.65);
+		transform-origin: left center;
+		transition:
+			transform 180ms ease,
+			opacity 180ms ease;
+	}
+
+	.ds-experience-link :global(svg) {
+		transition: transform 180ms ease;
+	}
+
+	.ds-experience-link:hover::after,
+	.ds-experience-link:focus-visible::after {
+		opacity: 0.9;
+		transform: scaleX(1);
+	}
+
+	.ds-experience-link:hover :global(svg),
+	.ds-experience-link:focus-visible :global(svg) {
+		transform: translateX(2px);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.ds-experience-item {
+			opacity: 1;
+			transform: none;
+		}
+
+		.ds-experience-item:hover,
+		.ds-experience-item[data-active='true'] .ds-experience-marker,
+		.ds-experience-item:hover .ds-experience-marker,
+		.ds-experience-link:hover :global(svg),
+		.ds-experience-link:focus-visible :global(svg) {
+			transform: none;
+		}
+	}
+</style>

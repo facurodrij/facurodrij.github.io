@@ -2,13 +2,16 @@
 import ExperienceItem from './ExperienceItem.astro';
 const EXPERIENCE = [
 	{
+		id: 'sherpa',
 		date: 'Marzo 2025 - Presente',
 		title: 'Desarrollador FullStack',
 		company: 'Sherpa.wtf',
+		current: true,
 		description:
 			'Desarrollo y mantenimiento de chatbots especializados para productores y brokers de seguros. Me enfoco en la creación, actualización y optimización de soluciones conversacionales que mejoran la eficiencia y la experiencia del usuario en el sector de seguros.',
 	},
 	{
+		id: 'stock-car',
 		date: 'Julio 2024 - Diciembre 2024',
 		title: 'Desarrollador Full Stack - Freelance',
 		company: 'Repuestos Stock Car',
@@ -16,6 +19,7 @@ const EXPERIENCE = [
 			'Diseñé, desarrollé e implementé un sistema de facturación y gestión de inventario para gestionar las operaciones y la información de la empresa. Mis responsabilidades incluyeron el análisis de requisitos funcionales, la creación de la arquitectura del sistema y la entrega de una solución full stack.',
 	},
 	{
+		id: 'argentina-programa',
 		date: 'Junio 2023',
 		title: 'Tutor Docente',
 		company: 'Argentina Programa 4.0',
@@ -26,12 +30,112 @@ const EXPERIENCE = [
 ];
 ---
 
-<ol class="relative mt-10 space-y-5 md:mt-12">
+<ol class="relative mt-10 space-y-5 md:mt-12" data-experience-root>
 	{
 		EXPERIENCE.map((experience) => (
-			<li>
+			<li data-experience-item-wrapper>
 				<ExperienceItem {...experience} />
 			</li>
 		))
 	}
 </ol>
+
+<script is:inline>
+	(() => {
+		const setupExperienceTimeline = () => {
+			window.__experienceTimelineCleanup?.();
+
+			const root = document.querySelector('[data-experience-root]');
+			if (!root) return;
+
+			const items = Array.from(root.querySelectorAll('[data-experience-item]'));
+			if (!items.length) return;
+
+			const setActiveItem = () => {
+				const viewportCenter = window.innerHeight * 0.5;
+				let closestItem = null;
+				let closestDistance = Number.POSITIVE_INFINITY;
+
+				for (const item of items) {
+					const rect = item.getBoundingClientRect();
+					const itemCenter = rect.top + rect.height / 2;
+					const distance = Math.abs(itemCenter - viewportCenter);
+					const visible = rect.bottom > 0 && rect.top < window.innerHeight;
+
+					if (!visible || distance >= closestDistance) continue;
+
+					closestDistance = distance;
+					closestItem = item;
+				}
+
+				items.forEach((item) => {
+					const isActive = item === closestItem;
+					item.dataset.active = String(isActive);
+					item.dataset.timelineState = 'future';
+					item.setAttribute('aria-current', isActive ? 'true' : 'false');
+				});
+
+				const activeIndex = closestItem ? items.indexOf(closestItem) : -1;
+
+				items.forEach((item, index) => {
+					if (activeIndex === -1) {
+						item.dataset.timelineState = 'future';
+						return;
+					}
+
+					if (index < activeIndex) {
+						item.dataset.timelineState = 'past';
+						return;
+					}
+
+					if (index === activeIndex) {
+						item.dataset.timelineState = 'active';
+						return;
+					}
+
+					item.dataset.timelineState = 'future';
+				});
+			};
+
+			let frameId = 0;
+			const queueActiveItemUpdate = () => {
+				if (frameId) return;
+
+				frameId = window.requestAnimationFrame(() => {
+					frameId = 0;
+					setActiveItem();
+				});
+			};
+
+			items.forEach((item) => {
+				item.dataset.revealed = 'true';
+				item.dataset.timelineState = 'future';
+			});
+
+			window.addEventListener('scroll', queueActiveItemUpdate, {
+				passive: true,
+			});
+			window.addEventListener('resize', queueActiveItemUpdate);
+			queueActiveItemUpdate();
+
+			window.__experienceTimelineCleanup = () => {
+				window.removeEventListener('scroll', queueActiveItemUpdate);
+				window.removeEventListener('resize', queueActiveItemUpdate);
+
+				if (frameId) {
+					window.cancelAnimationFrame(frameId);
+				}
+			};
+		};
+
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', setupExperienceTimeline, {
+				once: true,
+			});
+		} else {
+			setupExperienceTimeline();
+		}
+
+		document.addEventListener('astro:page-load', setupExperienceTimeline);
+	})();
+</script>
