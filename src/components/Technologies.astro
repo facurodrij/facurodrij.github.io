@@ -215,7 +215,7 @@ const TECHNOLOGY_GROUPS = [
 ];
 ---
 
-<section class="space-y-8">
+<section class="space-y-8" data-tech-root data-tech-enhanced="false">
 	<div class="mx-auto max-w-3xl text-center">
 		<p class="ds-body mx-auto max-w-2xl">
 			Stack con el que diseño, construyo y despliego.
@@ -225,7 +225,10 @@ const TECHNOLOGY_GROUPS = [
 	<div class="grid gap-5">
 		{
 			TECHNOLOGY_GROUPS.map(({ title, items }) => (
-				<article class="tech-category ds-card ds-card-glass rounded-[var(--radius-lg)] p-5 sm:p-6">
+				<article
+					class="tech-category ds-card ds-card-glass rounded-[var(--radius-lg)] p-5 sm:p-6"
+					data-tech-group
+				>
 					<div class="flex items-center gap-3">
 						<h3
 							data-ui-heading="true"
@@ -236,8 +239,13 @@ const TECHNOLOGY_GROUPS = [
 					</div>
 
 					<ul class="mt-5 flex flex-wrap gap-2.5">
-						{items.map(({ name, icon: Icon, badgeClassName }) => (
-							<li>
+						{items.map(({ name, icon: Icon, badgeClassName }, itemIndex) => (
+							<li
+								class="tech-chip-item"
+								style={`--tech-chip-order: ${itemIndex};`}
+								data-tech-chip
+								data-chip-visible="false"
+							>
 								<span class="tech-chip">
 									<span class:list={['tech-chip__icon', badgeClassName]}>
 										<Icon class="size-4 shrink-0" />
@@ -256,6 +264,37 @@ const TECHNOLOGY_GROUPS = [
 <style>
 	.tech-category {
 		border-color: rgba(255, 255, 255, 0.08);
+	}
+
+	[data-tech-root][data-tech-enhanced='true']
+		[data-tech-chip][data-chip-visible='false'] {
+		opacity: 0;
+		transform: translateY(18px);
+		filter: blur(4px);
+		transition: none;
+		will-change: opacity, transform, filter;
+	}
+
+	[data-tech-root][data-tech-enhanced='true']
+		[data-tech-chip][data-chip-visible='true'] {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+		filter: blur(0);
+		animation: tech-chip-fade-up 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+	}
+
+	@keyframes tech-chip-fade-up {
+		0% {
+			opacity: 0;
+			transform: translateY(18px);
+			filter: blur(4px);
+		}
+
+		100% {
+			opacity: 1;
+			transform: translateY(0);
+			filter: blur(0);
+		}
 	}
 
 	.tech-chip {
@@ -283,4 +322,110 @@ const TECHNOLOGY_GROUPS = [
 			inset 0 1px 0 rgba(255, 255, 255, 0.14),
 			0 10px 24px rgba(2, 6, 23, 0.18);
 	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.tech-chip-item {
+			opacity: 1;
+			transform: none;
+			filter: none;
+			animation: none;
+			transition: none;
+		}
+	}
 </style>
+
+<script is:inline>
+	(() => {
+		const setupTechnologiesReveal = () => {
+			window.__technologiesRevealCleanup?.();
+
+			const root = document.querySelector('[data-tech-root]');
+			if (!root) return;
+
+			const groups = Array.from(root.querySelectorAll('[data-tech-group]'));
+			if (!groups.length) return;
+			const cleanupTimers = new WeakMap();
+			const getChips = (group) =>
+				Array.from(group.querySelectorAll('[data-tech-chip]'));
+
+			const clearGroupTimers = (group) => {
+				const timerIds = cleanupTimers.get(group) || [];
+				timerIds.forEach((timerId) => window.clearTimeout(timerId));
+				cleanupTimers.set(group, []);
+			};
+
+			const setChipsVisibility = (group, visible) => {
+				getChips(group).forEach((chip) => {
+					chip.dataset.chipVisible = String(visible);
+				});
+			};
+
+			const prefersReducedMotion = window.matchMedia(
+				'(prefers-reduced-motion: reduce)',
+			).matches;
+
+			if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+				root.dataset.techEnhanced = 'false';
+				groups.forEach((group) => {
+					setChipsVisibility(group, true);
+				});
+				window.__technologiesRevealCleanup = undefined;
+				return;
+			}
+
+			const observer = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						const group = entry.target;
+						const chips = getChips(group);
+
+						clearGroupTimers(group);
+
+						if (!entry.isIntersecting) {
+							setChipsVisibility(group, false);
+							return;
+						}
+
+						const timerIds = chips.map((chip, index) =>
+							window.setTimeout(
+								() => {
+									chip.dataset.chipVisible = 'true';
+								},
+								80 + index * 80,
+							),
+						);
+
+						cleanupTimers.set(group, timerIds);
+					});
+				},
+				{
+					threshold: 0.2,
+					rootMargin: '0px 0px -10% 0px',
+				},
+			);
+
+			root.dataset.techEnhanced = 'true';
+			groups.forEach((group) => {
+				setChipsVisibility(group, false);
+				observer.observe(group);
+			});
+
+			window.__technologiesRevealCleanup = () => {
+				groups.forEach((group) => {
+					clearGroupTimers(group);
+				});
+				observer.disconnect();
+			};
+		};
+
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', setupTechnologiesReveal, {
+				once: true,
+			});
+		} else {
+			setupTechnologiesReveal();
+		}
+
+		document.addEventListener('astro:page-load', setupTechnologiesReveal);
+	})();
+</script>
