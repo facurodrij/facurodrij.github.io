@@ -118,6 +118,8 @@ const { title } = Astro.props;
 							window.cancelAnimationFrame(frameId);
 						}
 
+						body.style.removeProperty('--mouse-x');
+						body.style.removeProperty('--mouse-y');
 						body.style.removeProperty('--background-spotlight-opacity');
 					};
 				};

@@ -24,6 +24,8 @@
 	--background-dot-grid-size: 32px;
 	--background-spotlight-radius: 20rem;
 	--background-spotlight-opacity: 0.78;
+	--background-center-glow-primary: rgba(5, 16, 40, 0.5);
+	--background-center-glow-secondary: rgba(8, 24, 56, 0.38);
 	--mouse-x: 50vw;
 	--mouse-y: 35vh;
 	--shadow-soft: 0 20px 45px rgba(2, 6, 23, 0.42);
@@ -105,6 +107,31 @@ select {
 .ds-shell {
 	position: relative;
 	isolation: isolate;
+	background-color: var(--color-bg);
+	background-image:
+		radial-gradient(
+			clamp(150rem, 210vw, 360rem) clamp(14rem, 22vmax, 30rem) at 50% -8%,
+			var(--background-center-glow-secondary) 0%,
+			var(--background-center-glow-primary) 34%,
+			rgba(2, 6, 23, 0.24) 52%,
+			rgba(2, 6, 23, 0) 78%
+		),
+		radial-gradient(
+			circle clamp(110rem, 155vmax, 220rem) at 50% 52%,
+			var(--background-center-glow-secondary) 0%,
+			var(--background-center-glow-primary) 40%,
+			rgba(2, 6, 23, 0.54) 66%,
+			rgba(2, 6, 23, 0) 100%
+		),
+		radial-gradient(
+			circle clamp(170rem, 235vmax, 320rem) at 60% 54%,
+			rgba(4, 12, 32, 0.2) 0%,
+			rgba(2, 6, 23, 0) 72%
+		);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-position: center center;
+	background-attachment: scroll, fixed, fixed;
 }
 
 .ds-shell::before {
