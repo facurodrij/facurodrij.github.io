@@ -111,7 +111,7 @@ const terminalGlyph = [
 			</div>
 		</div>
 
-		<div class="group flex justify-center md:justify-end md:self-start">
+		<div class="group flex justify-center md:justify-end md:self-start" data-hero-photo-card>
 			<div class="relative w-full max-w-[20rem]">
 				<div
 					class="absolute inset-0 rounded-[var(--radius-lg)] bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.24),transparent_58%)] blur-3xl"
@@ -132,11 +132,13 @@ const terminalGlyph = [
 						class="relative overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-bg-elevated)]"
 					>
 						<img
+							data-hero-photo-image
 							class="aspect-[4/5] w-full object-cover object-top transition duration-500 ease-out [filter:saturate(0.58)_contrast(1.12)_brightness(0.74)] group-hover:scale-[1.01] group-hover:[filter:saturate(1)_contrast(1)_brightness(1)]"
 							src="/me.webp"
 							alt="Foto de Facundo Joel Rodriguez"
 						/>
 						<div
+							data-hero-photo-overlay
 							class="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.1),rgba(2,6,23,0.28))] opacity-100 transition duration-500 ease-out group-hover:opacity-0"
 						>
 						</div>
@@ -239,6 +241,26 @@ const terminalGlyph = [
 </section>
 
 <style>
+	[data-hero-photo-card].is-touch-active [data-hero-photo-image] {
+		transform: scale(1.01);
+		filter: saturate(1) contrast(1) brightness(1);
+	}
+
+	[data-hero-photo-card].is-touch-active [data-hero-photo-overlay] {
+		opacity: 0;
+	}
+
+	@media (hover: none) {
+		[data-hero-photo-card]:active [data-hero-photo-image] {
+			transform: scale(1.01);
+			filter: saturate(1) contrast(1) brightness(1);
+		}
+
+		[data-hero-photo-card]:active [data-hero-photo-overlay] {
+			opacity: 0;
+		}
+	}
+
 	.ds-terminal-control:hover .ds-terminal-control-icon,
 	.ds-terminal-control:focus-visible .ds-terminal-control-icon {
 		opacity: 1;
@@ -311,3 +333,76 @@ const terminalGlyph = [
 		}
 	}
 </style>
+
+<script is:inline>
+	(() => {
+		const setupHeroTouchPhotoState = () => {
+			window.__heroTouchPhotoCleanup?.();
+
+			const cards = Array.from(
+				document.querySelectorAll('[data-hero-photo-card]'),
+			);
+
+			if (!cards.length) {
+				window.__heroTouchPhotoCleanup = undefined;
+				return;
+			}
+
+			const supportsTouch =
+				'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+			if (!supportsTouch) {
+				window.__heroTouchPhotoCleanup = undefined;
+				return;
+			}
+
+			const cleanups = cards.map((card) => {
+				let touchTimer;
+
+				const activate = () => {
+					card.classList.add('is-touch-active');
+					window.clearTimeout(touchTimer);
+					touchTimer = window.setTimeout(() => {
+						card.classList.remove('is-touch-active');
+					}, 850);
+				};
+
+				const onTouchStart = () => activate();
+				const onTouchEnd = () => activate();
+				const onClick = () => activate();
+				const onTouchCancel = () => {
+					window.clearTimeout(touchTimer);
+					card.classList.remove('is-touch-active');
+				};
+
+				card.addEventListener('touchstart', onTouchStart, { passive: true });
+				card.addEventListener('touchend', onTouchEnd, { passive: true });
+				card.addEventListener('click', onClick);
+				card.addEventListener('touchcancel', onTouchCancel, { passive: true });
+
+				return () => {
+					window.clearTimeout(touchTimer);
+					card.classList.remove('is-touch-active');
+					card.removeEventListener('touchstart', onTouchStart);
+					card.removeEventListener('touchend', onTouchEnd);
+					card.removeEventListener('click', onClick);
+					card.removeEventListener('touchcancel', onTouchCancel);
+				};
+			});
+
+			window.__heroTouchPhotoCleanup = () => {
+				cleanups.forEach((cleanup) => cleanup());
+			};
+		};
+
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', setupHeroTouchPhotoState, {
+				once: true,
+			});
+		} else {
+			setupHeroTouchPhotoState();
+		}
+
+		document.addEventListener('astro:page-load', setupHeroTouchPhotoState);
+	})();
+</script>
