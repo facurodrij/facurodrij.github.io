@@ -40,7 +40,7 @@ const {
 	></span>
 
 	<div class="relative md:col-span-2">
-		<div class="sticky top-24">
+		<div>
 			{
 				current && (
 					<span class="ds-eyebrow mb-4 w-fit border-[rgba(0,208,132,0.28)] bg-[linear-gradient(135deg,rgba(0,208,132,0.18),rgba(56,189,248,0.12))] text-[0.7rem]">
@@ -122,6 +122,7 @@ const {
 		opacity: 1;
 		transform: translateY(0);
 		transform-origin: left center;
+		will-change: transform, opacity;
 		border-color: rgba(148, 163, 184, 0.08);
 		background: linear-gradient(
 			180deg,
@@ -133,10 +134,8 @@ const {
 		transition:
 			opacity 260ms ease,
 			transform 260ms ease,
-			filter 260ms ease,
 			border-color 260ms ease,
-			box-shadow 260ms ease,
-			background 260ms ease;
+			box-shadow 260ms ease;
 	}
 
 	.ds-experience-item[data-timeline-state='future'][data-revealed='true'] {
@@ -224,8 +223,7 @@ const {
 		) {
 		transition:
 			opacity 220ms ease,
-			color 220ms ease,
-			filter 220ms ease;
+			color 220ms ease;
 	}
 
 	.ds-experience-item[data-timeline-state='future']
@@ -300,10 +298,8 @@ const {
 			0 0 0 7px rgba(56, 189, 248, 0.12);
 		transition:
 			transform 220ms ease,
-			box-shadow 220ms ease,
 			background-color 220ms ease,
-			opacity 220ms ease,
-			filter 220ms ease;
+			opacity 220ms ease;
 	}
 
 	.ds-experience-item[data-active='true'] .ds-experience-marker,
@@ -313,9 +309,7 @@ const {
 		transform: scale(1.12);
 		box-shadow:
 			0 0 0 6px var(--color-bg),
-			0 0 0 8px rgba(56, 189, 248, 0.16),
-			0 0 20px rgba(56, 189, 248, 0.32);
-		filter: saturate(1.2) brightness(1.08);
+			0 0 0 8px rgba(56, 189, 248, 0.18);
 	}
 
 	.ds-experience-item.is-current .ds-experience-marker {
@@ -329,16 +323,14 @@ const {
 		background: var(--color-primary);
 		box-shadow:
 			0 0 0 6px var(--color-bg),
-			0 0 0 10px rgba(0, 208, 132, 0.18),
-			0 0 24px rgba(0, 208, 132, 0.4);
+			0 0 0 10px rgba(0, 208, 132, 0.2);
 	}
 
 	.ds-experience-item.is-current:hover .ds-experience-marker {
 		background: var(--color-primary);
 		box-shadow:
 			0 0 0 6px var(--color-bg),
-			0 0 0 10px rgba(0, 208, 132, 0.18),
-			0 0 24px rgba(0, 208, 132, 0.4);
+			0 0 0 10px rgba(0, 208, 132, 0.2);
 	}
 
 	.ds-experience-item[data-active='true'] time {

@@ -54,6 +54,7 @@ const EXPERIENCE = [
 		top: 1.9rem;
 		bottom: -3.15rem;
 		width: 2px;
+		will-change: opacity;
 		background: linear-gradient(
 			180deg,
 			rgba(56, 189, 248, 0.08) 0%,
@@ -64,13 +65,8 @@ const EXPERIENCE = [
 			rgba(56, 189, 248, 0.02) 100%
 		);
 		opacity: 0.38;
-		box-shadow:
-			0 0 0 1px rgba(56, 189, 248, 0.03),
-			0 0 10px rgba(56, 189, 248, 0.06);
-		transition:
-			background 220ms ease,
-			opacity 220ms ease,
-			box-shadow 220ms ease;
+		box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.04);
+		transition: opacity 180ms ease;
 	}
 
 	.ds-experience-row[data-timeline-state='past']::before,
@@ -85,9 +81,7 @@ const EXPERIENCE = [
 			rgba(56, 189, 248, 0.03) 100%
 		);
 		opacity: 1;
-		box-shadow:
-			0 0 0 1px rgba(56, 189, 248, 0.08),
-			0 0 20px rgba(56, 189, 248, 0.18);
+		box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.1);
 	}
 
 	.ds-experience-row.is-current::before {
@@ -99,9 +93,7 @@ const EXPERIENCE = [
 			rgba(56, 189, 248, 0.1) 90%,
 			rgba(56, 189, 248, 0.03) 100%
 		);
-		box-shadow:
-			0 0 0 1px rgba(0, 208, 132, 0.03),
-			0 0 10px rgba(0, 208, 132, 0.06);
+		box-shadow: 0 0 0 1px rgba(0, 208, 132, 0.06);
 	}
 
 	.ds-experience-row.is-current[data-timeline-state='past']::before,
@@ -115,9 +107,7 @@ const EXPERIENCE = [
 			rgba(56, 189, 248, 0.04) 100%
 		);
 		opacity: 1;
-		box-shadow:
-			0 0 0 1px rgba(0, 208, 132, 0.08),
-			0 0 22px rgba(0, 208, 132, 0.18);
+		box-shadow: 0 0 0 1px rgba(0, 208, 132, 0.1);
 	}
 
 	.ds-experience-row:last-child::before {
@@ -141,13 +131,39 @@ const EXPERIENCE = [
 
 			const items = Array.from(root.querySelectorAll('[data-experience-item]'));
 			if (!items.length) return;
+			const rows = items.map((item) =>
+				item.closest('[data-experience-item-wrapper]'),
+			);
+
+			let activeIndex = -1;
+
+			const setDataValue = (element, key, value) => {
+				if (!element) return;
+				if (element.dataset[key] === value) return;
+				element.dataset[key] = value;
+			};
+
+			const setAriaCurrent = (element, isActive) => {
+				const value = isActive ? 'true' : 'false';
+				if (element.getAttribute('aria-current') === value) return;
+				element.setAttribute('aria-current', value);
+			};
 
 			const setActiveItem = () => {
+				const rootRect = root.getBoundingClientRect();
+				const viewportHeight = window.innerHeight;
+
+				// Avoid work while section is outside viewport.
+				if (rootRect.bottom < -96 || rootRect.top > viewportHeight + 96) {
+					return;
+				}
+
 				const viewportCenter = window.innerHeight * 0.5;
-				let closestItem = null;
+				let nextActiveIndex = -1;
 				let closestDistance = Number.POSITIVE_INFINITY;
 
-				for (const item of items) {
+				for (let index = 0; index < items.length; index++) {
+					const item = items[index];
 					const rect = item.getBoundingClientRect();
 					const itemCenter = rect.top + rect.height / 2;
 					const distance = Math.abs(itemCenter - viewportCenter);
@@ -156,42 +172,35 @@ const EXPERIENCE = [
 					if (!visible || distance >= closestDistance) continue;
 
 					closestDistance = distance;
-					closestItem = item;
+					nextActiveIndex = index;
 				}
 
-				items.forEach((item) => {
-					const isActive = item === closestItem;
-					const row = item.closest('[data-experience-item-wrapper]');
-					item.dataset.active = String(isActive);
-					item.dataset.timelineState = 'future';
-					if (row) row.dataset.timelineState = 'future';
-					item.setAttribute('aria-current', isActive ? 'true' : 'false');
-				});
+				if (nextActiveIndex === activeIndex) {
+					return;
+				}
 
-				const activeIndex = closestItem ? items.indexOf(closestItem) : -1;
+				activeIndex = nextActiveIndex;
 
 				items.forEach((item, index) => {
-					const row = item.closest('[data-experience-item-wrapper]');
+					const row = rows[index];
+					const isActive = index === activeIndex;
+					setDataValue(item, 'active', String(isActive));
+					setAriaCurrent(item, isActive);
+
+					let state = 'future';
+					if (activeIndex !== -1 && index < activeIndex) {
+						state = 'past';
+					}
+					if (isActive) {
+						state = 'active';
+					}
+
+					setDataValue(item, 'timelineState', state);
+					setDataValue(row, 'timelineState', state);
+
 					if (activeIndex === -1) {
-						item.dataset.timelineState = 'future';
-						if (row) row.dataset.timelineState = 'future';
 						return;
 					}
-
-					if (index < activeIndex) {
-						item.dataset.timelineState = 'past';
-						if (row) row.dataset.timelineState = 'past';
-						return;
-					}
-
-					if (index === activeIndex) {
-						item.dataset.timelineState = 'active';
-						if (row) row.dataset.timelineState = 'active';
-						return;
-					}
-
-					item.dataset.timelineState = 'future';
-					if (row) row.dataset.timelineState = 'future';
 				});
 			};
 
@@ -205,11 +214,12 @@ const EXPERIENCE = [
 				});
 			};
 
-			items.forEach((item) => {
-				const row = item.closest('[data-experience-item-wrapper]');
-				item.dataset.revealed = 'true';
-				item.dataset.timelineState = 'future';
-				if (row) row.dataset.timelineState = 'future';
+			items.forEach((item, index) => {
+				setDataValue(item, 'revealed', 'true');
+				setDataValue(item, 'timelineState', 'future');
+				setDataValue(item, 'active', 'false');
+				setAriaCurrent(item, false);
+				setDataValue(rows[index], 'timelineState', 'future');
 			});
 
 			window.addEventListener('scroll', queueActiveItemUpdate, {
