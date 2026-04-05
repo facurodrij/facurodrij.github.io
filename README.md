@@ -1,14 +1,14 @@
 # Portafolio con Astro
 
-Este es un portafolio personal construido con Astro, Tailwind CSS y TypeScript. El proyecto parte de un tutorial de [midudev](https://midu.dev/), adaptado a la versión actual del sitio.
+Este es un portafolio personal construido con Astro y Tailwind CSS.
+La UI está desarrollada con componentes `.astro` y estilos utilitarios.
+El proyecto parte de un tutorial de [midudev](https://midu.dev/), adaptado a la versión actual del sitio.
 
 ## Tecnologías utilizadas
 
 <a href="https://astro.build/" target="blank"><img align="center" src="https://img.shields.io/badge/Astro-BC52EE?logo=astro&logoColor=fff&style=for-the-badge"/></a>
 
 <a href="https://tailwindcss.com/" target="blank"><img align="center" src="https://img.shields.io/badge/TailwindCSS-051C2B?style=for-the-badge&logo=tailwindcss&logoColor=06B6D4"/></a>
-
-<a href="https://www.typescriptlang.org/" target="blank"><img align="center" src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"/></a>
 
 ## 🧞 Comandos
 
