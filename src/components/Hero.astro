@@ -2,6 +2,7 @@
 import DownloadIcon from './icons/Download.astro';
 import GithubIcon from './icons/Github.astro';
 import LinkedInIcon from './icons/LinkedIn.astro';
+import ProfilePhoto from './ProfilePhoto.astro';
 import SocialPill from './SocialPill.astro';
 
 const profileSummary = [
@@ -35,48 +36,24 @@ const profileSummary = [
 	},
 ];
 
-const terminalGlyph = [
-	'                            ****                  ',
-	'                           ******                 ',
-	'                           *****                  ',
-	'            ****          ******  ****            ',
-	'          ********        ***** ********          ',
-	'        **********       ****** **********        ',
-	'      **********        ******    **********      ',
-	'    ***********         *****      ***********    ',
-	'  ***********          ******        ***********  ',
-	'***********            *****           ***********',
-	'*********             ******             *********',
-	'***********           *****            ***********',
-	'  ***********        ******          ***********  ',
-	'    ***********      *****         ***********    ',
-	'      **********    ******        **********      ',
-	'        ********** ******       **********        ',
-	'          ******** *****        ********          ',
-	'            ****  ******          ****            ',
-	'                  *****                           ',
-	'                 ******                           ',
-	'                  ****                            ',
-	'                                                  ',
+const terminalCommands = [
+	{
+		command: 'cat ./profile.yml',
+		outputEntries: profileSummary,
+	},
 ];
+
 ---
 
 <section class="relative px-1 py-6 sm:py-8">
-	<div
-		class="grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,1.3fr)_minmax(280px,0.9fr)] md:items-start"
-	>
+	<div class="grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.95fr)] md:items-center lg:gap-14">
 		<div>
-			<span
-				class="mb-5 inline-flex items-center gap-3 font-[var(--font-heading)] text-xs font-semibold uppercase tracking-[0.22em] text-[var(--color-primary)]"
-			>
+			<span class="mb-5 inline-flex items-center gap-3 font-[var(--font-heading)] text-xs font-semibold uppercase tracking-[0.22em] text-[var(--color-primary)]">
 				<span class="h-2 w-2 rounded-full bg-[var(--color-primary)]"></span>
 				2+ años de experiencia
 			</span>
 
-			<h1
-				data-ui-heading="true"
-				class="max-w-4xl text-balance text-4xl font-bold tracking-tight text-[var(--color-heading)] sm:text-5xl lg:text-6xl"
-			>
+			<h1 data-ui-heading="true" class="max-w-4xl text-balance text-4xl font-bold tracking-tight text-[var(--color-heading)] sm:text-5xl lg:text-6xl">
 				Facundo Joel Rodriguez
 			</h1>
 
@@ -91,12 +68,7 @@ const terminalGlyph = [
 			</p>
 
 			<div class="mt-8 flex flex-wrap items-center gap-3">
-				<a
-					href="/curriculum_vitae.pdf"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="ds-button ds-button-primary"
-				>
+				<a href="/curriculum_vitae.pdf" target="_blank" rel="noopener noreferrer" class="ds-button ds-button-primary">
 					<DownloadIcon class="size-4" />
 					Descargar CV
 				</a>
@@ -111,32 +83,64 @@ const terminalGlyph = [
 			</div>
 		</div>
 
-		<div class="group flex justify-center md:justify-end md:self-start" data-hero-photo-card>
-			<div class="relative w-full max-w-[20rem]">
-				<div
-					class="pointer-events-none absolute -left-2 -top-2 h-10 w-10 border-l-2 border-t-2 border-[var(--color-primary)]/80"
-				>
-				</div>
-				<div
-					class="pointer-events-none absolute -bottom-2 -right-2 h-10 w-10 border-b-2 border-r-2 border-[var(--color-primary)]/80"
-				>
-				</div>
-				<div
-					class="ds-card-glass relative overflow-hidden rounded-[var(--radius-lg)] p-3 sm:p-4"
-				>
-					<div
-						class="relative overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-bg-elevated)]"
-					>
-						<img
-							data-hero-photo-image
-							class="aspect-[4/5] w-full object-cover object-top transition duration-500 ease-out [filter:saturate(0.58)_contrast(1.12)_brightness(0.74)] group-hover:scale-[1.01] group-hover:[filter:saturate(1)_contrast(1)_brightness(1)]"
-							src="/me.webp"
-							alt="Foto de Facundo Joel Rodriguez"
-						/>
-						<div
-							data-hero-photo-overlay
-							class="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.1),rgba(2,6,23,0.28))] opacity-100 transition duration-500 ease-out group-hover:opacity-0"
-						>
+		<div class="relative mx-auto w-full max-w-[26rem] md:mx-0 md:justify-self-end md:max-w-[30rem]">
+			<div class="relative overflow-visible pb-4 md:pb-14">
+				<ProfilePhoto class="md:justify-end" frameClass="max-w-[21rem] sm:max-w-[22rem] md:max-w-[24rem] lg:max-w-[26rem]" />
+
+				<div class="mt-4 w-full md:absolute md:left-0 md:top-[92%] md:z-10 md:mt-0 md:w-[18rem] lg:w-[20rem]" data-hero-floating-terminal>
+					<div class="ds-card-glass w-full overflow-hidden rounded-[var(--radius-lg)]">
+						<div class="ds-terminal-bar relative flex items-center border-b border-white/6 px-4 py-2.5 sm:px-5">
+							<div class="ds-terminal-controls flex items-center gap-1">
+								<span class="ds-terminal-control bg-[#ff5f57] text-[#6b1010]">
+									<span class="ds-terminal-control-icon ds-terminal-control-icon-close" aria-hidden="true"></span>
+								</span>
+								<span class="ds-terminal-control bg-[#febc2e] text-[#8a5300]">
+									<span class="ds-terminal-control-icon ds-terminal-control-icon-minimize" aria-hidden="true"></span>
+								</span>
+								<span class="ds-terminal-control bg-[#28c840] text-[#0a5f17]">
+									<span class="ds-terminal-control-icon ds-terminal-control-icon-expand" aria-hidden="true">
+										<svg viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M2 8L8 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"></path>
+											<path d="M5.8 2H8V4.2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+											<path d="M4.2 8H2V5.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+										</svg>
+									</span>
+								</span>
+							</div>
+							<span class="pointer-events-none absolute left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[10px] tracking-[0.08em] text-white/40">
+								~/summary
+							</span>
+						</div>
+
+						<div class="px-4 py-4 font-mono sm:px-5 sm:py-5">
+							<div class="space-y-0.5 text-[12px] leading-[1.35] sm:text-[13px]">
+								{
+									terminalCommands.map(({ command, outputEntries }) => (
+										<div class="space-y-0.5">
+											<div class="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 text-[var(--color-heading)]">
+												<span class="text-[var(--color-primary)]">$</span>
+												<span>{command}</span>
+											</div>
+
+											<div class="space-y-0.5 text-[var(--color-heading)]">
+												{
+													outputEntries.map(({ label, value }) => (
+													<p class="flex items-baseline gap-x-1.5 whitespace-nowrap">
+														<span class="text-white/30">{label}:</span>
+														<span class="text-[var(--color-primary)]">{value}</span>
+													</p>
+													))
+												}
+											</div>
+										</div>
+									))
+								}
+
+								<div class="flex flex-wrap items-center gap-x-2 gap-y-0.5 pt-1 text-[var(--color-heading)]">
+									<span class="text-[var(--color-primary)]">$</span>
+									<span class="ds-terminal-caret inline-block h-4 w-2 translate-y-0.5 bg-[var(--color-primary)]/85"></span>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -144,261 +148,106 @@ const terminalGlyph = [
 		</div>
 	</div>
 
-	<div
-		class="ds-card-glass mt-8 w-full overflow-hidden rounded-[var(--radius-lg)]"
-	>
-		<div
-			class="ds-terminal-bar relative flex items-center border-b border-white/6 px-4 py-3 sm:px-5"
-		>
-			<div class="ds-terminal-controls flex items-center gap-2">
-				<span class="ds-terminal-control bg-[#ff5f57] text-[#6b1010]">
-					<span
-						class="ds-terminal-control-icon ds-terminal-control-icon-close"
-						aria-hidden="true"></span>
-				</span>
-				<span class="ds-terminal-control bg-[#febc2e] text-[#8a5300]">
-					<span
-						class="ds-terminal-control-icon ds-terminal-control-icon-minimize"
-						aria-hidden="true"></span>
-				</span>
-				<span class="ds-terminal-control bg-[#28c840] text-[#0a5f17]">
-					<span
-						class="ds-terminal-control-icon ds-terminal-control-icon-expand"
-						aria-hidden="true"
-					>
-						<svg
-							viewBox="0 0 10 10"
-							fill="none"
-							xmlns="http://www.w3.org/2000/svg"
-						>
-							<path
-								d="M2 8L8 2"
-								stroke="currentColor"
-								stroke-width="1.2"
-								stroke-linecap="round"></path>
-							<path
-								d="M5.8 2H8V4.2"
-								stroke="currentColor"
-								stroke-width="1.2"
-								stroke-linecap="round"
-								stroke-linejoin="round"></path>
-							<path
-								d="M4.2 8H2V5.8"
-								stroke="currentColor"
-								stroke-width="1.2"
-								stroke-linecap="round"
-								stroke-linejoin="round"></path>
-						</svg>
-					</span>
-				</span>
-			</div>
-			<span
-				class="pointer-events-none absolute left-1/2 -translate-x-1/2 font-mono text-[11px] tracking-[0.18em] text-white/40"
-			>
-				facurodrij@portfolio: ~/summary
-			</span>
-		</div>
-
-		<div class="px-4 py-5 font-mono sm:px-5 sm:py-6">
-			<div class="text-sm text-[var(--color-heading)]">
-				<span class="mr-1 text-[var(--color-primary)]">$</span>
-				profile --summary
-			</div>
-
-			<div
-				class="mt-5 grid gap-6 lg:grid-cols-[320px_minmax(0,1fr)] lg:items-start xl:grid-cols-[320px_minmax(0,1fr)]"
-			>
-				<pre
-					aria-hidden="true"
-					class="overflow-hidden text-[10px] leading-[0.9] text-[var(--color-primary)] sm:text-[11px]">{terminalGlyph.join('\n')}</pre>
-
-				<div class="space-y-1 text-sm sm:text-[15px]">
-					{
-						profileSummary.map(({ label, value }) => (
-							<p class="flex flex-wrap items-baseline gap-y-0">
-								<span class="text-[var(--color-primary)]">&gt;</span>
-								<span class="ml-4 text-white/42">{label}:</span>
-								<span class="ml-1 text-[var(--color-primary)]">{value}</span>
-							</p>
-						))
-					}
-				</div>
-			</div>
-
-			<div class="mt-2 pt-3 text-sm text-[var(--color-heading)]">
-				<span class="mr-1 text-[var(--color-primary)]">$</span>
-				focus --build scalable-web-products --interest devops-cloud-architecture
-				<span
-					class="ds-terminal-caret ml-1 inline-block h-4 w-2 translate-y-0.5 bg-[var(--color-primary)]/85"
-				></span>
-			</div>
-		</div>
-	</div>
-</section>
-
-<style>
-	[data-hero-photo-card].is-touch-active [data-hero-photo-image] {
-		transform: scale(1.01);
-		filter: saturate(1) contrast(1) brightness(1);
-	}
-
-	[data-hero-photo-card].is-touch-active [data-hero-photo-overlay] {
-		opacity: 0;
-	}
-
-	@media (hover: none) {
-		[data-hero-photo-card]:active [data-hero-photo-image] {
-			transform: scale(1.01);
-			filter: saturate(1) contrast(1) brightness(1);
-		}
-
-		[data-hero-photo-card]:active [data-hero-photo-overlay] {
-			opacity: 0;
-		}
-	}
-
-	.ds-terminal-control:hover .ds-terminal-control-icon,
-	.ds-terminal-control:focus-visible .ds-terminal-control-icon {
-		opacity: 1;
-		transform: scale(1);
-	}
-
-	.ds-terminal-control {
-		position: relative;
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		width: 0.9rem;
-		height: 0.9rem;
-		border-radius: 999px;
-		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
-	}
-
-	.ds-terminal-control-icon {
-		position: absolute;
-		inset: 0;
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		opacity: 0;
-		transform: scale(0.8);
-		transition:
-			opacity 160ms ease,
-			transform 160ms ease;
-	}
-
-	.ds-terminal-control-icon-close::before {
-		content: '×';
-		font-size: 0.7rem;
-		font-weight: 700;
-		line-height: 1;
-	}
-
-	.ds-terminal-control-icon-minimize::before {
-		content: '−';
-		font-size: 0.8rem;
-		font-weight: 700;
-		line-height: 1;
-		transform: translateY(-0.02rem);
-	}
-
-	.ds-terminal-control-icon-expand svg {
-		width: 0.55rem;
-		height: 0.55rem;
-	}
-
-	.ds-terminal-caret {
-		animation: terminal-caret-blink 1s steps(1, end) infinite;
-	}
-
-	@keyframes terminal-caret-blink {
-		0%,
-		49% {
+	<style>
+		.ds-terminal-control:hover .ds-terminal-control-icon,
+		.ds-terminal-control:focus-visible .ds-terminal-control-icon {
 			opacity: 1;
+			transform: scale(1);
 		}
 
-		50%,
-		100% {
+		.ds-terminal-control {
+			position: relative;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 0.58rem;
+			height: 0.58rem;
+			border-radius: 999px;
+			box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+		}
+
+		.ds-terminal-control-icon {
+			position: absolute;
+			inset: 0;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
 			opacity: 0;
+			transform: scale(0.8);
+			transition:
+				opacity 160ms ease,
+				transform 160ms ease;
 		}
-	}
 
-	@media (prefers-reduced-motion: reduce) {
+		.ds-terminal-control-icon-close::before {
+			content: '×';
+			font-size: 0.46rem;
+			font-weight: 700;
+			line-height: 1;
+		}
+
+		.ds-terminal-control-icon-minimize::before {
+			content: '−';
+			font-size: 0.5rem;
+			font-weight: 700;
+			line-height: 1;
+			transform: translateY(-0.02rem);
+		}
+
+		.ds-terminal-control-icon-expand svg {
+			width: 0.34rem;
+			height: 0.34rem;
+		}
+
 		.ds-terminal-caret {
-			animation: none;
-		}
-	}
-</style>
-
-<script is:inline>
-	(() => {
-		const setupHeroTouchPhotoState = () => {
-			window.__heroTouchPhotoCleanup?.();
-
-			const cards = Array.from(
-				document.querySelectorAll('[data-hero-photo-card]'),
-			);
-
-			if (!cards.length) {
-				window.__heroTouchPhotoCleanup = undefined;
-				return;
-			}
-
-			const supportsTouch =
-				'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
-			if (!supportsTouch) {
-				window.__heroTouchPhotoCleanup = undefined;
-				return;
-			}
-
-			const cleanups = cards.map((card) => {
-				let touchTimer;
-
-				const activate = () => {
-					card.classList.add('is-touch-active');
-					window.clearTimeout(touchTimer);
-					touchTimer = window.setTimeout(() => {
-						card.classList.remove('is-touch-active');
-					}, 850);
-				};
-
-				const onTouchStart = () => activate();
-				const onTouchEnd = () => activate();
-				const onClick = () => activate();
-				const onTouchCancel = () => {
-					window.clearTimeout(touchTimer);
-					card.classList.remove('is-touch-active');
-				};
-
-				card.addEventListener('touchstart', onTouchStart, { passive: true });
-				card.addEventListener('touchend', onTouchEnd, { passive: true });
-				card.addEventListener('click', onClick);
-				card.addEventListener('touchcancel', onTouchCancel, { passive: true });
-
-				return () => {
-					window.clearTimeout(touchTimer);
-					card.classList.remove('is-touch-active');
-					card.removeEventListener('touchstart', onTouchStart);
-					card.removeEventListener('touchend', onTouchEnd);
-					card.removeEventListener('click', onClick);
-					card.removeEventListener('touchcancel', onTouchCancel);
-				};
-			});
-
-			window.__heroTouchPhotoCleanup = () => {
-				cleanups.forEach((cleanup) => cleanup());
-			};
-		};
-
-		if (document.readyState === 'loading') {
-			document.addEventListener('DOMContentLoaded', setupHeroTouchPhotoState, {
-				once: true,
-			});
-		} else {
-			setupHeroTouchPhotoState();
+			animation: terminal-caret-blink 1s steps(1, end) infinite;
 		}
 
-		document.addEventListener('astro:page-load', setupHeroTouchPhotoState);
-	})();
-</script>
+		@media (min-width: 768px) {
+			[data-hero-floating-terminal] {
+				--hero-terminal-offset-x: -1.5rem;
+				transform: translate(var(--hero-terminal-offset-x), -50%);
+				animation: hero-terminal-float 6s ease-in-out infinite;
+			}
+		}
+
+		@media (min-width: 1024px) {
+			[data-hero-floating-terminal] {
+				--hero-terminal-offset-x: -2rem;
+			}
+		}
+
+		@keyframes terminal-caret-blink {
+			0%,
+			49% {
+				opacity: 1;
+			}
+
+			50%,
+			100% {
+				opacity: 0;
+			}
+		}
+
+		@keyframes hero-terminal-float {
+			0%,
+			100% {
+				transform: translate(var(--hero-terminal-offset-x, -1.5rem), -50%);
+			}
+
+			50% {
+				transform: translate(var(--hero-terminal-offset-x, -1.5rem), -65%);
+			}
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			[data-hero-floating-terminal] {
+				animation: none;
+			}
+
+			.ds-terminal-caret {
+				animation: none;
+			}
+		}
+	</style>
+</section>

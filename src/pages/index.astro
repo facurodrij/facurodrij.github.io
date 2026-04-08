@@ -11,10 +11,20 @@ import Experience from '../components/Experience.astro';
 
 <Layout title="Portfolio de facurodrij - Desarrollador web">
 	<main class="pb-8 pt-4">
-		<Container id="Banner" class="py-28 md:py-36">
+		<Container id="Banner" class="pt-28 pb-36 md:pt-36 md:pb-48">
 			<Hero />
 		</Container>
 		<div class="space-y-24 pb-8 md:space-y-28">
+			<Container id="sobre-mi">
+				<TitleSection
+					><span class="ds-section-title-shimmer">Quién soy</span></TitleSection
+				>
+				<p class="ds-body mx-auto mb-8 max-w-2xl text-center">
+					Perfil, enfoque de trabajo e intereses que hoy orientan mi camino en
+					IT.
+				</p>
+				<AboutMe />
+			</Container>
 			<Container id="experiencia">
 				<TitleSection
 					><span class="text-[var(--color-heading)]">Mi</span>
@@ -42,16 +52,6 @@ import Experience from '../components/Experience.astro';
 					Algunos de mis trabajos más destacados.
 				</p>
 				<Projects />
-			</Container>
-			<Container id="sobre-mi">
-				<TitleSection
-					><span class="ds-section-title-shimmer">Quién soy</span></TitleSection
-				>
-				<p class="ds-body mx-auto mb-8 max-w-2xl text-center">
-					Perfil, enfoque de trabajo e intereses que hoy orientan mi camino en
-					IT.
-				</p>
-				<AboutMe />
 			</Container>
 		</div>
 	</main>
