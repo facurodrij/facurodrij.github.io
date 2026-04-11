@@ -66,11 +66,6 @@ const terminalCommands = [
 				interés en DevOps, Cloud y arquitectura de software.
 			</p>
 
-			<p class="ds-body mt-4 max-w-2xl text-base sm:text-lg">
-				Trabajo entre producto, backend y frontend para diseñar soluciones
-				mantenibles, claras para el negocio y sólidas para crecer en producción.
-			</p>
-
 			<div class="mt-8 flex flex-wrap items-center gap-3">
 				<a href="/curriculum_vitae.pdf" target="_blank" rel="noopener noreferrer" class="ds-button ds-button-primary">
 					<DownloadIcon class="size-4" />
@@ -90,7 +85,8 @@ const terminalCommands = [
 				<ProfilePhoto class="md:justify-end" frameClass="max-w-[21rem] sm:max-w-[22rem] md:max-w-[24rem] lg:max-w-[26rem]" />
 
 				<div class="mt-4 w-full md:absolute md:left-0 md:top-[92%] md:z-10 md:mt-0 md:w-[18rem] lg:w-[20rem]" data-hero-floating-terminal>
-					<div class="ds-glass-panel w-full overflow-hidden rounded-[var(--radius-lg)]">
+					<div class="hero-terminal-aura">
+						<div class="hero-terminal-shell ds-glass-panel w-full overflow-hidden rounded-[var(--radius-lg)]">
 						<div class="ds-terminal-bar relative flex items-center border-b border-white/6 px-4 py-2.5 sm:px-5">
 							<div class="ds-terminal-controls flex items-center gap-1">
 								<span class="ds-terminal-control bg-[#ff5f57] text-[#6b1010]">
@@ -144,6 +140,7 @@ const terminalCommands = [
 								</div>
 							</div>
 						</div>
+					</div>
 					</div>
 				</div>
 			</div>
@@ -203,6 +200,52 @@ const terminalCommands = [
 
 		.ds-terminal-caret {
 			animation: terminal-caret-blink 1s steps(1, end) infinite;
+		}
+
+		.hero-terminal-aura {
+			position: relative;
+			border-radius: calc(var(--radius-lg) + 0.9rem);
+		}
+
+		.hero-terminal-aura::before {
+			content: '';
+			position: absolute;
+			inset: 0rem;
+			z-index: 0;
+			border-radius: calc(var(--radius-lg) + 1.15rem);
+			border: 1px solid rgba(0, 208, 132, 0.22);
+			opacity: 0;
+			box-shadow:
+				0 0 14px rgba(0, 208, 132, 0.18),
+				0 0 32px rgba(0, 208, 132, 0.14),
+				0 0 56px rgba(56, 189, 248, 0.1);
+			filter: blur(10px);
+			transition: opacity 220ms ease, transform 220ms ease;
+			pointer-events: none;
+			transform: scale(0.96);
+		}
+
+		.hero-terminal-shell {
+			position: relative;
+			z-index: 1;
+			transition:
+				box-shadow 220ms ease,
+				border-color 220ms ease,
+				transform 220ms ease;
+		}
+
+		[data-hero-floating-terminal]:hover .hero-terminal-aura::before,
+		[data-hero-floating-terminal]:focus-within .hero-terminal-aura::before {
+			opacity: 1;
+			transform: scale(1);
+		}
+
+		[data-hero-floating-terminal]:hover .hero-terminal-shell,
+		[data-hero-floating-terminal]:focus-within .hero-terminal-shell {
+			border-color: rgba(255, 255, 255, 0.22);
+			box-shadow:
+				0 0 0 1px rgba(255, 255, 255, 0.04),
+				0 22px 60px rgba(2, 6, 23, 0.4);
 		}
 
 		@media (min-width: 768px) {
