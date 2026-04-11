@@ -27,7 +27,7 @@ const {
 <div
 	id={id}
 	class:list={[
-		'ds-experience-item ds-card ds-card-glass relative ml-4 grid gap-6 px-6 py-6 md:ml-6 md:grid-cols-5 md:gap-8',
+		'ds-experience-item ds-card ds-glass-panel relative ml-4 grid gap-6 px-6 py-6 md:ml-6 md:grid-cols-5 md:gap-8',
 		{ 'is-current': current },
 	]}
 	data-experience-item
@@ -123,14 +123,16 @@ const {
 		transform: translateY(0);
 		transform-origin: left center;
 		will-change: transform, opacity;
-		border-color: rgba(148, 163, 184, 0.08);
-		background: linear-gradient(
-			180deg,
-			rgba(9, 15, 28, 0.9),
-			rgba(7, 11, 22, 0.96)
-		);
-		box-shadow: 0 18px 48px rgba(2, 6, 23, 0.28);
-		filter: saturate(0.7) brightness(0.72) contrast(0.9);
+		border-color: rgba(148, 163, 184, 0.14);
+		background:
+			linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0) 28%),
+			linear-gradient(180deg, rgba(10, 17, 31, 0.76), rgba(6, 11, 22, 0.58));
+		box-shadow:
+			0 22px 60px rgba(2, 6, 23, 0.34),
+			inset 0 1px 0 rgba(255, 255, 255, 0.05),
+			inset 0 -1px 0 rgba(2, 6, 23, 0.22);
+		backdrop-filter: blur(24px) saturate(140%);
+		-webkit-backdrop-filter: blur(24px) saturate(140%);
 		transition:
 			opacity 260ms ease,
 			transform 260ms ease,
@@ -140,7 +142,6 @@ const {
 
 	.ds-experience-item[data-timeline-state='future'][data-revealed='true'] {
 		opacity: 0.54;
-		filter: saturate(0.7) brightness(0.72) contrast(0.9);
 	}
 
 	.ds-experience-item[data-active='true'] {
@@ -153,11 +154,10 @@ const {
 				rgba(56, 189, 248, 0.14),
 				transparent 38%
 			),
-			linear-gradient(180deg, rgba(13, 23, 41, 0.98), rgba(8, 14, 28, 0.98));
+			linear-gradient(180deg, rgba(13, 23, 41, 0.84), rgba(8, 14, 28, 0.66));
 		box-shadow:
 			0 30px 80px rgba(2, 6, 23, 0.48),
 			0 0 0 1px rgba(56, 189, 248, 0.2);
-		filter: none;
 	}
 
 	.ds-experience-item[data-timeline-state='past']:hover {
@@ -170,11 +170,10 @@ const {
 				rgba(56, 189, 248, 0.14),
 				transparent 38%
 			),
-			linear-gradient(180deg, rgba(13, 23, 41, 0.98), rgba(8, 14, 28, 0.98));
+			linear-gradient(180deg, rgba(13, 23, 41, 0.84), rgba(8, 14, 28, 0.66));
 		box-shadow:
 			0 30px 80px rgba(2, 6, 23, 0.48),
 			0 0 0 1px rgba(56, 189, 248, 0.2);
-		filter: none;
 	}
 
 	.ds-experience-item.is-current {
@@ -192,7 +191,7 @@ const {
 				rgba(0, 208, 132, 0.18),
 				transparent 40%
 			),
-			linear-gradient(180deg, rgba(11, 24, 28, 0.98), rgba(7, 16, 20, 0.98));
+			linear-gradient(180deg, rgba(11, 24, 28, 0.84), rgba(7, 16, 20, 0.66));
 		box-shadow:
 			0 32px 84px rgba(2, 6, 23, 0.52),
 			0 0 0 1px rgba(0, 208, 132, 0.24);
@@ -206,11 +205,10 @@ const {
 				rgba(0, 208, 132, 0.18),
 				transparent 40%
 			),
-			linear-gradient(180deg, rgba(11, 24, 28, 0.98), rgba(7, 16, 20, 0.98));
+			linear-gradient(180deg, rgba(11, 24, 28, 0.84), rgba(7, 16, 20, 0.66));
 		box-shadow:
 			0 32px 84px rgba(2, 6, 23, 0.52),
 			0 0 0 1px rgba(0, 208, 132, 0.24);
-		filter: none;
 	}
 
 	.ds-experience-item

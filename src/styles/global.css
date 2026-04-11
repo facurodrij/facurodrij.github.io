@@ -234,13 +234,30 @@ body.ds-shell[data-pointer-fine='true'][data-spotlight-active='true']::after {
 	backdrop-filter: blur(20px);
 }
 
+.ds-glass-panel,
 .ds-card-glass {
-	background:
-		linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0)),
-		rgba(15, 23, 42, 0.34);
-	border: 1px solid rgba(255, 255, 255, 0.08);
-	box-shadow: 0 18px 48px rgba(2, 6, 23, 0.35);
-	backdrop-filter: blur(20px);
+	position: relative;
+	isolation: isolate;
+	background: rgba(11, 18, 32, 0.68);
+	border: 1px solid rgba(148, 163, 184, 0.16);
+	box-shadow:
+		0 22px 60px rgba(2, 6, 23, 0.34),
+		inset 0 1px 0 rgba(255, 255, 255, 0.05),
+		inset 0 -1px 0 rgba(2, 6, 23, 0.22);
+	backdrop-filter: blur(24px) saturate(140%);
+	-webkit-backdrop-filter: blur(24px) saturate(140%);
+}
+
+.ds-glass-button {
+	position: relative;
+	isolation: isolate;
+	background: rgba(11, 18, 32, 0.68);
+	border: 1px solid rgba(148, 163, 184, 0.16);
+	box-shadow:
+		0 14px 34px rgba(2, 6, 23, 0.26),
+		inset 0 1px 0 rgba(255, 255, 255, 0.05);
+	backdrop-filter: blur(18px) saturate(145%);
+	-webkit-backdrop-filter: blur(18px) saturate(145%);
 }
 
 .ds-eyebrow {
@@ -379,23 +396,18 @@ body.ds-shell[data-pointer-fine='true'][data-spotlight-active='true']::after {
 }
 
 .ds-button-secondary {
-	background:
-		linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0)),
-		rgba(15, 23, 42, 0.34);
-	border-color: rgba(255, 255, 255, 0.08);
 	color: var(--color-text);
-	box-shadow: 0 18px 48px rgba(2, 6, 23, 0.35);
-	backdrop-filter: blur(20px);
+	border-color: rgba(148, 163, 184, 0.16);
 }
 
 .ds-button-secondary:hover {
 	transform: translateY(-1px);
 	border-color: rgba(56, 189, 248, 0.26);
-	background:
-		linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0)),
-		rgba(56, 189, 248, 0.14);
+	background: rgba(22, 32, 52, 0.82);
 	color: var(--color-heading);
-	box-shadow: 0 20px 52px rgba(2, 6, 23, 0.38);
+	box-shadow:
+		0 18px 40px rgba(2, 6, 23, 0.3),
+		0 0 0 1px rgba(56, 189, 248, 0.08);
 }
 
 .ds-tag {
