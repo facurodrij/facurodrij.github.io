@@ -1,8 +1,9 @@
----
+﻿---
 import ReactIcon from './icons/React.astro';
 import NextjsIcon from './icons/Nextjs.astro';
 import TypeScriptIcon from './icons/TypeScript.astro';
 import JavaScriptIcon from './icons/JavaScript.astro';
+import TerraformIcon from './icons/Terraform.astro';
 import NodejsIcon from './icons/Nodejs.astro';
 import ExpressIcon from './icons/Express.astro';
 import JqueryIcon from './icons/Jquery.astro';
@@ -17,6 +18,8 @@ import BootstrapIcon from './icons/Bootstrap.astro';
 import MongoDBIcon from './icons/MongoDB.astro';
 import PostgreSQLIcon from './icons/PostgreSQL.astro';
 import SQLiteIcon from './icons/SQLite.astro';
+import FirebaseIcon from './icons/Firebase.astro';
+import RedisIcon from './icons/Redis.astro';
 import DockerIcon from './icons/Docker.astro';
 import KubernetesIcon from './icons/Kubernetes.astro';
 import GcpIcon from './icons/Gcp.astro';
@@ -36,6 +39,16 @@ const TECHNOLOGY_GROUPS = [
 		title: 'Lenguajes & Frameworks',
 		items: [
 			{
+				name: 'JavaScript',
+				icon: JavaScriptIcon,
+				badgeClassName: 'bg-[#F7DF1E] text-[#111827]',
+			},
+			{
+				name: 'TypeScript',
+				icon: TypeScriptIcon,
+				badgeClassName: 'bg-[#3178C6] text-white',
+			},
+			{
 				name: 'React',
 				icon: ReactIcon,
 				badgeClassName: 'bg-[#07131c] text-[#61DAFB]',
@@ -44,16 +57,6 @@ const TECHNOLOGY_GROUPS = [
 				name: 'Next.js',
 				icon: NextjsIcon,
 				badgeClassName: 'bg-white text-black',
-			},
-			{
-				name: 'TypeScript',
-				icon: TypeScriptIcon,
-				badgeClassName: 'bg-[#3178C6] text-white',
-			},
-			{
-				name: 'JavaScript',
-				icon: JavaScriptIcon,
-				badgeClassName: 'bg-[#F7DF1E] text-[#111827]',
 			},
 			{
 				name: 'Node.js',
@@ -66,14 +69,9 @@ const TECHNOLOGY_GROUPS = [
 				badgeClassName: 'bg-white text-black',
 			},
 			{
-				name: 'jQuery',
-				icon: JqueryIcon,
-				badgeClassName: 'bg-white text-[#0868AC]',
-			},
-			{
-				name: 'Django',
-				icon: DjangoIcon,
-				badgeClassName: 'bg-[#092E20] text-white',
+				name: 'Python',
+				icon: PythonIcon,
+				badgeClassName: 'bg-[#0f172a] text-white',
 			},
 			{
 				name: 'Flask',
@@ -81,9 +79,14 @@ const TECHNOLOGY_GROUPS = [
 				badgeClassName: 'bg-white text-[#010101]',
 			},
 			{
-				name: 'Python',
-				icon: PythonIcon,
-				badgeClassName: 'bg-[#0f172a] text-white',
+				name: 'Django',
+				icon: DjangoIcon,
+				badgeClassName: 'bg-[#092E20] text-white',
+			},
+			{
+				name: 'jQuery',
+				icon: JqueryIcon,
+				badgeClassName: 'bg-white text-[#0868AC]',
 			},
 			{
 				name: '.NET',
@@ -96,14 +99,14 @@ const TECHNOLOGY_GROUPS = [
 		title: 'UI & Animation Libraries',
 		items: [
 			{
+				name: 'Bootstrap',
+				icon: BootstrapIcon,
+				badgeClassName: 'bg-[#7952B3] text-white',
+			},
+			{
 				name: 'Material UI',
 				icon: MaterialUiIcon,
 				badgeClassName: 'bg-[#08131d] text-[#1FA6CA]',
-			},
-			{
-				name: 'shadcn/ui',
-				icon: ShadcnIcon,
-				badgeClassName: 'bg-white text-black',
 			},
 			{
 				name: 'Tailwind CSS',
@@ -111,15 +114,20 @@ const TECHNOLOGY_GROUPS = [
 				badgeClassName: 'bg-[#041c29] text-[#06B6D4]',
 			},
 			{
-				name: 'Bootstrap',
-				icon: BootstrapIcon,
-				badgeClassName: 'bg-[#7952B3] text-white',
+				name: 'shadcn/ui',
+				icon: ShadcnIcon,
+				badgeClassName: 'bg-white text-black',
 			},
 		],
 	},
 	{
 		title: 'Bases de Datos',
 		items: [
+			{
+				name: 'Firebase',
+				icon: FirebaseIcon,
+				badgeClassName: 'bg-[#fff7ed] text-[#f58220]',
+			},
 			{
 				name: 'MongoDB',
 				icon: MongoDBIcon,
@@ -129,6 +137,11 @@ const TECHNOLOGY_GROUPS = [
 				name: 'PostgreSQL',
 				icon: PostgreSQLIcon,
 				badgeClassName: 'bg-[#10273d] text-white',
+			},
+			{
+				name: 'Redis',
+				icon: RedisIcon,
+				badgeClassName: 'bg-[#2f1108] text-[#D82C20]',
 			},
 			{
 				name: 'SQLite',
@@ -146,9 +159,19 @@ const TECHNOLOGY_GROUPS = [
 				badgeClassName: 'bg-[#031f33] text-[#2496ED]',
 			},
 			{
+				name: 'GitHub Actions',
+				icon: GithubActionsIcon,
+				badgeClassName: 'bg-[#06172f] text-[#2088FF]',
+			},
+			{
 				name: 'Kubernetes',
 				icon: KubernetesIcon,
 				badgeClassName: 'bg-[#071426] text-[#326CE5]',
+			},
+			{
+				name: 'Terraform',
+				icon: TerraformIcon,
+				badgeClassName: 'bg-white text-[#5c4ee5]',
 			},
 			{
 				name: 'GCP',
@@ -160,16 +183,16 @@ const TECHNOLOGY_GROUPS = [
 				icon: RailwayIcon,
 				badgeClassName: 'bg-[#0b1020] text-white',
 			},
-			{
-				name: 'GitHub Actions',
-				icon: GithubActionsIcon,
-				badgeClassName: 'bg-[#06172f] text-[#2088FF]',
-			},
 		],
 	},
 	{
 		title: 'Herramientas & Plataformas',
 		items: [
+			{
+				name: 'Cursor',
+				icon: CursorIcon,
+				badgeClassName: 'bg-transparent text-white shadow-none',
+			},
 			{
 				name: 'Jira',
 				icon: JiraIcon,
@@ -179,11 +202,6 @@ const TECHNOLOGY_GROUPS = [
 				name: 'Notion',
 				icon: NotionIcon,
 				badgeClassName: 'bg-white text-black',
-			},
-			{
-				name: 'Cursor',
-				icon: CursorIcon,
-				badgeClassName: 'bg-transparent text-white shadow-none',
 			},
 			{
 				name: 'OpenCode',
