@@ -53,8 +53,12 @@ const terminalCommands = [
 				2+ años de experiencia
 			</span>
 
+			<p class="font-[var(--font-heading)] text-sm font-semibold uppercase tracking-[0.22em] text-[var(--color-text-soft)] sm:text-base">
+				Hola, soy
+			</p>
+
 			<h1 data-ui-heading="true" class="max-w-4xl text-balance text-4xl font-bold tracking-tight text-[var(--color-heading)] sm:text-5xl lg:text-6xl">
-				Facundo Joel Rodriguez
+				<span class="ds-section-title-shimmer inline-block">Facundo Joel Rodriguez</span>
 			</h1>
 
 			<p class="ds-body mt-6 max-w-3xl text-lg sm:text-xl">
@@ -105,12 +109,12 @@ const terminalCommands = [
 									</span>
 								</span>
 							</div>
-							<span class="pointer-events-none absolute left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[10px] tracking-[0.08em] text-white/40">
+							<span class="pointer-events-none absolute left-1/2 -translate-x-1/2 whitespace-nowrap font-[var(--font-mono)] text-[10px] tracking-[0.08em] text-white/40">
 								~/summary
 							</span>
 						</div>
 
-						<div class="px-4 py-4 font-mono sm:px-5 sm:py-5">
+						<div class="px-4 py-4 font-[var(--font-mono)] sm:px-5 sm:py-5">
 							<div class="space-y-0.5 text-[12px] leading-[1.35] sm:text-[13px]">
 								{
 									terminalCommands.map(({ command, outputEntries }) => (
@@ -123,9 +127,9 @@ const terminalCommands = [
 											<div class="space-y-0.5 text-[var(--color-heading)]">
 												{
 													outputEntries.map(({ label, value }) => (
-													<p class="flex items-baseline gap-x-1.5 whitespace-nowrap">
+													<p class="grid grid-cols-[auto_minmax(0,1fr)] items-baseline gap-x-1.5">
 														<span class="text-white/30">{label}:</span>
-														<span class="text-[var(--color-primary)]">{value}</span>
+														<span class="min-w-0 text-[var(--color-primary)] break-words">{value}</span>
 													</p>
 													))
 												}
