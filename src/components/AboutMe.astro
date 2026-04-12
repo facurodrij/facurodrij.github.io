@@ -5,22 +5,72 @@
 	<div class="grid gap-4 lg:grid-cols-12 lg:gap-5">
 		<div class="grid gap-4 lg:col-span-4 lg:grid-rows-[minmax(0,1.35fr)_minmax(0,0.9fr)] lg:gap-5">
 			<section class="aboutme-panel aboutme-panel-hero">
-				<div class="flex items-start justify-between gap-4">
-					<div>
-						<p class="aboutme-panel-label">Formación</p>
-					</div>
-					<span class="aboutme-dot mt-1"></span>
+				<p class="aboutme-panel-label">Formación</p>
+
+				<div class="aboutme-education-list">
+					<article class="aboutme-education-item">
+						<div class="aboutme-education-copy">
+							<h3 class="aboutme-education-title">
+								Universidad Nacional de Misiones
+							</h3>
+							<p class="aboutme-education-degree">
+								Licenciatura en Sistemas de Información
+							</p>
+						</div>
+
+						<div class="aboutme-education-meta">
+							<p class="aboutme-education-location">Misiones - Argentina</p>
+							<p class="aboutme-education-dates">Feb. 2019 - Jun. 2024</p>
+						</div>
+					</article>
+
+					<article class="aboutme-education-item">
+						<div class="aboutme-education-copy">
+							<h3 class="aboutme-education-title">
+								Universidad Nacional de Misiones
+							</h3>
+							<p class="aboutme-education-degree">
+								Analista en Sistemas de Computación
+							</p>
+						</div>
+
+						<div class="aboutme-education-meta">
+							<p class="aboutme-education-location">Misiones - Argentina</p>
+							<p class="aboutme-education-dates">Feb. 2019 - Mar. 2023</p>
+						</div>
+					</article>
 				</div>
 			</section>
 
-			<section class="aboutme-panel aboutme-location-panel"></section>
+			<section class="aboutme-panel aboutme-location-panel">
+				<div class="aboutme-location-content">
+					<h3 class="aboutme-location-title">Posadas, Argentina</h3>
+					<p class="aboutme-location-coordinates">27.3671° S, 55.8961° W</p>
+					<p class="aboutme-location-timezone">- UTC-3</p>
+				</div>
+			</section>
 		</div>
 
-		<section class="aboutme-panel lg:col-span-8">
-			<div class="flex justify-center">
-				<span class="aboutme-kicker">Cómo trabajo</span>
-			</div>
-		</section>
+		<div class="aboutme-summary-panels lg:col-span-8">
+			<section class="aboutme-panel aboutme-summary-panel aboutme-summary-panel-wide">
+				<p class="aboutme-panel-label">Hoy me mueve</p>
+				<p class="aboutme-summary-copy">
+					Aprender, construir y aportar en proyectos con impacto.
+				</p>
+			</section>
+
+			<section class="aboutme-panel aboutme-summary-panel">
+				<p class="aboutme-panel-label">Mentalidad</p>
+				<p class="aboutme-summary-copy">Software claro, util y bien resuelto.</p>
+			</section>
+
+			<section class="aboutme-panel aboutme-summary-panel">
+				<p class="aboutme-panel-label">Enfoque</p>
+				<p class="aboutme-summary-copy">
+					Vision full stack con criterio tecnico y foco en producto.
+				</p>
+			</section>
+		</div>
 	</div>
 </article>
 
@@ -58,7 +108,112 @@
 	}
 
 	.aboutme-panel-hero {
+		justify-content: flex-start;
+		gap: 1.35rem;
 		min-height: 19rem;
+	}
+
+	.aboutme-summary-panels {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 0.95rem;
+	}
+
+	.aboutme-summary-panel {
+		justify-content: flex-start;
+		gap: 1.25rem;
+		min-height: 9.5rem;
+	}
+
+	.aboutme-summary-copy {
+		max-width: 24ch;
+		font-family: var(--font-heading);
+		font-size: clamp(1.25rem, 2vw, 1.75rem);
+		font-weight: 700;
+		line-height: 1.08;
+		letter-spacing: -0.03em;
+		color: var(--color-heading);
+		text-wrap: balance;
+	}
+
+	.aboutme-education-list {
+		position: relative;
+		display: grid;
+		gap: 0.95rem;
+		padding-left: 1.65rem;
+	}
+
+	.aboutme-education-list::before {
+		content: '';
+		position: absolute;
+		top: 0.35rem;
+		bottom: 0.35rem;
+		left: 0.28rem;
+		width: 1px;
+		background: rgba(148, 163, 184, 0.18);
+	}
+
+	.aboutme-education-item {
+		position: relative;
+		display: grid;
+		gap: 0.42rem;
+		padding: 0.15rem 0;
+	}
+
+	.aboutme-education-item::before {
+		content: '';
+		position: absolute;
+		top: 0.35rem;
+		left: -1.65rem;
+		width: 0.56rem;
+		height: 0.56rem;
+		border-radius: 999px;
+		background: var(--color-primary);
+		box-shadow: 0 0 0 4px rgba(0, 208, 132, 0.08);
+	}
+
+	.aboutme-education-copy {
+		display: grid;
+		gap: 0.18rem;
+	}
+
+	.aboutme-education-title {
+		font-family: var(--font-heading);
+		font-size: 0.98rem;
+		font-weight: 700;
+		line-height: 1.25;
+		color: var(--color-heading);
+	}
+
+	.aboutme-education-degree {
+		font-size: 0.9rem;
+		font-style: italic;
+		line-height: 1.35;
+		color: rgba(226, 232, 240, 0.88);
+	}
+
+	.aboutme-education-meta {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.3rem 0.55rem;
+		padding-top: 0.05rem;
+		color: var(--color-text-muted);
+	}
+
+	.aboutme-education-location,
+	.aboutme-education-dates {
+		font-size: 0.82rem;
+		line-height: 1.4;
+	}
+
+	.aboutme-education-location {
+		font-weight: 500;
+		color: rgba(241, 245, 249, 0.78);
+	}
+
+	.aboutme-education-dates {
+		color: rgba(148, 163, 184, 0.92);
 	}
 
 	.aboutme-location-panel {
@@ -72,6 +227,41 @@
 			inset 0 1px 0 rgba(255, 255, 255, 0.03);
 	}
 
+	.aboutme-location-content {
+		display: grid;
+		gap: 0.14rem;
+		max-width: 100%;
+	}
+
+	.aboutme-location-title {
+		font-family: var(--font-heading);
+		font-size: clamp(1.2rem, 2.65vw, 1.95rem);
+		font-weight: 900;
+		line-height: 0.94;
+		letter-spacing: -0.05em;
+		color: rgba(248, 250, 252, 0.98);
+		white-space: nowrap;
+		text-shadow: 0 18px 36px rgba(2, 6, 23, 0.48);
+	}
+
+	.aboutme-location-coordinates {
+		font-size: 0.78rem;
+		font-weight: 600;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: rgba(226, 232, 240, 0.58);
+		text-shadow: 0 10px 24px rgba(2, 6, 23, 0.34);
+	}
+
+	.aboutme-location-timezone {
+		font-size: 0.8rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-primary);
+		text-shadow: 0 10px 24px rgba(2, 6, 23, 0.34);
+	}
+
 	.aboutme-location-panel::before {
 		content: '';
 		position: absolute;
@@ -79,7 +269,7 @@
 		background:
 			linear-gradient(180deg, rgba(8, 10, 18, 0.26), rgba(8, 10, 18, 0.82)),
 			radial-gradient(circle at 50% 16%, rgba(255, 255, 255, 0.08), transparent 48%),
-			url('/posadas.jpg') center center / cover no-repeat;
+			url('/posadas.jpeg') center center / cover no-repeat;
 		filter: grayscale(1) contrast(1.02) brightness(0.88);
 		transform: scale(1.01);
 	}
@@ -98,30 +288,20 @@
 		letter-spacing: 0.14em;
 		text-transform: uppercase;
 		color: var(--color-text-muted);
-	}
-
-	.aboutme-kicker {
+		position: relative;
 		display: inline-flex;
 		align-items: center;
-		justify-content: center;
-		padding: 0.7rem 1.25rem;
-		border-radius: 999px;
-		border: 1px solid rgba(139, 92, 246, 0.18);
-		background: rgba(17, 24, 39, 0.72);
-		font-family: var(--font-heading);
-		font-size: 0.72rem;
-		font-weight: 700;
-		letter-spacing: 0.22em;
-		text-transform: uppercase;
-		color: #a855f7;
 	}
 
-	.aboutme-dot {
-		width: 0.72rem;
-		height: 0.72rem;
+	.aboutme-panel-label::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		bottom: -0.36rem;
+		width: 2.2rem;
+		height: 2px;
 		border-radius: 999px;
 		background: var(--color-primary);
-		box-shadow: 0 0 18px rgba(0, 208, 132, 0.48);
 	}
 
 	@media (min-width: 768px) {
@@ -129,14 +309,44 @@
 			padding: 1.75rem;
 		}
 
+		.aboutme-summary-panels {
+			gap: 1.25rem;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.aboutme-summary-panel {
+			min-height: 0;
+			gap: 1.25rem;
+		}
+
+		.aboutme-summary-panel-wide {
+			grid-column: 1 / -1;
+		}
+
+		.aboutme-education-item {
+			gap: 0.45rem;
+		}
+
 		.aboutme-location-panel {
 			padding: 1.35rem 1.5rem;
+		}
+
+		.aboutme-location-title {
+			font-size: clamp(1.45rem, 1.95vw, 2.1rem);
 		}
 	}
 
 	@media (min-width: 1024px) {
 		.aboutme-panel {
 			min-height: 18rem;
+		}
+
+		.aboutme-summary-panel {
+			min-height: 15rem;
+		}
+
+		.aboutme-summary-panel-wide {
+			min-height: 10.5rem;
 		}
 
 		.aboutme-panel-hero {
