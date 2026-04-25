@@ -88,6 +88,16 @@ const PROJECTS = [
 		tools: [TOOLS.SOLIDITY, TOOLS.TRUFFLE, TOOLS.DJANGO, TOOLS.BOOTSTRAP],
 	},
 	{
+		title: 'RESERVÁ - Sistema de gestión de clubes deportivos (Académico)',
+		description:
+			'Sistema de gestión de reservas de canchas, manejo de eventos y administración de socios para clubes. Integración con la API de MercadoPago para el cobro de reservas, tickets y membresías.',
+		github: 'https://github.com/facurodrij/TrabajoFinal_ASC',
+		link: undefined,
+		image: '/projects/4.webp',
+		doc: undefined,
+		tools: [TOOLS.DJANGO, TOOLS.BOOTSTRAP, TOOLS.JQUERY],
+	},
+	{
 		title:
 			'Sueldos y RRHH - Sistema de gestión de sueldos y recursos humanos (Académico)',
 		description:
@@ -97,16 +107,6 @@ const PROJECTS = [
 		image: '/projects/3.webp',
 		doc: undefined,
 		tools: [TOOLS.DOTNET, TOOLS.BOOTSTRAP, TOOLS.JQUERY],
-	},
-	{
-		title: 'RESERVÁ - Sistema de gestión de clubes deportivos (Académico)',
-		description:
-			'Sistema de gestión de reservas de canchas, manejo de eventos y administración de socios para clubes. Integración con la API de MercadoPago para el cobro de reservas, tickets y membresías.',
-		github: 'https://github.com/facurodrij/TrabajoFinal_ASC',
-		link: undefined,
-		image: '/projects/4.webp',
-		doc: undefined,
-		tools: [TOOLS.DJANGO, TOOLS.BOOTSTRAP, TOOLS.JQUERY],
 	},
 ];
 ---
@@ -150,14 +150,18 @@ const PROJECTS = [
 										<li>
 											<span class="project-tech-chip-item">
 												<span class="project-tech-chip" title={name}>
-													<span class:list={['project-tech-chip__icon', className]}>
+													<span
+														class:list={['project-tech-chip__icon', className]}
+													>
 														<Icon class="size-4 shrink-0" />
 													</span>
 													<span
 														class="project-tech-chip__label"
 														style={`--chip-label-width: ${Math.max(name.length + 1, 6)}ch;`}
 													>
-														<span class="project-tech-chip__label-text">{name}</span>
+														<span class="project-tech-chip__label-text">
+															{name}
+														</span>
 													</span>
 												</span>
 											</span>
@@ -204,10 +208,10 @@ const PROJECTS = [
 							</div>
 						</div>
 					</article>
-					),
-				)
-			}
-		</div>
+				),
+			)
+		}
+	</div>
 
 	<div class="mt-8 flex justify-center">
 		<button

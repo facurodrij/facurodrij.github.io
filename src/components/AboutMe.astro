@@ -24,33 +24,27 @@ const currentPipeline = [
 const hobbies = [
 	{
 		label: 'Futbol',
-		image: '/test.jpg',
-		alt: 'Placeholder del hobby futbol',
+		image: '/aboutme/futbol.jpeg',
+		alt: 'Foto de futbol',
 		angle: -12,
 	},
 	{
-		label: 'Musica',
-		image: '/test.jpg',
-		alt: 'Placeholder del hobby musica',
+		label: 'Relax',
+		image: '/aboutme/playa.jpeg',
+		alt: 'Foto en la playa',
 		angle: 9,
 	},
 	{
 		label: 'Viajes',
-		image: '/test.jpg',
-		alt: 'Placeholder del hobby viajes',
+		image: '/aboutme/viajes.jpeg',
+		alt: 'Foto de viaje',
 		angle: -7,
 	},
 	{
-		label: 'Crossfit',
-		image: '/test.jpg',
-		alt: 'Placeholder del hobby crossfit',
+		label: 'Asados',
+		image: '/aboutme/asado.jpeg',
+		alt: 'Foto de asado',
 		angle: 13,
-	},
-	{
-		label: 'Mates',
-		image: '/test.jpg',
-		alt: 'Placeholder del hobby mates',
-		angle: -10,
 	},
 ];
 
@@ -151,7 +145,6 @@ const hobbiesCount = hobbies.length;
 					aria-label="Carousel de hobbies"
 					style={`--n:${hobbiesCount}; --k:0`}
 				>
-
 					<div
 						class="aboutme-hobby-stage relative grid w-full justify-items-center"
 						data-stack-stage
@@ -451,7 +444,9 @@ const hobbiesCount = hobbies.length;
 		--prg: calc(var(--abs-v) / (1 - var(--end) + var(--end) * (var(--n) - 1)));
 		flex: 1 1 auto;
 		min-height: 0;
-		transition: --p 0s 0.8s, --v 0.8s;
+		transition:
+			--p 0s 0.8s,
+			--v 0.8s;
 	}
 
 	.aboutme-hobby-stack:focus-visible {
@@ -470,7 +465,9 @@ const hobbiesCount = hobbies.length;
 		--abs-top: abs(var(--k) - var(--i));
 		--not-top: min(1, var(--abs-top));
 		--top: calc(1 - var(--not-top));
-		--val-mov: calc((1 - var(--fwd)) * var(--p) + var(--fwd) * var(--k) - var(--i));
+		--val-mov: calc(
+			(1 - var(--fwd)) * var(--p) + var(--fwd) * var(--k) - var(--i)
+		);
 		--abs-mov: abs(var(--val-mov));
 		--not-mov: min(1, var(--abs-mov));
 		--mov: calc(1 - var(--not-mov));
@@ -696,7 +693,7 @@ const hobbiesCount = hobbies.length;
 				rgba(255, 255, 255, 0.08),
 				transparent 48%
 			),
-			url('/posadas.jpeg') center center / cover no-repeat;
+			url('/aboutme/posadas.jpeg') center center / cover no-repeat;
 		filter: grayscale(1) contrast(1.02) brightness(0.88);
 		transform: scale(1.01);
 	}
