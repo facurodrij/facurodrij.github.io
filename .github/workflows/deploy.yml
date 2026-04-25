@@ -20,6 +20,16 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
+
+      - name: Compile CV from LaTeX
+        uses: xu-cheng/latex-action@v3
+        with:
+          working_directory: cv
+          root_file: curriculum_vitae.tex
+
+      - name: Publish generated CV PDF
+        run: cp cv/curriculum_vitae.pdf public/curriculum_vitae.pdf
+
       - name: Install, build, and upload your site
         uses: withastro/action@v3
         with:
