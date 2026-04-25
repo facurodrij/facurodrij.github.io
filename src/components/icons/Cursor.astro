@@ -1,0 +1,49 @@
+<svg {...Astro.props} viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+	<defs>
+		<linearGradient
+			id="cursor-icon-a"
+			x1="256"
+			y1="256"
+			x2="256"
+			y2="423"
+			gradientUnits="userSpaceOnUse"
+		>
+			<stop offset="0.16" stop-color="#fff" stop-opacity="0.39"></stop>
+			<stop offset="0.658" stop-color="#fff" stop-opacity="0.8"></stop>
+		</linearGradient>
+		<linearGradient
+			id="cursor-icon-b"
+			x1="404.419"
+			y1="173.015"
+			x2="257.482"
+			y2="261.497"
+			gradientUnits="userSpaceOnUse"
+		>
+			<stop offset="0.182" stop-color="#fff" stop-opacity="0.31"></stop>
+			<stop offset="0.715" stop-color="#fff" stop-opacity="0"></stop>
+		</linearGradient>
+		<linearGradient
+			id="cursor-icon-c"
+			x1="255.428"
+			y1="89"
+			x2="112.292"
+			y2="342.802"
+			gradientUnits="userSpaceOnUse"
+		>
+			<stop stop-color="#fff" stop-opacity="0.6"></stop>
+			<stop offset="0.667" stop-color="#fff" stop-opacity="0.22"></stop>
+		</linearGradient>
+	</defs>
+	<rect width="512" height="512" rx="122" fill="#000"></rect>
+	<path
+		d="M255.428 423l148.991-83.5L255.428 256l-148.99 83.5 148.99 83.5z"
+		fill="url(#cursor-icon-a)"></path>
+	<path
+		d="M404.419 339.5v-167L255.428 89v167l148.991 83.5z"
+		fill="url(#cursor-icon-b)"></path>
+	<path
+		d="M255.428 89l-148.99 83.5v167l148.99-83.5V89z"
+		fill="url(#cursor-icon-c)"></path>
+	<path d="M404.419 172.5L255.428 423V256l148.991-83.5z" fill="#e4e4e4"></path>
+	<path d="M404.419 172.5L255.428 256l-148.99-83.5h297.981z" fill="#fff"></path>
+</svg>

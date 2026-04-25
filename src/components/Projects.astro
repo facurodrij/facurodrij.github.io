@@ -1,0 +1,328 @@
+---
+import GitHubIcon from './icons/Github.astro';
+import FlaskIcon from './icons/Flask.astro';
+import TailwindIcon from './icons/Tailwind.astro';
+import ReactIcon from './icons/React.astro';
+import AddIcon from './icons/Add.astro';
+import SubtractIcon from './icons/Subtract.astro';
+import DotNetIcon from './icons/DotNet.astro';
+import BootstrapIcon from './icons/Bootstrap.astro';
+import JQueryIcon from './icons/Jquery.astro';
+import DjangoIcon from './icons/Django.astro';
+import SolidityIcon from './icons/Solidity.astro';
+import TruffleIcon from './icons/Truffle.astro';
+import ReadIcon from './icons/Read.astro';
+
+const linkButtonClass = 'ds-button ds-button-secondary ds-glass-button';
+
+const toggleButtonClass = 'ds-button ds-button-secondary ds-glass-button';
+
+const TOOLS = {
+	TAILWIND: {
+		name: 'Tailwind CSS',
+		className: 'text-[#06B6D4] bg-[#051C2B]',
+		icon: TailwindIcon,
+	},
+	FLASK: {
+		name: 'Flask',
+		className: 'bg-white text-[#010101]',
+		icon: FlaskIcon,
+	},
+	REACT: {
+		name: 'React',
+		className: 'bg-white text-[#61DAFB]',
+		icon: ReactIcon,
+	},
+	DOTNET: {
+		name: '.NET',
+		className: 'bg-[#512BD4] text-white',
+		icon: DotNetIcon,
+	},
+	BOOTSTRAP: {
+		name: 'Bootstrap',
+		className: 'bg-[#7952B3] text-white',
+		icon: BootstrapIcon,
+	},
+	JQUERY: {
+		name: 'jQuery',
+		className: 'bg-white text-[#0868AC]',
+		icon: JQueryIcon,
+	},
+	DJANGO: {
+		name: 'Django',
+		className: 'bg-[#092E20] text-white',
+		icon: DjangoIcon,
+	},
+	SOLIDITY: {
+		name: 'Solidity',
+		className: 'bg-white text-[#363636]',
+		icon: SolidityIcon,
+	},
+	TRUFFLE: {
+		name: 'Truffle',
+		className: 'bg-white',
+		icon: TruffleIcon,
+	},
+};
+
+const PROJECTS = [
+	{
+		title: 'StockCar Gestión - Sistema de facturación y gestión de inventario',
+		description:
+			'Sistema para Repuestos Stock Car, una empresa dedicada a la venta de repuestos automotores. Actualmente se encuentra en producción dentro de la empresa y en constante actualización.',
+		github: 'https://github.com/facurodrij/stockcar-gestion',
+		link: undefined,
+		image: '/projects/1.webp',
+		doc: undefined,
+		tools: [TOOLS.FLASK, TOOLS.REACT],
+	},
+	{
+		title:
+			'Tesis de Grado - Blockchain y Smart Contracts aplicado a la rendición de cuentas municipales (Académico)',
+		description:
+			'Aplicación web integrando una blockchain de prueba mediante Web3.py y un Smart Contract para garantizar la integridad y confiabilidad de las presentaciones digitales de las rendiciones de cuentas municipales.',
+		github: 'https://github.com/facurodrij/TrabajoFinal_LSI',
+		link: undefined,
+		image: '/projects/2.webp',
+		doc: '/projects/Tesis_LSI_Facundo_Rodriguez.pdf',
+		tools: [TOOLS.SOLIDITY, TOOLS.TRUFFLE, TOOLS.DJANGO, TOOLS.BOOTSTRAP],
+	},
+	{
+		title: 'RESERVÁ - Sistema de gestión de clubes deportivos (Académico)',
+		description:
+			'Sistema de gestión de reservas de canchas, manejo de eventos y administración de socios para clubes. Integración con la API de MercadoPago para el cobro de reservas, tickets y membresías.',
+		github: 'https://github.com/facurodrij/TrabajoFinal_ASC',
+		link: undefined,
+		image: '/projects/4.webp',
+		doc: undefined,
+		tools: [TOOLS.DJANGO, TOOLS.BOOTSTRAP, TOOLS.JQUERY],
+	},
+	{
+		title:
+			'Sueldos y RRHH - Sistema de gestión de sueldos y recursos humanos (Académico)',
+		description:
+			'Aplicación web para la gestión de sueldos y recursos humanos. Parte de la cátedra Recursos Humanos de la Universidad Nacional de Misiones.',
+		github: 'https://github.com/facurodrij/sueldo-rrhh',
+		link: undefined,
+		image: '/projects/3.webp',
+		doc: undefined,
+		tools: [TOOLS.DOTNET, TOOLS.BOOTSTRAP, TOOLS.JQUERY],
+	},
+];
+---
+
+<div data-projects-root>
+	<div
+		class="flex transform flex-col gap-y-8 transition duration-500 ease-in-out md:gap-y-10"
+	>
+		{
+			PROJECTS.map(
+				({ image, title, description, tools, link, github, doc }, index) => (
+					<article
+						class:list={[
+							'project-item ds-card ds-glass-panel group flex flex-col overflow-hidden p-5 md:flex-row md:gap-8 md:p-6',
+							index > 1 && 'hidden',
+						]}
+						data-project-item
+						data-project-hidden={index > 1 ? 'true' : 'false'}
+					>
+						<div class="w-full md:w-1/2">
+							<div class="relative overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-bg-elevated)] transition duration-500 ease-in-out md:group-hover:-translate-y-1 md:group-hover:shadow-2xl">
+								<img
+									alt=""
+									class="h-56 w-full object-cover object-top transition duration-500 md:h-full md:scale-105 md:group-hover:scale-100"
+									loading="eager"
+									src={image}
+								/>
+							</div>
+						</div>
+
+						<div class="w-full md:w-1/2 md:max-w-lg">
+							<h3
+								data-ui-heading="true"
+								class="text-2xl font-bold text-[var(--color-heading)]"
+							>
+								{title}
+							</h3>
+							<div class="mt-3 flex w-full flex-wrap">
+								<ul class="flex w-full flex-wrap gap-2">
+									{tools.map(({ name, className, icon: Icon }) => (
+										<li>
+											<span class="project-tech-chip-item">
+												<span class="project-tech-chip" title={name}>
+													<span
+														class:list={['project-tech-chip__icon', className]}
+													>
+														<Icon class="size-4 shrink-0" />
+													</span>
+													<span
+														class="project-tech-chip__label"
+														style={`--chip-label-width: ${Math.max(name.length + 1, 6)}ch;`}
+													>
+														<span class="project-tech-chip__label-text">
+															{name}
+														</span>
+													</span>
+												</span>
+											</span>
+										</li>
+									))}
+								</ul>
+
+								<div class="ds-body mt-4">{description}</div>
+								<footer class="mt-5 flex flex-wrap items-end justify-start gap-3">
+									{github && (
+										<a
+											target="_blank"
+											href={github}
+											role="link"
+											class={linkButtonClass}
+										>
+											<GitHubIcon class="size-6" />
+											Code
+										</a>
+									)}
+									{link && (
+										<a
+											target="_blank"
+											href={link}
+											role="link"
+											class={linkButtonClass}
+										>
+											<GitHubIcon class="size-6" />
+											Preview
+										</a>
+									)}
+									{doc && (
+										<a
+											target="_blank"
+											href={doc}
+											role="link"
+											class={linkButtonClass}
+										>
+											<ReadIcon class="size-6" />
+											Leer documento
+										</a>
+									)}
+								</footer>
+							</div>
+						</div>
+					</article>
+				),
+			)
+		}
+	</div>
+
+	<div class="mt-8 flex justify-center">
+		<button
+			class={toggleButtonClass}
+			data-projects-toggle
+			type="button"
+			aria-expanded="false"
+		>
+			<AddIcon class="size-6" data-toggle-icon-add />
+			<SubtractIcon class="size-6 hidden" data-toggle-icon-subtract />
+			<span data-toggle-label>Ver todos</span>
+		</button>
+	</div>
+</div>
+
+<style>
+	.project-tech-chip-item {
+		display: inline-flex;
+	}
+
+	.project-tech-chip {
+		display: inline-flex;
+		align-items: center;
+		gap: 0;
+		padding: 0.45rem 0.5rem;
+		border-radius: 999px;
+		border: 1px solid rgba(148, 163, 184, 0.16);
+		background: rgba(2, 6, 23, 0.58);
+		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+		font-size: 0.92rem;
+		font-weight: 500;
+		color: var(--color-text);
+		transition:
+			gap 280ms cubic-bezier(0.22, 1, 0.36, 1),
+			padding 280ms cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.project-tech-chip-item:hover .project-tech-chip {
+		gap: 0.7rem;
+		padding: 0.45rem 0.85rem 0.45rem 0.5rem;
+	}
+
+	.project-tech-chip__label {
+		display: inline-block;
+		width: 0;
+		min-width: 0;
+		overflow: hidden;
+		opacity: 0;
+		transform: translateX(-0.35rem);
+		will-change: width, opacity, transform;
+		transition:
+			width 280ms cubic-bezier(0.22, 1, 0.36, 1),
+			opacity 180ms ease,
+			transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.project-tech-chip__label-text {
+		overflow: hidden;
+		white-space: nowrap;
+		min-width: 0;
+	}
+
+	.project-tech-chip-item:hover .project-tech-chip__label {
+		width: var(--chip-label-width, 8ch);
+		opacity: 1;
+		transform: translateX(0);
+	}
+
+	.project-tech-chip__icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		width: 2rem;
+		height: 2rem;
+		border-radius: 999px;
+		box-shadow:
+			inset 0 1px 0 rgba(255, 255, 255, 0.14),
+			0 10px 24px rgba(2, 6, 23, 0.18);
+	}
+</style>
+
+<script is:inline>
+	document.querySelectorAll('[data-projects-root]').forEach((root) => {
+		const toggle = root.querySelector('[data-projects-toggle]');
+		const label = root.querySelector('[data-toggle-label]');
+		const addIcon = root.querySelector('[data-toggle-icon-add]');
+		const subtractIcon = root.querySelector('[data-toggle-icon-subtract]');
+		const hiddenItems = Array.from(
+			root.querySelectorAll('[data-project-hidden="true"]'),
+		);
+
+		if (!toggle || hiddenItems.length === 0) {
+			return;
+		}
+
+		let expanded = false;
+
+		const syncState = () => {
+			hiddenItems.forEach((item) => item.classList.toggle('hidden', !expanded));
+			toggle.setAttribute('aria-expanded', String(expanded));
+			label.textContent = expanded ? 'Ver menos' : 'Ver todos';
+			addIcon?.classList.toggle('hidden', expanded);
+			subtractIcon?.classList.toggle('hidden', !expanded);
+		};
+
+		toggle.addEventListener('click', () => {
+			expanded = !expanded;
+			syncState();
+		});
+
+		syncState();
+	});
+</script>

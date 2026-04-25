@@ -1,42 +1,57 @@
 ---
-import Container from "../components/Container.astro";
-import Layout from "../layouts/Layout.astro";
-import Hero from "../components/Hero.astro";
-import TitleSection from "../components/TitleSection.astro";
-import CodeIcon from "../components/icons/Code.astro";
-import Projects from "../components/Projects.jsx";
-import ProfileCheckIcon from "../components/icons/ProfileCheck.astro";
-import AboutMe from "../components/AboutMe.astro";
-import Briefcase from "../components/icons/Briefcase.astro";
-import Experience from "../components/Experience.astro";
+import Container from '../components/Container.astro';
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import Technologies from '../components/Technologies.astro';
+import TitleSection from '../components/TitleSection.astro';
+import Projects from '../components/Projects.astro';
+import AboutMe from '../components/AboutMe.astro';
+import Experience from '../components/Experience.astro';
 ---
 
 <Layout title="Portfolio de facurodrij - Desarrollador web">
-	<main class="px-4">
-		<Container id="Banner" class="py-28 md:py-36">
+	<main class="pb-8 pt-4">
+		<Container id="Banner" class="pt-20 pb-36 md:pt-28 md:pb-48">
 			<Hero />
 		</Container>
-		<div class="space-y-24">
+		<div class="space-y-24 pb-8 md:space-y-28">
+			<Container id="sobre-mi">
+				<TitleSection
+					><span class="ds-section-title-shimmer">Quién soy</span></TitleSection
+				>
+				<p class="ds-body mx-auto mb-8 max-w-2xl text-center">
+					Perfil, enfoque de trabajo e intereses que hoy orientan mi camino en
+					IT.
+				</p>
+				<AboutMe />
+			</Container>
 			<Container id="experiencia">
-				<TitleSection>
-					<Briefcase class="size-8" />
-					Experiencia laboral
-				</TitleSection>
+				<TitleSection
+					><span class="text-[var(--color-heading)]">Mi</span>
+					<span class="ds-section-title-shimmer">Recorrido</span></TitleSection
+				>
+				<p class="ds-body mx-auto mb-8 max-w-2xl text-center">
+					Recorrido profesional construyendo soluciones web, productos y
+					arquitecturas orientadas a impacto real.
+				</p>
 				<Experience />
 			</Container>
-			<Container id="proyectos">
-				<TitleSection>
-					<CodeIcon class="size-7" />
-					Proyectos
-				</TitleSection>
-				<Projects client:visible />
+			<Container id="tecnologias">
+				<TitleSection
+					><span class="text-[var(--color-heading)]">Mi</span>
+					<span class="ds-section-title-shimmer">TechStack</span></TitleSection
+				>
+				<Technologies />
 			</Container>
-			<Container id="sobre-mi">
-				<TitleSection>
-					<ProfileCheckIcon class="size-7" />
-					Sobre mí
-				</TitleSection>
-				<AboutMe />
+			<Container id="proyectos">
+				<TitleSection
+					><span class="text-[var(--color-heading)]">Mis</span>
+					<span class="ds-section-title-shimmer">Proyectos</span></TitleSection
+				>
+				<p class="ds-body mx-auto mb-8 max-w-2xl text-center">
+					Algunos de mis trabajos más destacados.
+				</p>
+				<Projects />
 			</Container>
 		</div>
 	</main>

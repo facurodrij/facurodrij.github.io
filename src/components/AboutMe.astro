@@ -1,34 +1,916 @@
-<article
-    class="flex flex-col items-center justify-center gap-8 text-gray-700 dark:text-gray-300 md:flex-row"
->
-    <div
-        class="[&>p]:mb-4 [&>p>strong]:text-yellow-500 dark:[&>p>strong]:text-yellow-200 [&>p>strong]:font-normal [&>p>strong]:font-mono text-pretty order-2 md:order-1"
-    >
-        <p>
-            Hola! Soy Facundo Joel Rodriguez, un Desarrollador de Software Full-Stack graduado en Licenciatura en Sistemas de Información. Me especializo en crear soluciones eficientes, 
-            intuitivas y escalables, y actualmente estoy desarrollando proyectos como freelancer mientras busco nuevas oportunidades para crecer profesionalmente.
-        </p>
-        <p>
-            Destaco uno de mis proyectos más recientes, <strong
-                >un sistema de facturación y control de stock</strong
-            > para una empresa de venta de repuestos automotrices. He desarrollado
-            mi propia librería para integrar los servicios de AFIP necesarios,
-            específicamente <strong
-                >el Web Service de Factura Electrónica V1 ("wsfev1") y el Web
-                Service de Autenticación y Autorización (WSAA)</strong
-            >, tomando como referencia los proyectos de Mariano Reingart
-            (PyAfipWs) e Iván (AfipSDK). Este sistema, actualmente en
-            producción, ha mejorado notablemente los procesos de la empresa.
-        </p>
-        <p>
-            En el ámbito académico, he realizado un aporte al <strong
-                >Tribunal de Cuentas de la Provincia de Misiones</strong
-            > con un proyecto de investigación <strong
-                >utilizando tecnología Blockchain y Smart Contracts para la
-                inmutabilidad de registros, diseñando una arquitecura de
-                software, un modelo de datos y un prototipo funcional</strong
-            > como resultado de la investigación. Finalizando de esa forma la carrera
-            de Licenciatura en Sistemas de Información.
-        </p>
-    </div>
+---
+const currentPipeline = [
+	{
+		label: 'Desarrollo',
+		detail:
+			'Construyo producto con foco en DX, mantenibilidad y entrega continua.',
+	},
+	{
+		label: 'Automatizacion',
+		detail:
+			'Convierto tareas repetitivas en flujos confiables, bots y procesos medibles.',
+	},
+	{
+		label: 'Infraestructura',
+		detail: 'Diseno entornos reproducibles, observables y listos para escalar.',
+	},
+	{
+		label: 'Escalabilidad',
+		detail:
+			'Llevo servicios a produccion con resiliencia, performance y criterio operativo.',
+	},
+];
+
+const hobbies = [
+	{
+		label: 'Futbol',
+		image: '/aboutme/futbol.jpeg',
+		alt: 'Foto de futbol',
+		angle: -12,
+	},
+	{
+		label: 'Relax',
+		image: '/aboutme/playa.jpeg',
+		alt: 'Foto en la playa',
+		angle: 9,
+	},
+	{
+		label: 'Viajes',
+		image: '/aboutme/viajes.jpeg',
+		alt: 'Foto de viaje',
+		angle: -7,
+	},
+	{
+		label: 'Asados',
+		image: '/aboutme/asado.jpeg',
+		alt: 'Foto de asado',
+		angle: 13,
+	},
+];
+
+const hobbiesCount = hobbies.length;
+---
+
+<article class="mx-auto max-w-6xl">
+	<div class="grid gap-4 lg:grid-cols-12 lg:gap-5">
+		<div class="aboutme-side-panels grid gap-4 lg:col-span-4 lg:gap-5">
+			<section class="aboutme-panel aboutme-panel-hero">
+				<p class="aboutme-panel-label">Formación</p>
+
+				<div class="aboutme-education-list">
+					<article class="aboutme-education-item">
+						<div class="aboutme-education-copy">
+							<h3 class="aboutme-education-title">
+								Universidad Nacional de Misiones
+							</h3>
+							<p class="aboutme-education-degree">
+								Licenciatura en Sistemas de Información
+							</p>
+						</div>
+
+						<div class="aboutme-education-meta">
+							<p class="aboutme-education-location">Misiones - Argentina</p>
+							<p class="aboutme-education-dates">Feb. 2019 - Jun. 2024</p>
+						</div>
+					</article>
+
+					<article class="aboutme-education-item">
+						<div class="aboutme-education-copy">
+							<h3 class="aboutme-education-title">
+								Universidad Nacional de Misiones
+							</h3>
+							<p class="aboutme-education-degree">
+								Analista en Sistemas de Computación
+							</p>
+						</div>
+
+						<div class="aboutme-education-meta">
+							<p class="aboutme-education-location">Misiones - Argentina</p>
+							<p class="aboutme-education-dates">Feb. 2019 - Mar. 2023</p>
+						</div>
+					</article>
+				</div>
+			</section>
+
+			<section class="aboutme-panel aboutme-location-panel">
+				<div class="aboutme-location-content">
+					<h3 class="aboutme-location-title">Posadas, Argentina</h3>
+					<p class="aboutme-location-coordinates">27.3671° S, 55.8961° W</p>
+					<p class="aboutme-location-timezone">- UTC-3</p>
+				</div>
+			</section>
+		</div>
+
+		<div class="aboutme-summary-panels lg:col-span-8">
+			<section
+				class="aboutme-panel aboutme-summary-panel aboutme-summary-panel-wide aboutme-summary-panel-pipeline"
+			>
+				<p class="aboutme-panel-label">Hoy me mueve</p>
+				<div
+					class="aboutme-pipeline"
+					aria-label="Pipeline de intereses actuales"
+				>
+					{
+						currentPipeline.map((item) => (
+							<article class="aboutme-pipeline-step" tabindex="0">
+								<div class="aboutme-pipeline-step-copy">
+									<h3 class="aboutme-pipeline-step-label">{item.label}</h3>
+									<p class="aboutme-pipeline-step-detail">{item.detail}</p>
+								</div>
+							</article>
+						))
+					}
+				</div>
+			</section>
+
+			<section
+				class="aboutme-panel aboutme-summary-panel aboutme-summary-panel-tall"
+			>
+				<p class="aboutme-panel-label">Mentalidad</p>
+				<p class="aboutme-summary-copy">
+					Software claro, util y bien resuelto.
+				</p>
+			</section>
+
+			<section
+				class="aboutme-panel aboutme-summary-panel aboutme-summary-panel-tall aboutme-summary-panel-hobbies"
+			>
+				<p class="aboutme-panel-label">Hobbies</p>
+
+				<div
+					class="aboutme-hobby-stack relative isolate mx-auto flex w-full max-w-full flex-1 flex-col items-center justify-end py-2 sm:py-3 text-slate-100"
+					data-aboutme-stack
+					tabindex="0"
+					role="region"
+					aria-label="Carousel de hobbies"
+					style={`--n:${hobbiesCount}; --k:0`}
+				>
+					<div
+						class="aboutme-hobby-stage relative grid w-full justify-items-center"
+						data-stack-stage
+						role="button"
+						tabindex="-1"
+						aria-label="Ver siguiente hobby"
+					>
+						{
+							hobbies.map((hobby, index) => (
+								<article
+									class="aboutme-hobby-card pointer-events-none grid"
+									data-stack-item
+									style={`--i:${index}; --a:${hobby.angle}deg; z-index:${hobbiesCount - index}`}
+									aria-hidden={index === 0 ? 'false' : 'true'}
+								>
+									<img
+										class="aboutme-hobby-image h-56 w-56 max-w-full rounded-[1.4rem] border border-white/10 object-cover shadow-[0_18px_40px_rgba(2,6,23,0.38)] sm:h-[16rem] sm:w-[16rem]"
+										src={hobby.image}
+										alt={hobby.alt}
+										loading={index === 0 ? 'eager' : 'lazy'}
+									/>
+									<h2 class="aboutme-hobby-title text-right text-xl font-semibold tracking-[-0.04em] text-white/95 sm:text-[1.65rem]">
+										{hobby.label}
+									</h2>
+								</article>
+							))
+						}
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
 </article>
+
+<script is:inline>
+	document.querySelectorAll('[data-aboutme-stack]').forEach((stack) => {
+		const stackStyle = stack.style;
+		const total = Number(stackStyle.getPropertyValue('--n')) || 0;
+		const stage = stack.querySelector('[data-stack-stage]');
+		const cards = Array.from(stack.querySelectorAll('[data-stack-item]'));
+		const autoplayDelay = 5000;
+		const animationDuration = 800;
+
+		if (!total || cards.length === 0 || !stage) return;
+
+		let current = Number(stackStyle.getPropertyValue('--k')) || 0;
+		let locked = false;
+		let autoplayTimer;
+
+		const syncState = () => {
+			cards.forEach((card, index) => {
+				const order = (index - current + total) % total;
+				card.style.zIndex = String(total - order);
+				card.setAttribute('aria-hidden', String(index !== current));
+			});
+		};
+
+		const goTo = (increment) => {
+			if (locked) return;
+
+			locked = true;
+			current = (current + increment + total) % total;
+			stackStyle.setProperty('--k', String(current));
+			syncState();
+
+			window.setTimeout(() => {
+				locked = false;
+				syncState();
+			}, animationDuration);
+		};
+
+		const stopAutoplay = () => {
+			if (autoplayTimer) {
+				window.clearTimeout(autoplayTimer);
+			}
+		};
+
+		const startAutoplay = () => {
+			stopAutoplay();
+			autoplayTimer = window.setTimeout(() => {
+				goTo(1);
+				startAutoplay();
+			}, autoplayDelay);
+		};
+
+		const advanceAndRestart = (increment) => {
+			goTo(increment);
+			startAutoplay();
+		};
+
+		stage.addEventListener('click', () => {
+			advanceAndRestart(1);
+		});
+
+		stack.addEventListener('keydown', (event) => {
+			if (event.key === 'Enter' || event.key === ' ') {
+				event.preventDefault();
+				advanceAndRestart(1);
+			}
+
+			if (event.key === 'ArrowLeft') {
+				event.preventDefault();
+				advanceAndRestart(-1);
+			}
+
+			if (event.key === 'ArrowRight') {
+				event.preventDefault();
+				advanceAndRestart(1);
+			}
+		});
+
+		syncState();
+		startAutoplay();
+	});
+</script>
+
+<style>
+	@property --p {
+		syntax: '<number>';
+		initial-value: 0;
+		inherits: true;
+	}
+
+	@property --v {
+		syntax: '<number>';
+		initial-value: 0;
+		inherits: true;
+	}
+
+	.aboutme-panel {
+		position: relative;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		min-height: 100%;
+		padding: 1.5rem;
+		border-radius: clamp(1.25rem, 2vw, 1.75rem);
+		border: 1px solid rgba(148, 163, 184, 0.12);
+		background:
+			radial-gradient(
+				circle at top,
+				rgba(255, 255, 255, 0.05),
+				transparent 38%
+			),
+			linear-gradient(180deg, rgba(17, 24, 39, 0.94), rgba(12, 18, 32, 0.92));
+		box-shadow:
+			0 24px 60px rgba(2, 6, 23, 0.32),
+			inset 0 1px 0 rgba(255, 255, 255, 0.05);
+	}
+
+	.aboutme-panel::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		background: linear-gradient(
+			135deg,
+			rgba(139, 92, 246, 0.08),
+			transparent 36%
+		);
+		opacity: 0.9;
+	}
+
+	.aboutme-panel > * {
+		position: relative;
+		z-index: 1;
+	}
+
+	.aboutme-panel-hero {
+		justify-content: flex-start;
+		gap: 1.35rem;
+		min-height: auto;
+	}
+
+	.aboutme-side-panels {
+		align-content: start;
+	}
+
+	.aboutme-summary-panels {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 0.95rem;
+		align-content: start;
+		align-self: stretch;
+	}
+
+	.aboutme-summary-panel {
+		justify-content: flex-start;
+		gap: 1.25rem;
+		min-height: 9.5rem;
+	}
+
+	.aboutme-summary-panel-hobbies {
+		gap: 0.35rem;
+	}
+
+	.aboutme-summary-panel-pipeline {
+		padding-bottom: 0;
+		gap: 0.6rem;
+	}
+
+	.aboutme-summary-copy {
+		max-width: 24ch;
+		font-family: var(--font-heading);
+		font-size: clamp(1.25rem, 2vw, 1.75rem);
+		font-weight: 700;
+		line-height: 1.08;
+		letter-spacing: -0.03em;
+		color: var(--color-heading);
+		text-wrap: balance;
+	}
+
+	.aboutme-pipeline {
+		position: relative;
+		display: grid;
+		gap: 0.85rem;
+		max-width: 100%;
+		margin-top: 0.25rem;
+		align-items: end;
+	}
+
+	.aboutme-pipeline-step {
+		position: relative;
+		display: grid;
+		align-content: start;
+		gap: 0.9rem;
+		padding: 0.8rem;
+		border-radius: 1.15rem;
+		border: 1px solid rgba(148, 163, 184, 0.14);
+		background: linear-gradient(
+			180deg,
+			rgba(13, 20, 33, 0.96),
+			rgba(9, 14, 24, 0.98)
+		);
+		box-shadow:
+			inset 0 1px 0 rgba(255, 255, 255, 0.04),
+			0 16px 34px rgba(2, 6, 23, 0.18);
+		overflow: hidden;
+		transition:
+			transform 220ms ease,
+			border-color 220ms ease,
+			box-shadow 220ms ease;
+		z-index: 1;
+	}
+
+	.aboutme-pipeline-step::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		height: 0;
+		pointer-events: none;
+		transition:
+			opacity 220ms ease,
+			height 220ms ease;
+	}
+
+	.aboutme-pipeline-step-copy {
+		display: grid;
+		gap: 0.45rem;
+	}
+
+	.aboutme-pipeline-step-label {
+		font-family: var(--font-heading);
+		font-size: clamp(0.92rem, 1vw, 1.04rem);
+		font-weight: 700;
+		line-height: 1.05;
+		letter-spacing: -0.02em;
+		color: var(--color-heading);
+	}
+
+	.aboutme-pipeline-step-detail {
+		font-size: 0.7rem;
+		line-height: 1.4;
+		color: rgba(203, 213, 225, 0.72);
+	}
+
+	.aboutme-pipeline-step:focus-visible {
+		outline: none;
+		border-color: rgba(56, 189, 248, 0.32);
+		box-shadow:
+			inset 0 1px 0 rgba(255, 255, 255, 0.04),
+			0 18px 34px rgba(2, 6, 23, 0.22),
+			0 0 0 1px rgba(56, 189, 248, 0.2);
+	}
+
+	.aboutme-hobby-stack {
+		--p: var(--k);
+		--abs-p: abs(var(--k) - var(--p));
+		--end: clamp(0, calc(var(--abs-p) - 1), 1);
+		--dir: calc((1 - 2 * var(--end)) * sign(var(--k) - var(--p)));
+		--fwd: calc(0.5 * (1 + var(--dir)));
+		--v: var(--k);
+		--abs-v: abs(var(--v) - var(--p));
+		--prg: calc(var(--abs-v) / (1 - var(--end) + var(--end) * (var(--n) - 1)));
+		flex: 1 1 auto;
+		min-height: 0;
+		transition:
+			--p 0s 0.8s,
+			--v 0.8s;
+	}
+
+	.aboutme-hobby-stack:focus-visible {
+		outline: none;
+		box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.24);
+		border-radius: 1.25rem;
+	}
+
+	.aboutme-hobby-stage {
+		min-height: 0;
+		align-items: start;
+		cursor: pointer;
+	}
+
+	.aboutme-hobby-card {
+		--abs-top: abs(var(--k) - var(--i));
+		--not-top: min(1, var(--abs-top));
+		--top: calc(1 - var(--not-top));
+		--val-mov: calc(
+			(1 - var(--fwd)) * var(--p) + var(--fwd) * var(--k) - var(--i)
+		);
+		--abs-mov: abs(var(--val-mov));
+		--not-mov: min(1, var(--abs-mov));
+		--mov: calc(1 - var(--not-mov));
+		position: relative;
+		grid-area: 1 / 1;
+		place-items: center;
+		width: fit-content;
+		max-width: 100%;
+		height: fit-content;
+	}
+
+	.aboutme-hobby-title {
+		translate: 0 calc(var(--not-top) * 1lh);
+		opacity: var(--top);
+		transition:
+			translate 0.4s calc(var(--top) * 0.4s),
+			opacity 0.4s calc(var(--top) * 0.4s);
+		text-wrap: balance;
+	}
+
+	.aboutme-hobby-image {
+		--sin: sin(calc(var(--prg) * 0.5turn));
+		grid-area: 1 / 1;
+		justify-self: center;
+		translate: calc(-150% * var(--mov) * sqrt(var(--sin)));
+		rotate: calc((1 - var(--sin)) * var(--a));
+		filter: saturate(0.9) contrast(1.02) brightness(0.92);
+	}
+
+	.aboutme-hobby-title {
+		position: absolute;
+		z-index: 2;
+		display: inline-block;
+		isolation: isolate;
+		right: 0.2rem;
+		bottom: 0.4rem;
+		grid-area: 1 / 1;
+		max-width: 8ch;
+		padding: 0.08em 0.18em;
+		margin-top: 0;
+		line-height: 0.95;
+		text-shadow:
+			0 2px 8px rgba(2, 6, 23, 0.92),
+			0 10px 28px rgba(2, 6, 23, 0.78),
+			0 0 24px rgba(2, 6, 23, 0.52);
+	}
+
+	.aboutme-hobby-title::before {
+		content: '';
+		position: absolute;
+		z-index: -1;
+		inset: -0.45em -0.65em;
+		border-radius: 999px;
+		background: radial-gradient(
+			circle,
+			rgba(2, 6, 23, 0.92) 0%,
+			rgba(2, 6, 23, 0.72) 42%,
+			rgba(2, 6, 23, 0.36) 68%,
+			rgba(2, 6, 23, 0) 100%
+		);
+		filter: blur(12px);
+		opacity: 0.95;
+		pointer-events: none;
+	}
+
+	@supports not (scale: abs(-2)) {
+		.aboutme-hobby-stack {
+			--abs-p: max(calc(var(--k) - var(--p)), calc(var(--p) - var(--k)));
+			--abs-v: max(calc(var(--v) - var(--p)), calc(var(--p) - var(--v)));
+		}
+
+		.aboutme-hobby-card {
+			--abs-top: max(calc(var(--k) - var(--i)), calc(var(--i) - var(--k)));
+			--abs-mov: max(var(--val-mov), calc(-1 * var(--val-mov)));
+		}
+	}
+
+	@supports not (scale: sign(-2)) {
+		.aboutme-hobby-stack {
+			--dir: clamp(-1, calc((var(--k) - var(--p)) * 100000), 1);
+		}
+	}
+
+	.aboutme-education-list {
+		position: relative;
+		display: grid;
+		gap: 0.95rem;
+		padding-left: 1.65rem;
+	}
+
+	.aboutme-education-list::before {
+		content: '';
+		position: absolute;
+		top: 0.35rem;
+		bottom: 0.35rem;
+		left: 0.28rem;
+		width: 1px;
+		background: rgba(148, 163, 184, 0.18);
+	}
+
+	.aboutme-education-item {
+		position: relative;
+		display: grid;
+		gap: 0.42rem;
+		padding: 0.15rem 0;
+	}
+
+	.aboutme-education-item::before {
+		content: '';
+		position: absolute;
+		top: 0.35rem;
+		left: -1.65rem;
+		width: 0.56rem;
+		height: 0.56rem;
+		border-radius: 999px;
+		background: var(--color-primary);
+		box-shadow: 0 0 0 4px rgba(0, 208, 132, 0.08);
+	}
+
+	.aboutme-education-copy {
+		display: grid;
+		gap: 0.18rem;
+	}
+
+	.aboutme-education-title {
+		font-family: var(--font-heading);
+		font-size: 0.98rem;
+		font-weight: 700;
+		line-height: 1.25;
+		color: var(--color-heading);
+	}
+
+	.aboutme-education-degree {
+		font-size: 0.9rem;
+		font-style: italic;
+		line-height: 1.35;
+		color: rgba(226, 232, 240, 0.88);
+	}
+
+	.aboutme-education-meta {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.3rem 0.55rem;
+		padding-top: 0.05rem;
+		color: var(--color-text-muted);
+	}
+
+	.aboutme-education-location,
+	.aboutme-education-dates {
+		font-size: 0.82rem;
+		line-height: 1.4;
+	}
+
+	.aboutme-education-location {
+		font-weight: 500;
+		color: rgba(241, 245, 249, 0.78);
+	}
+
+	.aboutme-education-dates {
+		color: rgba(148, 163, 184, 0.92);
+	}
+
+	.aboutme-location-panel {
+		justify-content: flex-end;
+		min-height: 11.5rem;
+		padding: 1.15rem 1.25rem;
+		border-color: rgba(255, 255, 255, 0.08);
+		background: linear-gradient(
+			180deg,
+			rgba(7, 11, 18, 0.46),
+			rgba(7, 11, 18, 0.86)
+		);
+		box-shadow:
+			0 22px 48px rgba(2, 6, 23, 0.28),
+			inset 0 1px 0 rgba(255, 255, 255, 0.03);
+	}
+
+	.aboutme-location-content {
+		display: grid;
+		gap: 0.14rem;
+		max-width: 100%;
+	}
+
+	.aboutme-location-title {
+		font-family: var(--font-heading);
+		font-size: clamp(1.2rem, 2.65vw, 1.95rem);
+		font-weight: 900;
+		line-height: 0.94;
+		letter-spacing: -0.05em;
+		color: rgba(248, 250, 252, 0.98);
+		white-space: nowrap;
+		text-shadow: 0 18px 36px rgba(2, 6, 23, 0.48);
+		padding-top: 2.5rem;
+	}
+
+	.aboutme-location-coordinates {
+		font-size: 0.78rem;
+		font-weight: 600;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: rgba(226, 232, 240, 0.58);
+		text-shadow: 0 10px 24px rgba(2, 6, 23, 0.34);
+	}
+
+	.aboutme-location-timezone {
+		font-size: 0.8rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-primary);
+		text-shadow: 0 10px 24px rgba(2, 6, 23, 0.34);
+	}
+
+	.aboutme-location-panel::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background:
+			linear-gradient(180deg, rgba(8, 10, 18, 0.26), rgba(8, 10, 18, 0.82)),
+			radial-gradient(
+				circle at 50% 16%,
+				rgba(255, 255, 255, 0.08),
+				transparent 48%
+			),
+			url('/aboutme/posadas.jpeg') center center / cover no-repeat;
+		filter: grayscale(1) contrast(1.02) brightness(0.88);
+		transform: scale(1.01);
+	}
+
+	.aboutme-location-panel::after {
+		background:
+			linear-gradient(180deg, rgba(10, 12, 20, 0.06), rgba(10, 12, 20, 0.78)),
+			linear-gradient(135deg, rgba(255, 255, 255, 0.04), transparent 42%);
+		opacity: 1;
+	}
+
+	.aboutme-panel-label {
+		font-family: var(--font-heading);
+		font-size: 0.78rem;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+		position: relative;
+		display: inline-flex;
+		align-items: center;
+	}
+
+	.aboutme-panel-label::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		bottom: -0.36rem;
+		width: 2.2rem;
+		height: 2px;
+		border-radius: 999px;
+		background: var(--color-primary);
+	}
+
+	@media (min-width: 768px) {
+		.aboutme-panel {
+			padding: 1.75rem;
+		}
+
+		.aboutme-summary-panels {
+			gap: 1.25rem;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.aboutme-summary-panel {
+			min-height: 0;
+			gap: 1.25rem;
+		}
+
+		.aboutme-summary-panel-hobbies {
+			gap: 0.45rem;
+		}
+
+		.aboutme-hobby-card {
+			width: fit-content;
+		}
+
+		.aboutme-hobby-stage {
+			min-height: 0;
+		}
+
+		.aboutme-hobby-title {
+			right: -0.35rem;
+			bottom: 0.65rem;
+			max-width: 7ch;
+			margin-top: 0;
+		}
+
+		.aboutme-summary-panel-pipeline {
+			height: 9.75rem;
+			min-height: 9.75rem;
+		}
+
+		.aboutme-pipeline {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+			gap: 0.9rem;
+		}
+
+		.aboutme-pipeline-step {
+			height: 9.4rem;
+		}
+
+		.aboutme-pipeline-step-label {
+			font-size: clamp(0.88rem, 0.92vw, 0.98rem);
+		}
+
+		.aboutme-summary-panel-wide {
+			grid-column: 1 / -1;
+		}
+
+		.aboutme-education-item {
+			gap: 0.45rem;
+		}
+
+		.aboutme-location-panel {
+			padding: 1.35rem 1.5rem;
+		}
+
+		.aboutme-location-title {
+			font-size: clamp(1.45rem, 1.95vw, 2.1rem);
+		}
+	}
+
+	@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
+		.aboutme-pipeline-step {
+			transform: translateY(0.25rem);
+			box-shadow:
+				inset 0 1px 0 rgba(255, 255, 255, 0.04),
+				0 16px 34px rgba(2, 6, 23, 0.18);
+		}
+
+		.aboutme-pipeline-step::after {
+			height: 9rem;
+			background: linear-gradient(
+				180deg,
+				rgba(9, 14, 24, 0) 0%,
+				rgba(9, 14, 24, 0.3) 18%,
+				rgba(9, 14, 24, 0.82) 42%,
+				rgba(9, 14, 24, 0.98) 100%
+			);
+		}
+
+		.aboutme-pipeline-step-detail {
+			max-height: 3.35rem;
+			overflow: hidden;
+			mask-image: linear-gradient(
+				180deg,
+				rgba(0, 0, 0, 1) 62%,
+				transparent 100%
+			);
+			transition:
+				max-height 220ms ease,
+				opacity 220ms ease,
+				mask-image 220ms ease;
+		}
+
+		.aboutme-pipeline-step:hover,
+		.aboutme-pipeline-step:focus-visible {
+			transform: translateY(-2rem);
+			border-color: rgba(110, 231, 183, 0.24);
+			box-shadow:
+				inset 0 1px 0 rgba(255, 255, 255, 0.04),
+				0 24px 42px rgba(2, 6, 23, 0.28);
+			z-index: 4;
+		}
+
+		.aboutme-pipeline-step:hover::after,
+		.aboutme-pipeline-step:focus-visible::after {
+			opacity: 0;
+			height: 0;
+		}
+
+		.aboutme-pipeline-step:hover .aboutme-pipeline-step-detail,
+		.aboutme-pipeline-step:focus-visible .aboutme-pipeline-step-detail {
+			max-height: 7rem;
+			mask-image: none;
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.aboutme-side-panels {
+			display: grid;
+			height: 100%;
+			grid-template-rows: auto minmax(0, 1fr);
+			align-self: stretch;
+			align-content: stretch;
+		}
+
+		.aboutme-summary-panels {
+			height: 100%;
+			grid-template-rows: auto minmax(0, 1fr);
+			align-content: stretch;
+		}
+
+		.aboutme-panel {
+			min-height: 0;
+		}
+
+		.aboutme-panel-hero {
+			min-height: auto;
+		}
+
+		.aboutme-summary-panel {
+			min-height: 0;
+		}
+
+		.aboutme-summary-panel-wide {
+			min-height: 10.5rem;
+		}
+
+		.aboutme-summary-panel-tall {
+			height: 100%;
+			min-height: 0;
+		}
+
+		.aboutme-hobby-stack {
+			height: 100%;
+			justify-content: flex-end;
+		}
+
+		.aboutme-hobby-stage {
+			flex: 0 0 auto;
+			min-height: 0;
+		}
+
+		.aboutme-hobby-image {
+			align-self: center;
+		}
+
+		.aboutme-summary-panel-pipeline {
+			height: 9.75rem;
+			min-height: 9.75rem;
+		}
+
+		.aboutme-location-panel {
+			height: 100%;
+			min-height: 0;
+		}
+	}
+</style>

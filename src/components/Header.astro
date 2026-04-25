@@ -1,68 +1,207 @@
 ---
-import ThemeToggle from "./ThemeToggle.astro";
-
 const navItems = [
-    {
-        title: "Experiencia",
-        label: "experiencia",
-        url: "/#experiencia",
-    },
-    {
-        title: "Proyectos",
-        label: "proyectos",
-        url: "/#proyectos",
-    },
-    {
-        title: "Sobre mí",
-        label: "sobre-mi",
-        url: "/#sobre-mi",
-    },
-    {
-        title: "Contacto",
-        label: "contacto",
-        url: "mailto:facurodri00@gmail.com",
-    },
+	{
+		title: 'Sobre mí',
+		label: 'sobre-mi',
+		url: '/#sobre-mi',
+		section: 'sobre-mi',
+	},
+	{
+		title: 'Experiencia',
+		label: 'experiencia',
+		url: '/#experiencia',
+		section: 'experiencia',
+	},
+	{
+		title: 'Skills',
+		label: 'skills',
+		url: '/#tecnologias',
+		section: 'tecnologias',
+	},
+	{
+		title: 'Proyectos',
+		label: 'proyectos',
+		url: '/#proyectos',
+		section: 'proyectos',
+	},
 ];
 ---
 
-<header
-    class="fixed top-0 z-10 flex items-center justify-center w-full mx-auto mt-2"
->
-    <nav
-        class="flex px-3 text-sm font-medium rounded-full text-gray-600 dark:text-gray-200 justify-center items-center"
-    >
-        {
-            navItems.map((link) => (
-                <a
-                    class="relative block px-2 py-2 transition hover:text-yellow-500 dark:hover:text-yellow-200"
-                    aria-label={link.label}
-                    href={link.url}
-                >
-                    {link.title}
-                </a>
-            ))
-        }
-        <ThemeToggle />
-    </nav>
+<header class="fixed top-0 z-20 flex w-full justify-center px-4 pt-4">
+	<nav
+		id="header-nav"
+		class="flex items-center justify-center rounded-[var(--radius-md)] border px-2 py-2 text-sm font-medium"
+	>
+		{
+			navItems.map((link) => (
+				<a
+					class="header-link"
+					aria-label={link.label}
+					href={link.url}
+					data-section={link.section}
+				>
+					{link.title}
+				</a>
+			))
+		}
+	</nav>
 </header>
 
+<script is:inline>
+	(() => {
+		const setupHeaderNav = () => {
+			window.__headerNavCleanup?.();
+
+			const nav = document.getElementById('header-nav');
+			if (!nav) return;
+
+			const links = Array.from(
+				nav.querySelectorAll('.header-link[data-section]'),
+			);
+			const tracked = links
+				.map((link) => ({
+					link,
+					section: document.getElementById(link.dataset.section || ''),
+					marker: null,
+				}))
+				.filter((item) => item.section)
+				.map((item) => ({
+					...item,
+					marker:
+						item.section.querySelector('.ds-section-title') || item.section,
+				}));
+
+			if (!tracked.length) return;
+
+			const setActive = (id) => {
+				for (const { link } of tracked) {
+					const isActive = link.dataset.section === id;
+					link.classList.toggle('is-active', isActive);
+					if (isActive) {
+						link.setAttribute('aria-current', 'page');
+					} else {
+						link.removeAttribute('aria-current');
+					}
+				}
+			};
+
+			const updateActiveSection = () => {
+				const viewportCenter = window.innerHeight * 0.5;
+				let activeId = '';
+
+				for (const { section, marker } of tracked) {
+					const rect = marker.getBoundingClientRect();
+
+					if (rect.top <= viewportCenter && rect.bottom >= viewportCenter) {
+						activeId = section.id;
+						break;
+					}
+
+					if (rect.top <= viewportCenter) {
+						activeId = section.id;
+					}
+				}
+
+				setActive(activeId);
+			};
+
+			const onScroll = () => updateActiveSection();
+			const onResize = () => updateActiveSection();
+			const onHashChange = () => updateActiveSection();
+
+			window.addEventListener('scroll', onScroll, { passive: true });
+			window.addEventListener('resize', onResize);
+			window.addEventListener('hashchange', onHashChange);
+
+			updateActiveSection();
+
+			window.__headerNavCleanup = () => {
+				window.removeEventListener('scroll', onScroll);
+				window.removeEventListener('resize', onResize);
+				window.removeEventListener('hashchange', onHashChange);
+			};
+		};
+
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', setupHeaderNav, {
+				once: true,
+			});
+		} else {
+			setupHeaderNav();
+		}
+
+		document.addEventListener('astro:page-load', setupHeaderNav);
+	})();
+</script>
+
 <style>
-    nav {
-        animation: nav-shadown 1s linear both;
-        animation-timeline: scroll();
-        animation-range: 0 100px;
-    }
+	#header-nav {
+		background: transparent;
+		border-color: transparent;
+		box-shadow: none;
+		backdrop-filter: blur(0);
+		animation: nav-shadow 1s linear both;
+		animation-timeline: scroll();
+		animation-range: 0 100px;
+	}
 
-    nav {
-        @apply dark:bg-gray-800/90 bg-white/50;
-    }
+	.header-link {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+		border-radius: var(--radius-sm);
+		padding: 0.6rem 0.85rem;
+		font-family: var(--font-heading);
+		font-size: 0.82rem;
+		font-weight: 700;
+		letter-spacing: 0.02em;
+		color: var(--color-text-muted);
+	}
 
-    @keyframes nav-shadown {
-        0% {
-            @apply dark:bg-gray-800/0 bg-white/0;
-        }
-        to {
-            @apply shadow-lg ring-1 backdrop-blur ring-white/10;
-        }
-    }
+	.header-link::after {
+		content: '';
+		position: absolute;
+		left: 0.85rem;
+		right: 0.85rem;
+		bottom: 0.35rem;
+		height: 1px;
+		background: var(--color-primary);
+		transform: scaleX(0);
+		transform-origin: left center;
+		transition: transform 180ms ease;
+	}
+
+	.header-link:hover,
+	.header-link.is-active,
+	.header-link:focus-visible {
+		color: var(--color-primary);
+		outline: none;
+	}
+
+	.header-link:hover::after,
+	.header-link.is-active::after,
+	.header-link:focus-visible::after {
+		transform: scaleX(1);
+	}
+
+	@keyframes nav-shadow {
+		0% {
+			background: transparent;
+			border-color: transparent;
+			box-shadow: none;
+			backdrop-filter: blur(0);
+		}
+
+		to {
+			background: color-mix(
+				in srgb,
+				var(--color-surface-strong) 68%,
+				transparent
+			);
+			border-color: rgba(148, 163, 184, 0.12);
+			box-shadow: 0 14px 32px rgba(2, 6, 23, 0.22);
+			backdrop-filter: blur(14px);
+		}
+	}
 </style>

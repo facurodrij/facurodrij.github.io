@@ -1,5 +1,6 @@
 <h2
-    class={`flex items-center mb-6 text-3xl font-semibold gap-x-3 text-gray-800 dark:text-white  ${Astro.props.className}`}
+	data-ui-heading="true"
+	class={`ds-section-title ${Astro.props.className || ''}`}
 >
-    <slot />
+	<slot />
 </h2>

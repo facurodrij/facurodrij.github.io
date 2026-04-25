@@ -1,37 +1,251 @@
 ---
-import ExperienceItem from "./ExperienceItem.astro";
+import ExperienceItem from './ExperienceItem.astro';
 const EXPERIENCE = [
-    {
-        date: "Marzo 2025 - Presente",
-        title: "Desarrollador FullStack",
-        company: "Sherpa.wtf",
-        description:
-            "Desarrollo y mantenimiento de chatbots especializados para productores y brokers de seguros. Me enfoco en la creación, actualización y optimización de soluciones conversacionales que mejoran la eficiencia y la experiencia del usuario en el sector de seguros.",
-    },
-    {
-        date: "Julio 2024 - Diciembre 2024",
-        title: "Desarrollador Full Stack - Freelance",
-        company: "Repuestos Stock Car",
-        description:
-            "Diseñé, desarrollé e implementé un sistema de facturación y gestión de inventario para gestionar las operaciones y la información de la empresa. Mis responsabilidades incluyeron el análisis de requisitos funcionales, la creación de la arquitectura del sistema y la entrega de una solución full stack.",
-    },
-    {
-        date: "Junio 2023",
-        title: "Tutor Docente",
-        company: "Argentina Programa 4.0",
-        description:
-            "Impartí conocimientos en Inteligencia Artificial con Python - Nivel 1, como parte del Trayecto Formativo Programador Junior en Machine Learning de Argentina Programa 4.0. Este rol me permitió contribuir al desarrollo de futuros profesionales y fortaleció mi experiencia en la enseñanza de tecnologías.",
-        certification: "/experience/argentina-programa-4-0.pdf",
-    },
+	{
+		id: 'sherpa',
+		date: 'Marzo 2025 - Presente',
+		title: 'Desarrollador Full Stack',
+		company: 'Sherpa.wtf',
+		current: true,
+		description:
+			'Desarrollo y mantenimiento de chatbots especializados para productores y brokers de seguros. Me enfoco en la creación, actualización y optimización de soluciones conversacionales que mejoran la eficiencia y la experiencia del usuario en el sector de seguros.',
+	},
+	{
+		id: 'stock-car',
+		date: 'Julio 2024 - Febrero 2025',
+		title: 'Desarrollador Full Stack',
+		company: 'Repuestos Stock Car',
+		description:
+			'Diseñé, desarrollé e implementé un sistema de facturación y gestión de inventario para gestionar las operaciones y la información de la empresa. Mis responsabilidades incluyeron el análisis de requisitos funcionales, la creación de la arquitectura del sistema y la entrega de una solución full stack.',
+	},
+	{
+		id: 'argentina-programa',
+		date: 'Junio 2023 - Septiembre 2023',
+		title: 'Tutor Docente',
+		company: 'Argentina Programa 4.0',
+		description:
+			'Impartí conocimientos en Inteligencia Artificial con Python - Nivel 1, como parte del Trayecto Formativo Programador Junior en Machine Learning de Argentina Programa 4.0. Este rol me permitió contribuir al desarrollo de futuros profesionales y fortaleció mi experiencia en la enseñanza de tecnologías.',
+		certification: '/experience/argentina-programa-4-0.pdf',
+	},
 ];
 ---
 
-<ol class="relative mt-16">
-    {
-        EXPERIENCE.map((experience) => (
-            <li class="">
-                <ExperienceItem {...experience} />
-            </li>
-        ))
-    }
+<ol class="relative mt-10 space-y-5 ps-6 md:mt-12 md:ps-4" data-experience-root>
+	{
+		EXPERIENCE.map((experience) => (
+			<li
+				class:list={[
+					'ds-experience-row relative',
+					{ 'is-current': experience.current },
+				]}
+				data-experience-item-wrapper
+			>
+				<ExperienceItem {...experience} />
+			</li>
+		))
+	}
 </ol>
+
+<style>
+	.ds-experience-row::before {
+		content: '';
+		position: absolute;
+		left: -0.4rem;
+		top: 1.9rem;
+		bottom: -3.15rem;
+		width: 2px;
+		will-change: opacity;
+		background: linear-gradient(
+			180deg,
+			rgba(56, 189, 248, 0.08) 0%,
+			rgba(56, 189, 248, 0.16) 20%,
+			rgba(56, 189, 248, 0.22) 50%,
+			rgba(56, 189, 248, 0.18) 76%,
+			rgba(56, 189, 248, 0.08) 90%,
+			rgba(56, 189, 248, 0.02) 100%
+		);
+		opacity: 0.38;
+		box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.04);
+		transition: opacity 180ms ease;
+	}
+
+	.ds-experience-row[data-timeline-state='past']::before,
+	.ds-experience-row[data-timeline-state='active']::before {
+		background: linear-gradient(
+			180deg,
+			rgba(56, 189, 248, 0.12) 0%,
+			rgba(56, 189, 248, 0.28) 18%,
+			rgba(56, 189, 248, 0.4) 50%,
+			rgba(56, 189, 248, 0.28) 76%,
+			rgba(56, 189, 248, 0.12) 90%,
+			rgba(56, 189, 248, 0.03) 100%
+		);
+		opacity: 1;
+		box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.1);
+	}
+
+	.ds-experience-row.is-current::before {
+		background: linear-gradient(
+			180deg,
+			rgba(0, 208, 132, 0.12) 0%,
+			rgba(0, 208, 132, 0.28) 26%,
+			rgba(56, 189, 248, 0.24) 74%,
+			rgba(56, 189, 248, 0.1) 90%,
+			rgba(56, 189, 248, 0.03) 100%
+		);
+		box-shadow: 0 0 0 1px rgba(0, 208, 132, 0.06);
+	}
+
+	.ds-experience-row.is-current[data-timeline-state='past']::before,
+	.ds-experience-row.is-current[data-timeline-state='active']::before {
+		background: linear-gradient(
+			180deg,
+			rgba(0, 208, 132, 0.18) 0%,
+			rgba(0, 208, 132, 0.34) 24%,
+			rgba(56, 189, 248, 0.3) 72%,
+			rgba(56, 189, 248, 0.12) 90%,
+			rgba(56, 189, 248, 0.04) 100%
+		);
+		opacity: 1;
+		box-shadow: 0 0 0 1px rgba(0, 208, 132, 0.1);
+	}
+
+	.ds-experience-row:last-child::before {
+		bottom: 0;
+	}
+
+	@media (min-width: 768px) {
+		.ds-experience-row::before {
+			left: -0.4rem;
+		}
+	}
+</style>
+
+<script is:inline>
+	(() => {
+		const setupExperienceTimeline = () => {
+			window.__experienceTimelineCleanup?.();
+
+			const root = document.querySelector('[data-experience-root]');
+			if (!root) return;
+
+			const items = Array.from(root.querySelectorAll('[data-experience-item]'));
+			if (!items.length) return;
+			const rows = items.map((item) =>
+				item.closest('[data-experience-item-wrapper]'),
+			);
+
+			let activeIndex = -1;
+
+			const setDataValue = (element, key, value) => {
+				if (!element) return;
+				if (element.dataset[key] === value) return;
+				element.dataset[key] = value;
+			};
+
+			const setAriaCurrent = (element, isActive) => {
+				const value = isActive ? 'true' : 'false';
+				if (element.getAttribute('aria-current') === value) return;
+				element.setAttribute('aria-current', value);
+			};
+
+			const setActiveItem = () => {
+				const rootRect = root.getBoundingClientRect();
+				const viewportHeight = window.innerHeight;
+
+				// Avoid work while section is outside viewport.
+				if (rootRect.bottom < -96 || rootRect.top > viewportHeight + 96) {
+					return;
+				}
+
+				const viewportCenter = window.innerHeight * 0.5;
+				let nextActiveIndex = -1;
+				let closestDistance = Number.POSITIVE_INFINITY;
+
+				for (let index = 0; index < items.length; index++) {
+					const item = items[index];
+					const rect = item.getBoundingClientRect();
+					const itemCenter = rect.top + rect.height / 2;
+					const distance = Math.abs(itemCenter - viewportCenter);
+					const visible = rect.bottom > 0 && rect.top < window.innerHeight;
+
+					if (!visible || distance >= closestDistance) continue;
+
+					closestDistance = distance;
+					nextActiveIndex = index;
+				}
+
+				if (nextActiveIndex === activeIndex) {
+					return;
+				}
+
+				activeIndex = nextActiveIndex;
+
+				items.forEach((item, index) => {
+					const row = rows[index];
+					const isActive = index === activeIndex;
+					setDataValue(item, 'active', String(isActive));
+					setAriaCurrent(item, isActive);
+
+					let state = 'future';
+					if (activeIndex !== -1 && index < activeIndex) {
+						state = 'past';
+					}
+					if (isActive) {
+						state = 'active';
+					}
+
+					setDataValue(item, 'timelineState', state);
+					setDataValue(row, 'timelineState', state);
+
+					if (activeIndex === -1) {
+						return;
+					}
+				});
+			};
+
+			let frameId = 0;
+			const queueActiveItemUpdate = () => {
+				if (frameId) return;
+
+				frameId = window.requestAnimationFrame(() => {
+					frameId = 0;
+					setActiveItem();
+				});
+			};
+
+			items.forEach((item, index) => {
+				setDataValue(item, 'revealed', 'true');
+				setDataValue(item, 'timelineState', 'future');
+				setDataValue(item, 'active', 'false');
+				setAriaCurrent(item, false);
+				setDataValue(rows[index], 'timelineState', 'future');
+			});
+
+			window.addEventListener('scroll', queueActiveItemUpdate, {
+				passive: true,
+			});
+			window.addEventListener('resize', queueActiveItemUpdate);
+			queueActiveItemUpdate();
+
+			window.__experienceTimelineCleanup = () => {
+				window.removeEventListener('scroll', queueActiveItemUpdate);
+				window.removeEventListener('resize', queueActiveItemUpdate);
+
+				if (frameId) {
+					window.cancelAnimationFrame(frameId);
+				}
+			};
+		};
+
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', setupExperienceTimeline, {
+				once: true,
+			});
+		} else {
+			setupExperienceTimeline();
+		}
+
+		document.addEventListener('astro:page-load', setupExperienceTimeline);
+	})();
+</script>

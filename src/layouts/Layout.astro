@@ -1,11 +1,11 @@
 ---
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import { ViewTransitions } from "astro:transitions"
-import '@fontsource/poppins';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { ClientRouter } from 'astro:transitions';
+import '../styles/global.css';
 
 interface Props {
-    title: string;
+	title: string;
 }
 
 const { title } = Astro.props;
@@ -13,103 +13,131 @@ const { title } = Astro.props;
 
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="Facundo Joel Rodríguez - Desarrollador web y graduado de Licenciatura en Sistemas de Información" />
-        <meta name="generator" content={Astro.generator} />
-        <title>{title}</title>
-        <link rel="icon" href="/favicon.svg" />
-        <ViewTransitions />
-    </head>
-    <body class="relative text-black dark:text-white">
-        <div
-            class="absolute top-0 bottom-0 z-[-2] min-h-screen w-full bg-gray-50 dark:bg-gray-950
-            bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(217,216,255,0.5),rgba(255,255,255,0.9))]
-            dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
-        >
-        </div>
-        <Header />
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta
+			name="description"
+			content="Facundo Joel Rodríguez - Desarrollador web y graduado de Licenciatura en Sistemas de Información"
+		/>
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<link rel="icon" href="/favicon.svg" />
+		<ClientRouter />
+	</head>
+	<body class="ds-shell">
+		<Header />
 
-        <slot />
+		<slot />
 
-        <Footer />
+		<Footer />
 
-        <style is:global>
-            :root {
-                color-scheme: light dark;
-            }
+		<script is:inline>
+			(() => {
+				const setupBackgroundSpotlight = () => {
+					window.__backgroundSpotlightCleanup?.();
 
-            html {
-                font-family: "Poppins", sans-serif;
-                scroll-behavior: smooth;
-            }
+					const body = document.body;
+					const root = document.documentElement;
+					if (!body) return;
 
-            body {
-                color: rgba(17, 17, 17, 0.9);
-                display: flex;
-                flex-direction: column;
-                min-height: 100vh;
-                overscroll-behavior: none;
-            }
+					const supportsFinePointer =
+						window.matchMedia('(pointer: fine)').matches;
+					const prefersReducedMotion = window.matchMedia(
+						'(prefers-reduced-motion: reduce)',
+					).matches;
 
-            @media (prefers-reduced-motion: reduce) {
-                html {
-                    scroll-behavior: auto;
-                }
-            }
+					if (!supportsFinePointer || prefersReducedMotion) {
+						body.dataset.pointerFine = 'false';
+						body.dataset.spotlightActive = 'false';
+						body.style.removeProperty('--mouse-x');
+						body.style.removeProperty('--mouse-y');
+						body.style.removeProperty('--background-spotlight-opacity');
+						window.__backgroundSpotlightCleanup = undefined;
+						return;
+					}
 
-            @media (prefers-color-scheme: dark) {
-                body {
-                    color: rgba(255, 255, 255, 0.9);
-                }
-            }
+					body.dataset.pointerFine = 'true';
+					body.dataset.spotlightActive = 'false';
 
-            #header-nav {
-                animation: blur linear both 0.5s;
-                animation-timeline: scroll();
-                animation-range: 0 500px;
-            }
+					let frameId = 0;
+					let nextX = 0;
+					let nextY = 0;
 
-            @keyframes blur {
-                to {
-                    backdrop-filter: blur(20px);
-                    border-width: 1px;
-                    border-color: rgba(0, 0, 0);
-                    padding: 0.25rem 0.75rem;
-                    display: flex;
-                    flex-direction: row;
-                    align-items: center;
-                    background-color: rgb(229, 229, 229);
-                    border-radius: 9999px;
-                }
-            }
+					const updateSpotlightOpacity = (x) => {
+						const viewportWidth = window.innerWidth || 1;
+						const normalizedX = Math.min(Math.max(x / viewportWidth, 0), 1);
+						const centeredWeight = 1 - Math.abs(normalizedX - 0.5) * 2;
+						const easedWeight =
+							centeredWeight * centeredWeight * (3 - 2 * centeredWeight);
+						const minOpacity = 0.32;
+						const maxOpacity = 0.9;
+						const spotlightOpacity =
+							minOpacity + (maxOpacity - minOpacity) * easedWeight;
 
-            @media (prefers-color-scheme: dark) {
-                @keyframes blur {
-                    from {
-                        border: 0px;
-                    }
-                    to {
-                        box-shadow:
-                            0px 5px 50px -5px rgba(0, 0, 0, 0.1),
-                            0px 0px 0 1px rgba(0, 0, 0, 0.3);
-                        background: rgba(0, 0, 0, 0.3);
-                        backdrop-filter: blur(20px);
-                        border-width: 1px;
-                        border-color: rgba(0, 0, 0);
-                        padding-left: 0.75rem;
-                        padding-right: 0.75rem;
-                        padding-top: 0.25rem;
-                        padding-bottom: 0.25rem;
-                        display: flex;
-                        flex-direction: row;
-                        align-items: center;
-                        background-color: rgba(0, 0, 0, 0.3);
-                        border-radius: 9999px;
-                    }
-                }
-            }
-        </style>
-    </body>
+						body.style.setProperty(
+							'--background-spotlight-opacity',
+							spotlightOpacity.toFixed(3),
+						);
+					};
+
+					const commitPosition = () => {
+						frameId = 0;
+						body.style.setProperty('--mouse-x', `${nextX}px`);
+						body.style.setProperty('--mouse-y', `${nextY}px`);
+						updateSpotlightOpacity(nextX);
+					};
+
+					const queuePosition = (event) => {
+						nextX = event.clientX;
+						nextY = event.clientY;
+						body.dataset.spotlightActive = 'true';
+
+						if (frameId) return;
+						frameId = window.requestAnimationFrame(commitPosition);
+					};
+
+					const deactivate = () => {
+						body.dataset.spotlightActive = 'false';
+					};
+
+					window.addEventListener('pointermove', queuePosition, {
+						passive: true,
+					});
+					root.addEventListener('mouseleave', deactivate);
+					window.addEventListener('pointercancel', deactivate);
+					window.addEventListener('blur', deactivate);
+
+					window.__backgroundSpotlightCleanup = () => {
+						window.removeEventListener('pointermove', queuePosition);
+						root.removeEventListener('mouseleave', deactivate);
+						window.removeEventListener('pointercancel', deactivate);
+						window.removeEventListener('blur', deactivate);
+
+						if (frameId) {
+							window.cancelAnimationFrame(frameId);
+						}
+
+						body.style.removeProperty('--mouse-x');
+						body.style.removeProperty('--mouse-y');
+						body.style.removeProperty('--background-spotlight-opacity');
+					};
+				};
+
+				if (document.readyState === 'loading') {
+					document.addEventListener(
+						'DOMContentLoaded',
+						setupBackgroundSpotlight,
+						{
+							once: true,
+						},
+					);
+				} else {
+					setupBackgroundSpotlight();
+				}
+
+				document.addEventListener('astro:page-load', setupBackgroundSpotlight);
+			})();
+		</script>
+	</body>
 </html>

@@ -1,0 +1,449 @@
+﻿---
+import ReactIcon from './icons/React.astro';
+import NextjsIcon from './icons/Nextjs.astro';
+import TypeScriptIcon from './icons/TypeScript.astro';
+import JavaScriptIcon from './icons/JavaScript.astro';
+import TerraformIcon from './icons/Terraform.astro';
+import NodejsIcon from './icons/Nodejs.astro';
+import ExpressIcon from './icons/Express.astro';
+import JqueryIcon from './icons/Jquery.astro';
+import DjangoIcon from './icons/Django.astro';
+import FlaskIcon from './icons/Flask.astro';
+import PythonIcon from './icons/Python.astro';
+import DotNetIcon from './icons/DotNet.astro';
+import MaterialUiIcon from './icons/MaterialUi.astro';
+import ShadcnIcon from './icons/Shadcn.astro';
+import TailwindIcon from './icons/Tailwind.astro';
+import BootstrapIcon from './icons/Bootstrap.astro';
+import MongoDBIcon from './icons/MongoDB.astro';
+import PostgreSQLIcon from './icons/PostgreSQL.astro';
+import SQLiteIcon from './icons/SQLite.astro';
+import FirebaseIcon from './icons/Firebase.astro';
+import RedisIcon from './icons/Redis.astro';
+import DockerIcon from './icons/Docker.astro';
+import KubernetesIcon from './icons/Kubernetes.astro';
+import GcpIcon from './icons/Gcp.astro';
+import RailwayIcon from './icons/Railway.astro';
+import GithubActionsIcon from './icons/GithubActions.astro';
+import JiraIcon from './icons/Jira.astro';
+import NotionIcon from './icons/Notion.astro';
+import CursorIcon from './icons/Cursor.astro';
+import OpencodeIcon from './icons/Opencode.astro';
+import LinuxIcon from './icons/Linux.astro';
+import ArchLinuxIcon from './icons/ArchLinux.astro';
+import UbuntuIcon from './icons/Ubuntu.astro';
+import OpenSuseIcon from './icons/OpenSuse.astro';
+
+const TECHNOLOGY_GROUPS = [
+	{
+		title: 'Lenguajes & Frameworks',
+		items: [
+			{
+				name: 'JavaScript',
+				icon: JavaScriptIcon,
+				badgeClassName: 'bg-[#F7DF1E] text-[#111827]',
+			},
+			{
+				name: 'TypeScript',
+				icon: TypeScriptIcon,
+				badgeClassName: 'bg-[#3178C6] text-white',
+			},
+			{
+				name: 'React',
+				icon: ReactIcon,
+				badgeClassName: 'bg-[#07131c] text-[#61DAFB]',
+			},
+			{
+				name: 'Next.js',
+				icon: NextjsIcon,
+				badgeClassName: 'bg-white text-black',
+			},
+			{
+				name: 'Node.js',
+				icon: NodejsIcon,
+				badgeClassName: 'bg-[#101a0c] text-[#83CD29]',
+			},
+			{
+				name: 'Express',
+				icon: ExpressIcon,
+				badgeClassName: 'bg-white text-black',
+			},
+			{
+				name: 'Python',
+				icon: PythonIcon,
+				badgeClassName: 'bg-[#0f172a] text-white',
+			},
+			{
+				name: 'Flask',
+				icon: FlaskIcon,
+				badgeClassName: 'bg-white text-[#010101]',
+			},
+			{
+				name: 'Django',
+				icon: DjangoIcon,
+				badgeClassName: 'bg-[#092E20] text-white',
+			},
+			{
+				name: 'jQuery',
+				icon: JqueryIcon,
+				badgeClassName: 'bg-white text-[#0868AC]',
+			},
+			{
+				name: '.NET',
+				icon: DotNetIcon,
+				badgeClassName: 'bg-[#512BD4] text-white',
+			},
+		],
+	},
+	{
+		title: 'UI & Animation Libraries',
+		items: [
+			{
+				name: 'Bootstrap',
+				icon: BootstrapIcon,
+				badgeClassName: 'bg-[#7952B3] text-white',
+			},
+			{
+				name: 'Material UI',
+				icon: MaterialUiIcon,
+				badgeClassName: 'bg-[#08131d] text-[#1FA6CA]',
+			},
+			{
+				name: 'Tailwind CSS',
+				icon: TailwindIcon,
+				badgeClassName: 'bg-[#041c29] text-[#06B6D4]',
+			},
+			{
+				name: 'shadcn/ui',
+				icon: ShadcnIcon,
+				badgeClassName: 'bg-white text-black',
+			},
+		],
+	},
+	{
+		title: 'Bases de Datos',
+		items: [
+			{
+				name: 'Firebase',
+				icon: FirebaseIcon,
+				badgeClassName: 'bg-[#fff7ed] text-[#f58220]',
+			},
+			{
+				name: 'MongoDB',
+				icon: MongoDBIcon,
+				badgeClassName: 'bg-[#0b2218] text-white',
+			},
+			{
+				name: 'PostgreSQL',
+				icon: PostgreSQLIcon,
+				badgeClassName: 'bg-[#10273d] text-white',
+			},
+			{
+				name: 'Redis',
+				icon: RedisIcon,
+				badgeClassName: 'bg-[#2f1108] text-[#D82C20]',
+			},
+			{
+				name: 'SQLite',
+				icon: SQLiteIcon,
+				badgeClassName: 'bg-[#e6f4fb] text-[#0f7fcc]',
+			},
+		],
+	},
+	{
+		title: 'Cloud & DevOps',
+		items: [
+			{
+				name: 'Docker',
+				icon: DockerIcon,
+				badgeClassName: 'bg-[#031f33] text-[#2496ED]',
+			},
+			{
+				name: 'GitHub Actions',
+				icon: GithubActionsIcon,
+				badgeClassName: 'bg-[#06172f] text-[#2088FF]',
+			},
+			{
+				name: 'Kubernetes',
+				icon: KubernetesIcon,
+				badgeClassName: 'bg-[#071426] text-[#326CE5]',
+			},
+			{
+				name: 'Terraform',
+				icon: TerraformIcon,
+				badgeClassName: 'bg-white text-[#5c4ee5]',
+			},
+			{
+				name: 'GCP',
+				icon: GcpIcon,
+				badgeClassName: 'bg-white text-[#4285F4]',
+			},
+			{
+				name: 'Railway',
+				icon: RailwayIcon,
+				badgeClassName: 'bg-[#0b1020] text-white',
+			},
+		],
+	},
+	{
+		title: 'Herramientas & Plataformas',
+		items: [
+			{
+				name: 'Cursor',
+				icon: CursorIcon,
+				badgeClassName: 'bg-transparent text-white shadow-none',
+			},
+			{
+				name: 'Jira',
+				icon: JiraIcon,
+				badgeClassName: 'bg-[#071426] text-[#2684FF]',
+			},
+			{
+				name: 'Notion',
+				icon: NotionIcon,
+				badgeClassName: 'bg-white text-black',
+			},
+			{
+				name: 'OpenCode',
+				icon: OpencodeIcon,
+				badgeClassName: 'bg-transparent text-[#4B4646] shadow-none',
+			},
+			{
+				name: 'Linux',
+				icon: LinuxIcon,
+				badgeClassName: 'bg-[#111827] text-white',
+			},
+			{
+				name: 'Arch Linux',
+				icon: ArchLinuxIcon,
+				badgeClassName: 'bg-[#071926] text-[#1793D1]',
+			},
+			{
+				name: 'Ubuntu',
+				icon: UbuntuIcon,
+				badgeClassName: 'bg-[#2f1108] text-[#E95420]',
+			},
+			{
+				name: 'openSUSE',
+				icon: OpenSuseIcon,
+				badgeClassName: 'bg-[#0f1a07] text-[#73BA25]',
+			},
+		],
+	},
+];
+---
+
+<section class="space-y-8" data-tech-root data-tech-enhanced="false">
+	<div class="mx-auto max-w-3xl text-center">
+		<p class="ds-body mx-auto max-w-2xl">
+			Stack con el que diseño, construyo y despliego.
+		</p>
+	</div>
+
+	<div class="grid gap-5">
+		{
+			TECHNOLOGY_GROUPS.map(({ title, items }) => (
+				<article
+					class="tech-category ds-card ds-glass-panel rounded-[var(--radius-lg)] p-5 sm:p-6"
+					data-tech-group
+				>
+					<div class="flex items-center gap-3">
+						<h3
+							data-ui-heading="true"
+							class="text-xl font-bold text-[var(--color-heading)]"
+						>
+							{title}
+						</h3>
+					</div>
+
+					<ul class="mt-5 flex flex-wrap gap-2.5">
+						{items.map(({ name, icon: Icon, badgeClassName }, itemIndex) => (
+							<li
+								class="tech-chip-item"
+								style={`--tech-chip-order: ${itemIndex};`}
+								data-tech-chip
+								data-chip-visible="false"
+							>
+								<span class="tech-chip">
+									<span class:list={['tech-chip__icon', badgeClassName]}>
+										<Icon class="size-4 shrink-0" />
+									</span>
+									<span>{name}</span>
+								</span>
+							</li>
+						))}
+					</ul>
+				</article>
+			))
+		}
+	</div>
+</section>
+
+<style>
+	.tech-category {
+		border-color: rgba(255, 255, 255, 0.08);
+	}
+
+	[data-tech-root][data-tech-enhanced='true']
+		[data-tech-chip][data-chip-visible='false'] {
+		opacity: 0;
+		transform: translateY(18px);
+		filter: blur(4px);
+		transition: none;
+		will-change: opacity, transform, filter;
+	}
+
+	[data-tech-root][data-tech-enhanced='true']
+		[data-tech-chip][data-chip-visible='true'] {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+		filter: blur(0);
+		animation: tech-chip-fade-up 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+	}
+
+	@keyframes tech-chip-fade-up {
+		0% {
+			opacity: 0;
+			transform: translateY(18px);
+			filter: blur(4px);
+		}
+
+		100% {
+			opacity: 1;
+			transform: translateY(0);
+			filter: blur(0);
+		}
+	}
+
+	.tech-chip {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.7rem;
+		padding: 0.45rem 0.85rem 0.45rem 0.5rem;
+		border-radius: 999px;
+		border: 1px solid rgba(148, 163, 184, 0.16);
+		background: rgba(2, 6, 23, 0.58);
+		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+		font-size: 0.92rem;
+		font-weight: 500;
+		color: var(--color-text);
+	}
+
+	.tech-chip__icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 2rem;
+		height: 2rem;
+		border-radius: 999px;
+		box-shadow:
+			inset 0 1px 0 rgba(255, 255, 255, 0.14),
+			0 10px 24px rgba(2, 6, 23, 0.18);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.tech-chip-item {
+			opacity: 1;
+			transform: none;
+			filter: none;
+			animation: none;
+			transition: none;
+		}
+	}
+</style>
+
+<script is:inline>
+	(() => {
+		const setupTechnologiesReveal = () => {
+			window.__technologiesRevealCleanup?.();
+
+			const root = document.querySelector('[data-tech-root]');
+			if (!root) return;
+
+			const groups = Array.from(root.querySelectorAll('[data-tech-group]'));
+			if (!groups.length) return;
+			const cleanupTimers = new WeakMap();
+			const getChips = (group) =>
+				Array.from(group.querySelectorAll('[data-tech-chip]'));
+
+			const clearGroupTimers = (group) => {
+				const timerIds = cleanupTimers.get(group) || [];
+				timerIds.forEach((timerId) => window.clearTimeout(timerId));
+				cleanupTimers.set(group, []);
+			};
+
+			const setChipsVisibility = (group, visible) => {
+				getChips(group).forEach((chip) => {
+					chip.dataset.chipVisible = String(visible);
+				});
+			};
+
+			const prefersReducedMotion = window.matchMedia(
+				'(prefers-reduced-motion: reduce)',
+			).matches;
+
+			if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+				root.dataset.techEnhanced = 'false';
+				groups.forEach((group) => {
+					setChipsVisibility(group, true);
+				});
+				window.__technologiesRevealCleanup = undefined;
+				return;
+			}
+
+			const observer = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						const group = entry.target;
+						const chips = getChips(group);
+
+						clearGroupTimers(group);
+
+						if (!entry.isIntersecting) {
+							setChipsVisibility(group, false);
+							return;
+						}
+
+						const timerIds = chips.map((chip, index) =>
+							window.setTimeout(
+								() => {
+									chip.dataset.chipVisible = 'true';
+								},
+								80 + index * 80,
+							),
+						);
+
+						cleanupTimers.set(group, timerIds);
+					});
+				},
+				{
+					threshold: 0.2,
+					rootMargin: '0px 0px -10% 0px',
+				},
+			);
+
+			root.dataset.techEnhanced = 'true';
+			groups.forEach((group) => {
+				setChipsVisibility(group, false);
+				observer.observe(group);
+			});
+
+			window.__technologiesRevealCleanup = () => {
+				groups.forEach((group) => {
+					clearGroupTimers(group);
+				});
+				observer.disconnect();
+			};
+		};
+
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', setupTechnologiesReveal, {
+				once: true,
+			});
+		} else {
+			setupTechnologiesReveal();
+		}
+
+		document.addEventListener('astro:page-load', setupTechnologiesReveal);
+	})();
+</script>

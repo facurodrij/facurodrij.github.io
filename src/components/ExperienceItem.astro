@@ -1,88 +1,406 @@
 ---
-import LinkInline from "./LinkInline.astro";
+import LinkInline from './LinkInline.astro';
 
 interface Props {
-    title: string;
-    company: string;
-    description: string;
-    link?: string;
-    date: string;
-    certification?: string;
+	id?: string;
+	title: string;
+	company: string;
+	description: string;
+	link?: string;
+	date: string;
+	certification?: string;
+	current?: boolean;
 }
 
-const { title, company, description, link, date, certification } = Astro.props;
+const {
+	id,
+	title,
+	company,
+	description,
+	link,
+	date,
+	certification,
+	current = false,
+} = Astro.props;
 ---
 
 <div
-    class="relative ml-12 pb-12 grid before:absolute before:left-[-35px] before:block before:h-full before:border-l-2 before:border-black/20 dark:before:border-white/15 before:content-[''] md:grid-cols-5 md:gap-10 md:space-x-4]"
+	id={id}
+	class:list={[
+		'ds-experience-item ds-card ds-glass-panel relative ml-4 grid gap-6 px-6 py-6 md:ml-6 md:grid-cols-5 md:gap-8',
+		{ 'is-current': current },
+	]}
+	data-experience-item
+	data-revealed="false"
+	data-active="false"
 >
-    <div class="relative pb-8 md:col-span-2">
-        <div class="sticky top-0">
-            <span
-                class="text-yellow-500 dark:text-yellow-200 -left-[42px] absolute rounded-full text-5xl"
-                >&bull;</span
-            >
+	<span
+		aria-hidden="true"
+		class="ds-experience-marker absolute -left-[1.85rem] top-[1.4rem] h-4 w-4 rounded-full bg-[var(--color-primary)] md:-left-[2.35rem]"
+	></span>
 
-            <h3 class="text-xl font-bold text-yellow-500 dark:text-yellow-200">{title}</h3>
-            <h4 class="font-semibold text-xl text-gray-600 dark:text-white">
-                {company}
-            </h4>
-            <time class="p-0 m-0 text-sm text-gray-600/80 dark:text-white/80"
-                >{date}</time
-            >
-        </div>
-    </div>
-    <div
-        class="relative flex flex-col gap-2 pb-4 text-gray-600 dark:text-gray-300 md:col-span-3"
-    >
-        {description}
-        {
-            link && (
-                <LinkInline href={link}>
-                    Saber más{" "}
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="w-5 icon icon-tabler icon-tabler-chevron-right"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        stroke-width="2"
-                        stroke="currentColor"
-                        fill="none"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    >
-                        <>
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M9 6l6 6l-6 6" />
-                        </>
-                    </svg>
-                </LinkInline>
-            )
-        }
-        {
-            certification && (
-                <LinkInline href={certification}>
-                    Ver certificado{" "}
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="w-5 icon icon-tabler icon-tabler-chevron-right"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        stroke-width="2"
-                        stroke="currentColor"
-                        fill="none"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    >
-                        <>
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M9 6l6 6l-6 6" />
-                        </>
-                    </svg>
-                </LinkInline>
-            )
-        }
-    </div>
+	<div class="relative md:col-span-2">
+		<div>
+			{
+				current && (
+					<span class="ds-eyebrow mb-4 w-fit border-[rgba(0,208,132,0.28)] bg-[linear-gradient(135deg,rgba(0,208,132,0.18),rgba(56,189,248,0.12))] text-[0.7rem]">
+						Actual
+					</span>
+				)
+			}
+
+			<h3
+				data-ui-heading="true"
+				class="text-xl font-bold text-[var(--color-heading)] md:text-[1.4rem]"
+			>
+				{title}
+			</h3>
+			<h4 class="mt-1 text-lg font-semibold text-[var(--color-primary)]">
+				{company}
+			</h4>
+			<time
+				class="mt-2 inline-flex rounded-[var(--radius-sm)] bg-[var(--color-primary-soft)] px-3 py-1 text-sm font-medium text-[var(--color-heading)]"
+				>{date}</time
+			>
+		</div>
+	</div>
+	<div class="ds-body relative flex flex-col gap-3 md:col-span-3">
+		{description}
+		{
+			link && (
+				<LinkInline href={link} className="ds-experience-link mt-2 w-fit">
+					Saber más{' '}
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="icon icon-tabler icon-tabler-chevron-right w-5"
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						stroke-width="2"
+						stroke="currentColor"
+						fill="none"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<>
+							<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+							<path d="M9 6l6 6l-6 6" />
+						</>
+					</svg>
+				</LinkInline>
+			)
+		}
+		{
+			certification && (
+				<LinkInline href={certification} className="ds-experience-link w-fit">
+					Ver certificado{' '}
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="icon icon-tabler icon-tabler-chevron-right w-5"
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						stroke-width="2"
+						stroke="currentColor"
+						fill="none"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<>
+							<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+							<path d="M9 6l6 6l-6 6" />
+						</>
+					</svg>
+				</LinkInline>
+			)
+		}
+	</div>
 </div>
+
+<style>
+	.ds-experience-item {
+		opacity: 1;
+		transform: translateY(0);
+		transform-origin: left center;
+		will-change: transform, opacity;
+		border-color: rgba(148, 163, 184, 0.14);
+		background:
+			linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0) 28%),
+			linear-gradient(180deg, rgba(10, 17, 31, 0.76), rgba(6, 11, 22, 0.58));
+		box-shadow:
+			0 22px 60px rgba(2, 6, 23, 0.34),
+			inset 0 1px 0 rgba(255, 255, 255, 0.05),
+			inset 0 -1px 0 rgba(2, 6, 23, 0.22);
+		backdrop-filter: blur(24px) saturate(140%);
+		-webkit-backdrop-filter: blur(24px) saturate(140%);
+		transition:
+			opacity 260ms ease,
+			transform 260ms ease,
+			border-color 260ms ease,
+			box-shadow 260ms ease;
+	}
+
+	.ds-experience-item[data-timeline-state='future'][data-revealed='true'] {
+		opacity: 0.54;
+	}
+
+	.ds-experience-item[data-active='true'] {
+		opacity: 1;
+		transform: translateY(0) scale(1.015);
+		border-color: rgba(56, 189, 248, 0.34);
+		background:
+			radial-gradient(
+				circle at top left,
+				rgba(56, 189, 248, 0.14),
+				transparent 38%
+			),
+			linear-gradient(180deg, rgba(13, 23, 41, 0.84), rgba(8, 14, 28, 0.66));
+		box-shadow:
+			0 30px 80px rgba(2, 6, 23, 0.48),
+			0 0 0 1px rgba(56, 189, 248, 0.2);
+	}
+
+	.ds-experience-item[data-timeline-state='past']:hover {
+		opacity: 1;
+		transform: translateY(-3px) scale(1.015);
+		border-color: rgba(56, 189, 248, 0.34);
+		background:
+			radial-gradient(
+				circle at top left,
+				rgba(56, 189, 248, 0.14),
+				transparent 38%
+			),
+			linear-gradient(180deg, rgba(13, 23, 41, 0.84), rgba(8, 14, 28, 0.66));
+		box-shadow:
+			0 30px 80px rgba(2, 6, 23, 0.48),
+			0 0 0 1px rgba(56, 189, 248, 0.2);
+	}
+
+	.ds-experience-item.is-current {
+		border-color: rgba(0, 208, 132, 0.22);
+		box-shadow:
+			0 24px 64px rgba(2, 6, 23, 0.36),
+			0 0 0 1px rgba(0, 208, 132, 0.14);
+	}
+
+	.ds-experience-item.is-current[data-active='true'] {
+		border-color: rgba(0, 208, 132, 0.42);
+		background:
+			radial-gradient(
+				circle at top left,
+				rgba(0, 208, 132, 0.18),
+				transparent 40%
+			),
+			linear-gradient(180deg, rgba(11, 24, 28, 0.84), rgba(7, 16, 20, 0.66));
+		box-shadow:
+			0 32px 84px rgba(2, 6, 23, 0.52),
+			0 0 0 1px rgba(0, 208, 132, 0.24);
+	}
+
+	.ds-experience-item.is-current:hover {
+		border-color: rgba(0, 208, 132, 0.42);
+		background:
+			radial-gradient(
+				circle at top left,
+				rgba(0, 208, 132, 0.18),
+				transparent 40%
+			),
+			linear-gradient(180deg, rgba(11, 24, 28, 0.84), rgba(7, 16, 20, 0.66));
+		box-shadow:
+			0 32px 84px rgba(2, 6, 23, 0.52),
+			0 0 0 1px rgba(0, 208, 132, 0.24);
+	}
+
+	.ds-experience-item
+		:is(
+			[data-ui-heading='true'],
+			h4,
+			time,
+			.ds-body,
+			:global(.ds-experience-link)
+		) {
+		transition:
+			opacity 220ms ease,
+			color 220ms ease;
+	}
+
+	.ds-experience-item[data-timeline-state='future']
+		:is([data-ui-heading='true'], h4, time, .ds-body) {
+		opacity: 0.68;
+	}
+
+	.ds-experience-item[data-timeline-state='future']
+		:global(.ds-experience-link) {
+		opacity: 0.76;
+	}
+
+	.ds-experience-item[data-timeline-state='future'] h4 {
+		color: color-mix(in srgb, var(--color-primary) 68%, white 32%);
+	}
+
+	.ds-experience-item[data-timeline-state='past']
+		:is(
+			[data-ui-heading='true'],
+			h4,
+			time,
+			.ds-body,
+			:global(.ds-experience-link)
+		) {
+		opacity: 1;
+		filter: none;
+	}
+
+	.ds-experience-item[data-active='true']
+		:is(
+			[data-ui-heading='true'],
+			h4,
+			time,
+			.ds-body,
+			:global(.ds-experience-link)
+		) {
+		opacity: 1;
+		filter: none;
+	}
+
+	.ds-experience-item[data-timeline-state='past']:hover
+		:is(
+			[data-ui-heading='true'],
+			h4,
+			time,
+			.ds-body,
+			:global(.ds-experience-link)
+		) {
+		opacity: 1;
+		filter: none;
+	}
+
+	.ds-experience-item:hover {
+		opacity: 0.8;
+		transform: translateY(-3px);
+		border-color: rgba(255, 255, 255, 0.14);
+		box-shadow:
+			0 26px 60px rgba(2, 6, 23, 0.38),
+			0 0 0 1px rgba(255, 255, 255, 0.03);
+	}
+
+	.ds-experience-item[data-active='true']:hover {
+		opacity: 1;
+		transform: translateY(-3px) scale(1.015);
+	}
+
+	.ds-experience-marker {
+		z-index: 1;
+		background: color-mix(in srgb, var(--color-secondary) 68%, #08101f 32%);
+		box-shadow:
+			0 0 0 6px var(--color-bg),
+			0 0 0 7px rgba(56, 189, 248, 0.12);
+		transition:
+			transform 220ms ease,
+			background-color 220ms ease,
+			opacity 220ms ease;
+	}
+
+	.ds-experience-item[data-active='true'] .ds-experience-marker,
+	.ds-experience-item[data-timeline-state='past']:hover .ds-experience-marker,
+	.ds-experience-item:hover .ds-experience-marker {
+		background: var(--color-secondary);
+		transform: scale(1.12);
+		box-shadow:
+			0 0 0 6px var(--color-bg),
+			0 0 0 8px rgba(56, 189, 248, 0.18);
+	}
+
+	.ds-experience-item.is-current .ds-experience-marker {
+		background: color-mix(in srgb, var(--color-primary) 72%, #08101f 28%);
+		box-shadow:
+			0 0 0 6px var(--color-bg),
+			0 0 0 7px rgba(0, 208, 132, 0.16);
+	}
+
+	.ds-experience-item.is-current[data-active='true'] .ds-experience-marker {
+		background: var(--color-primary);
+		box-shadow:
+			0 0 0 6px var(--color-bg),
+			0 0 0 10px rgba(0, 208, 132, 0.2);
+	}
+
+	.ds-experience-item.is-current:hover .ds-experience-marker {
+		background: var(--color-primary);
+		box-shadow:
+			0 0 0 6px var(--color-bg),
+			0 0 0 10px rgba(0, 208, 132, 0.2);
+	}
+
+	.ds-experience-item[data-active='true'] time {
+		background: rgba(56, 189, 248, 0.18);
+		color: var(--color-heading);
+	}
+
+	.ds-experience-item[data-timeline-state='past']:hover time {
+		background: rgba(56, 189, 248, 0.18);
+		color: var(--color-heading);
+	}
+
+	.ds-experience-item.is-current[data-active='true'] time {
+		background: rgba(0, 208, 132, 0.18);
+	}
+
+	.ds-experience-item.is-current:hover time {
+		background: rgba(0, 208, 132, 0.18);
+		color: var(--color-heading);
+	}
+
+	:global(.ds-experience-link) {
+		position: relative;
+		gap: 0.45rem;
+		padding-bottom: 0.1rem;
+		color: var(--color-secondary);
+	}
+
+	:global(.ds-experience-link:hover),
+	:global(.ds-experience-link:focus-visible) {
+		color: var(--color-secondary) !important;
+	}
+
+	:global(.ds-experience-link)::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: -0.12rem;
+		height: 1px;
+		background: var(--color-secondary);
+		transform: scaleX(0);
+		transform-origin: left center;
+		transition: transform 180ms ease;
+	}
+
+	:global(.ds-experience-link) :global(svg) {
+		transition: none;
+	}
+
+	:global(.ds-experience-link:hover)::after,
+	:global(.ds-experience-link:focus-visible)::after {
+		transform: scaleX(1);
+	}
+
+	:global(.ds-experience-link:hover) :global(svg),
+	:global(.ds-experience-link:focus-visible) :global(svg) {
+		transform: none;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.ds-experience-item {
+			opacity: 1;
+			transform: none;
+		}
+
+		.ds-experience-item:hover,
+		.ds-experience-item[data-active='true'] .ds-experience-marker,
+		.ds-experience-item:hover .ds-experience-marker,
+		:global(.ds-experience-link:hover) :global(svg),
+		:global(.ds-experience-link:focus-visible) :global(svg) {
+			transform: none;
+		}
+	}
+</style>

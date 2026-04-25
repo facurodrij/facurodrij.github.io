@@ -1,64 +1,298 @@
 ---
-import DownloadIcon from "./icons/Download.astro";
-import LinkedInIcon from "./icons/LinkedIn.astro";
-import TelegramIcon from "./icons/Telegram.astro";
-import GithubIcon from "./icons/Github";
-import SocialPill from "./SocialPill.astro";
+import DownloadIcon from './icons/Download.astro';
+import GithubIcon from './icons/Github.astro';
+import LinkedInIcon from './icons/LinkedIn.astro';
+import ProfilePhoto from './ProfilePhoto.astro';
+import SocialPill from './SocialPill.astro';
+
+const profileSummary = [
+	{
+		label: 'name',
+		value: 'Facundo Joel Rodriguez',
+	},
+	{
+		label: 'current_role',
+		value: 'FullStack Developer @Sherpa',
+	},
+	{
+		label: 'focus',
+		value: 'Scalable web products',
+	},
+	{
+		label: 'interests',
+		value: 'DevOps, Cloud, Architecture',
+	},
+	{
+		label: 'location',
+		value: 'Misiones, Argentina',
+	},
+	{
+		label: 'remote',
+		value: 'available // UTC-3',
+	},
+	{
+		label: 'languages',
+		value: 'Español (Nativo), Inglés (B1)',
+	},
+];
+
+const terminalCommands = [
+	{
+		command: 'cat ./profile.yml',
+		outputEntries: profileSummary,
+	},
+];
+
 ---
 
-<div>
-    <div class="grid grid-cols-3 gap-4">
-        <div class="col-span-3 sm:col-span-2">
-            <h1
-                class="text-3xl font-bold tracking-tight text-gray-800 sm:text-4xl dark:text-white"
-            >
-                Hola! Soy Facundo Joel Rodriguez
-            </h1>
-            <p
-                class="mt-6 text-xl text-gray-800 dark:[&>strong]:text-yellow-200 [&>strong]:text-yellow-500 [&>strong]:font-semibold dark:text-gray-300"
-            >
-                Licenciado en Sistemas de Información.
-                <strong>Desarrollador FullStack de Aplicaciones Web</strong>
-                de Misiones, Argentina.
-            </p>
-        </div>
-        <div class="col-span-3 sm:col-span-1 flex items-center justify-center sm:justify-end">
-            <a
-                href="https://www.linkedin.com/in/facundo-joel-rodriguez/"
-                target="_blank"
-                rel="noopener"
-                class="transition md:hover:scale-105"
-            >
-                <img
-                    class="rounded-lg shadow-lg size-64 sm:size-48 shadow-xl"
-                    src="/me.webp"
-                    alt="Foto de Facundo Joel Rodriguez"
-                />
-            </a>
-        </div>
-    </div>
-    <nav class="flex flex-wrap gap-4 mt-8">
-                <a
-            href="/curriculum_vitae.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            role="link"
-            class={`inline-flex items-center justify-center gap-2 px-4 py-1 text-gray-800 transition bg-gray-100 border border-yellow-500 rounded-full dark:bg-gray-800 dark:border-yellow-200 dark:text-white focus-visible:ring-yellow-500/80 text-md hover:bg-yellow-500 hover:text-white dark:hover:bg-yellow-200 dark:hover:text-black group max-w-fit focus:outline-none focus-visible:outline-none focus-visible:ring focus-visible:ring-white focus-visible:ring-offset-2 ${Astro.props.class}`}
-        >
-            <DownloadIcon class="size-4" />
-            Resume / CV
-        </a>
-        <SocialPill href="https://www.linkedin.com/in/facundo-joel-rodriguez/">
-            <LinkedInIcon class="size-4" />
-            LinkedIn
-        </SocialPill>
-        <SocialPill href="https://github.com/facurodrij">
-            <GithubIcon class="size-4" />
-            Github
-        </SocialPill>
-        <SocialPill href="https://t.me/facurodrij">
-            <TelegramIcon class="size-4" />
-            Telegram
-        </SocialPill>
-    </nav>
-</div>
+<section class="relative px-1 py-6 sm:py-8">
+	<div class="grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.95fr)] md:items-center lg:gap-14">
+		<div>
+			<span class="mb-5 inline-flex items-center gap-3 font-[var(--font-heading)] text-xs font-semibold uppercase tracking-[0.22em] text-[var(--color-primary)]">
+				<span class="h-2 w-2 rounded-full bg-[var(--color-primary)]"></span>
+				2+ años de experiencia
+			</span>
+
+			<p class="font-[var(--font-heading)] text-sm font-semibold uppercase tracking-[0.22em] text-[var(--color-text-soft)] sm:text-base">
+				Hola, soy
+			</p>
+
+			<h1 data-ui-heading="true" class="max-w-4xl text-balance text-4xl font-bold tracking-tight text-[var(--color-heading)] sm:text-5xl lg:text-6xl">
+				<span class="ds-section-title-shimmer inline-block">Facundo Joel Rodriguez</span>
+			</h1>
+
+			<p class="ds-body mt-6 max-w-3xl text-lg sm:text-xl">
+				Desarrollador FullStack orientado a productos web escalables, con fuerte
+				interés en DevOps, Cloud y arquitectura de software.
+			</p>
+
+			<div class="mt-8 flex flex-wrap items-center gap-3">
+				<a href="/curriculum_vitae.pdf" target="_blank" rel="noopener noreferrer" class="ds-button ds-button-primary">
+					<DownloadIcon class="size-4" />
+					Descargar CV
+				</a>
+				<SocialPill href="https://www.linkedin.com/in/facundo-joel-rodriguez/">
+					<LinkedInIcon class="size-4" />
+				</SocialPill>
+				<SocialPill href="https://github.com/facurodrij">
+					<GithubIcon class="size-4" />
+				</SocialPill>
+			</div>
+		</div>
+
+		<div class="relative mx-auto w-full max-w-[26rem] md:mx-0 md:justify-self-end md:max-w-[30rem]">
+			<div class="relative overflow-visible pb-4 md:pb-14">
+				<ProfilePhoto class="md:justify-end" frameClass="max-w-[21rem] sm:max-w-[22rem] md:max-w-[24rem] lg:max-w-[26rem]" />
+
+				<div class="mt-4 w-full md:absolute md:left-0 md:top-[92%] md:z-10 md:mt-0 md:w-[18rem] lg:w-[20rem]" data-hero-floating-terminal>
+					<div class="hero-terminal-aura">
+						<div class="hero-terminal-shell ds-glass-panel w-full overflow-hidden rounded-[var(--radius-lg)]">
+						<div class="ds-terminal-bar relative flex items-center border-b border-white/6 px-4 py-2.5 sm:px-5">
+							<div class="ds-terminal-controls flex items-center gap-1">
+								<span class="ds-terminal-control bg-[#ff5f57] text-[#6b1010]">
+									<span class="ds-terminal-control-icon ds-terminal-control-icon-close" aria-hidden="true"></span>
+								</span>
+								<span class="ds-terminal-control bg-[#febc2e] text-[#8a5300]">
+									<span class="ds-terminal-control-icon ds-terminal-control-icon-minimize" aria-hidden="true"></span>
+								</span>
+								<span class="ds-terminal-control bg-[#28c840] text-[#0a5f17]">
+									<span class="ds-terminal-control-icon ds-terminal-control-icon-expand" aria-hidden="true">
+										<svg viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M2 8L8 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"></path>
+											<path d="M5.8 2H8V4.2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+											<path d="M4.2 8H2V5.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+										</svg>
+									</span>
+								</span>
+							</div>
+							<span class="pointer-events-none absolute left-1/2 -translate-x-1/2 whitespace-nowrap font-[var(--font-mono)] text-[10px] tracking-[0.08em] text-white/40">
+								~/summary
+							</span>
+						</div>
+
+						<div class="px-4 py-4 font-[var(--font-mono)] sm:px-5 sm:py-5">
+							<div class="space-y-0.5 text-[12px] leading-[1.35] sm:text-[13px]">
+								{
+									terminalCommands.map(({ command, outputEntries }) => (
+										<div class="space-y-0.5">
+											<div class="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 text-[var(--color-heading)]">
+												<span class="text-[var(--color-primary)]">$</span>
+												<span>{command}</span>
+											</div>
+
+											<div class="space-y-0.5 text-[var(--color-heading)]">
+												{
+													outputEntries.map(({ label, value }) => (
+													<p class="grid grid-cols-[auto_minmax(0,1fr)] items-baseline gap-x-1.5">
+														<span class="text-white/30">{label}:</span>
+														<span class="min-w-0 text-[var(--color-primary)] break-words">{value}</span>
+													</p>
+													))
+												}
+											</div>
+										</div>
+									))
+								}
+
+								<div class="flex flex-wrap items-center gap-x-2 gap-y-0.5 pt-1 text-[var(--color-heading)]">
+									<span class="text-[var(--color-primary)]">$</span>
+									<span class="ds-terminal-caret inline-block h-4 w-2 translate-y-0.5 bg-[var(--color-primary)]/85"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<style>
+		.ds-terminal-control:hover .ds-terminal-control-icon,
+		.ds-terminal-control:focus-visible .ds-terminal-control-icon {
+			opacity: 1;
+			transform: scale(1);
+		}
+
+		.ds-terminal-control {
+			position: relative;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 0.58rem;
+			height: 0.58rem;
+			border-radius: 999px;
+			box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+		}
+
+		.ds-terminal-control-icon {
+			position: absolute;
+			inset: 0;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			opacity: 0;
+			transform: scale(0.8);
+			transition:
+				opacity 160ms ease,
+				transform 160ms ease;
+		}
+
+		.ds-terminal-control-icon-close::before {
+			content: '×';
+			font-size: 0.46rem;
+			font-weight: 700;
+			line-height: 1;
+		}
+
+		.ds-terminal-control-icon-minimize::before {
+			content: '−';
+			font-size: 0.5rem;
+			font-weight: 700;
+			line-height: 1;
+			transform: translateY(-0.02rem);
+		}
+
+		.ds-terminal-control-icon-expand svg {
+			width: 0.34rem;
+			height: 0.34rem;
+		}
+
+		.ds-terminal-caret {
+			animation: terminal-caret-blink 1s steps(1, end) infinite;
+		}
+
+		.hero-terminal-aura {
+			position: relative;
+			border-radius: calc(var(--radius-lg) + 0.9rem);
+		}
+
+		.hero-terminal-aura::before {
+			content: '';
+			position: absolute;
+			inset: 0rem;
+			z-index: 0;
+			border-radius: calc(var(--radius-lg) + 1.15rem);
+			border: 1px solid rgba(0, 208, 132, 0.22);
+			opacity: 0;
+			box-shadow:
+				0 0 14px rgba(0, 208, 132, 0.18),
+				0 0 32px rgba(0, 208, 132, 0.14),
+				0 0 56px rgba(56, 189, 248, 0.1);
+			filter: blur(10px);
+			transition: opacity 220ms ease, transform 220ms ease;
+			pointer-events: none;
+			transform: scale(0.96);
+		}
+
+		.hero-terminal-shell {
+			position: relative;
+			z-index: 1;
+			transition:
+				box-shadow 220ms ease,
+				border-color 220ms ease,
+				transform 220ms ease;
+		}
+
+		[data-hero-floating-terminal]:hover .hero-terminal-aura::before,
+		[data-hero-floating-terminal]:focus-within .hero-terminal-aura::before {
+			opacity: 1;
+			transform: scale(1);
+		}
+
+		[data-hero-floating-terminal]:hover .hero-terminal-shell,
+		[data-hero-floating-terminal]:focus-within .hero-terminal-shell {
+			border-color: rgba(255, 255, 255, 0.22);
+			box-shadow:
+				0 0 0 1px rgba(255, 255, 255, 0.04),
+				0 22px 60px rgba(2, 6, 23, 0.4);
+		}
+
+		@media (min-width: 768px) {
+			[data-hero-floating-terminal] {
+				--hero-terminal-offset-x: -1.5rem;
+				transform: translate(var(--hero-terminal-offset-x), -50%);
+				animation: hero-terminal-float 6s ease-in-out infinite;
+			}
+		}
+
+		@media (min-width: 1024px) {
+			[data-hero-floating-terminal] {
+				--hero-terminal-offset-x: -2rem;
+			}
+		}
+
+		@keyframes terminal-caret-blink {
+			0%,
+			49% {
+				opacity: 1;
+			}
+
+			50%,
+			100% {
+				opacity: 0;
+			}
+		}
+
+		@keyframes hero-terminal-float {
+			0%,
+			100% {
+				transform: translate(var(--hero-terminal-offset-x, -1.5rem), -50%);
+			}
+
+			50% {
+				transform: translate(var(--hero-terminal-offset-x, -1.5rem), -65%);
+			}
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			[data-hero-floating-terminal] {
+				animation: none;
+			}
+
+			.ds-terminal-caret {
+				animation: none;
+			}
+		}
+	</style>
+</section>
