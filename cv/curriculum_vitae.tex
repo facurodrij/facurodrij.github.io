@@ -1,0 +1,138 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1.35cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{array}
+
+\definecolor{heading}{HTML}{111827}
+\definecolor{muted}{HTML}{4B5563}
+\definecolor{rulecolor}{HTML}{D1D5DB}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\emergencystretch=2em
+\setlist[itemize]{leftmargin=1.2em, noitemsep, topsep=0pt, parsep=0pt, partopsep=0pt}
+
+\titleformat{\section}
+  {\large\bfseries\color{heading}}
+  {}
+  {0pt}
+  {\MakeUppercase}
+  [\vspace{-2pt}\color{rulecolor}\titlerule]
+\titlespacing*{\section}{0pt}{8pt}{8pt}
+
+\newcommand{\cvheader}[6]{
+  \begin{center}
+    {\LARGE\bfseries\MakeUppercase{#1}}\\[3pt]
+    {\color{muted}#2}\\[3pt]
+    {#3 \textbullet{} \href{mailto:#4}{#4} \textbullet{} \href{https://#5}{#5} \textbullet{} \href{https://#6}{#6}}
+  \end{center}
+  \vspace{-4pt}
+}
+
+\newcommand{\experienceentry}[5]{
+  \begingroup
+  \setlength{\parskip}{0pt}
+  \textbf{#1} \hfill {\color{muted}#3}\par
+  \textbf{#2} \hfill {\color{muted}#4}
+  #5
+  \endgroup
+  \vspace{4pt}
+}
+
+\newcommand{\projectentry}[5]{
+  \textbf{#1} \hfill {\color{muted}#2}\\
+  #3\\[-1pt]
+  \textbf{Tecnologías:} #4\\[-1pt]
+  \textbf{Repositorio:} \href{https://#5}{#5}\vspace{2pt}
+}
+
+\begin{document}
+
+\cvheader
+  {Facundo Joel Rodriguez}
+  {Licenciado en Sistemas de Información}
+  {Misiones, Argentina}
+  {facurodri00@gmail.com}
+  {linkedin.com/in/facundo-joel-rodriguez}
+  {github.com/facurodrij}
+
+\section{Perfil}
+Desarrollador Full-Stack y graduado en Sistemas de Información, con experiencia laboral en startup y formación en análisis, diseño e implementación de sistemas. Trabajo con tecnologías backend, frontend e infraestructura en la nube, aplicando metodologías ágiles y priorizando las buenas prácticas de desarrollo, la calidad del código y el trabajo colaborativo, ofreciendo también soporte técnico para garantizar la satisfacción y el éxito de los proyectos.
+
+\section{Experiencia}
+\experienceentry
+  {Sherpa.wtf}
+  {Desarrollador Full Stack}
+  {Remoto}
+  {Marzo 2025 -- Presente}
+  {\begin{itemize}
+    \item Desarrollo y mantengo Genesis, plataforma que automatiza la creación de chatbots para productores y brokers de seguros.
+    \item Participé en el despliegue y migración de la plataforma hacia el CRM propio de Sherpa, acompañando la evolución del producto.
+    \item Contribuí al proceso de aprobación de la app en Meta para el uso de la API de WhatsApp Business y la habilitación del Registro Insertado.
+    \item Colaboro en la evolución técnica de la plataforma, priorizando mantenibilidad, calidad de código y entrega continua.
+  \end{itemize}}
+
+\experienceentry
+  {Repuestos Stock Car}
+  {Desarrollador Full Stack | Profesional independiente}
+  {Posadas, Misiones}
+  {Julio 2024 -- Febrero 2025}
+  {\begin{itemize}
+    \item Diseñé e implementé un sistema de facturación e inventario para administrar operaciones e información comercial.
+    \item Brindé soporte técnico y mejoras continuas para asegurar continuidad operativa y satisfacción del cliente.
+  \end{itemize}}
+
+\experienceentry
+  {Argentina Programa 4.0}
+  {Tutor Docente}
+  {Remoto}
+  {Junio 2023 -- Septiembre 2023}
+  {\begin{itemize}
+    \item Acompañé estudiantes en Inteligencia Artificial con Python dentro del trayecto Programador Junior en Machine Learning.
+  \end{itemize}}
+
+\section{Educación}
+\textbf{Universidad Nacional de Misiones} \hfill {\color{muted}Apóstoles, Misiones}\\
+\textbf{Licenciado en Sistemas de Información} \hfill {\color{muted}Feb. 2019 -- Jun. 2024}\\
+Promedio sin aplazos: 7.93/10\\
+Trabajo Final: Tesis de Grado con Tecnología Blockchain\\[2pt]
+\textbf{Analista en Sistemas de Computación} \hfill {\color{muted}Feb. 2019 -- Mar. 2023}\\
+Promedio sin aplazos: 7.77/10\\
+Proyecto Final: Sistema de Gestión para un Club Deportivo
+
+\section{Proyectos destacados}
+\projectentry
+  {Tesis de Grado con Tecnología Blockchain \textnormal{(Académico)}}
+  {2024}
+  {Prototipo basado en Blockchain para el Tribunal de Cuentas de la Provincia de Misiones, con el objetivo de garantizar la integridad y confiabilidad de las presentaciones digitales de rendiciones de cuentas municipales.}
+  {Python, Django, jQuery, Bootstrap, SQLite, Solidity, Truffle, Ganache}
+  {github.com/facurodrij/TrabajoFinal\_LSI}
+
+\projectentry
+  {Sistema de Gestión para un Club Deportivo \textnormal{(Académico)}}
+  {2023}
+  {Software de gestión para un club deportivo que abarca la administración de socios, eventos, ventas de tickets y reservas de canchas. La integración de la API de Mercado Pago permitió simular la automatización de pagos en línea, optimizando procesos administrativos y mejorando la experiencia del usuario en pruebas funcionales.}
+  {Python, Django, PostgreSQL, jQuery, Bootstrap}
+  {github.com/facurodrij/TrabajoFinal\_ASC}
+
+\section{Habilidades}
+\textbf{Técnicas:} TypeScript, Node.js, Express, Python, Django, Flask, React, Next.js, REST APIs\\
+\textbf{Bases de Datos:} SQLite, PostgreSQL, MongoDB\\
+\textbf{Cloud \& DevOps:} Docker, GCP, GitHub Actions, Terraform, Linux\\
+\textbf{Herramientas:} Git/GitHub, Postman, Cursor, Jira, Notion\\
+\textbf{Metodologías:} Scrum, Prácticas Ágiles, UP, XP, Desarrollo iterativo e incremental\\
+\textbf{Idiomas:} Español nativo, Inglés B1 \textit{intermediate}
+
+\end{document}
