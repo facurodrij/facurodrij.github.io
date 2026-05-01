@@ -1,5 +1,5 @@
 ---
-import DownloadIcon from './icons/Download.astro';
+import ExternalLinkIcon from './icons/ExternalLink.astro';
 import GithubIcon from './icons/Github.astro';
 import LinkedInIcon from './icons/LinkedIn.astro';
 import ProfilePhoto from './ProfilePhoto.astro';
@@ -61,22 +61,29 @@ const terminalCommands = [
 				<span class="ds-section-title-shimmer inline-block">Facundo Joel Rodriguez</span>
 			</h1>
 
-			<p class="ds-body mt-6 max-w-3xl text-lg sm:text-xl">
-				Desarrollador FullStack orientado a productos web escalables, con fuerte
-				interés en DevOps, Cloud y arquitectura de software.
+			<p class="ds-body mt-6 max-w-3xl text-base sm:text-lg">
+				Desarrollador de software graduado en Sistemas de Información, con experiencia en desarrollo web, APIs REST, automatización de despliegues y prácticas DevOps, enfocado en escalabilidad, optimización de rendimiento y mejora continua de la experiencia del usuario.
 			</p>
 
 			<div class="mt-8 flex flex-wrap items-center gap-3">
+				<SocialPill
+					href="https://github.com/facurodrij"
+					class="ds-button-icon"
+					aria-label="GitHub"
+				>
+					<GithubIcon class="size-5" />
+				</SocialPill>
+				<SocialPill
+					href="https://www.linkedin.com/in/facundo-joel-rodriguez/"
+					class="ds-button-icon"
+					aria-label="LinkedIn"
+				>
+					<LinkedInIcon class="size-5" />
+				</SocialPill>
 				<a href="/curriculum_vitae.pdf" target="_blank" rel="noopener noreferrer" class="ds-button ds-button-primary">
-					<DownloadIcon class="size-4" />
-					Descargar CV
+					<span class="translate-y-px">Ver CV</span>
+					<ExternalLinkIcon class="size-4 shrink-0" />
 				</a>
-				<SocialPill href="https://www.linkedin.com/in/facundo-joel-rodriguez/">
-					<LinkedInIcon class="size-4" />
-				</SocialPill>
-				<SocialPill href="https://github.com/facurodrij">
-					<GithubIcon class="size-4" />
-				</SocialPill>
 			</div>
 		</div>
 

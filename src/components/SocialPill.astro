@@ -1,9 +1,13 @@
+---
+const { class: className = '', ...props } = Astro.props;
+---
+
 <a
-	{...Astro.props}
+	{...props}
 	target="_blank"
 	rel="noopener noreferrer"
 	role="link"
-	class="ds-button ds-button-secondary ds-glass-button"
+	class:list={['ds-button ds-button-secondary ds-glass-button', className]}
 >
 	<slot />
 </a>
