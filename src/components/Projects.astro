@@ -1,9 +1,9 @@
 ---
 import { Image } from 'astro:assets';
 import GitHubIcon from './icons/Github.astro';
-import FlaskIcon from './icons/Flask.astro';
 import TailwindIcon from './icons/Tailwind.astro';
-import ReactIcon from './icons/React.astro';
+import NextjsIcon from './icons/Nextjs.astro';
+import PostgreSQLIcon from './icons/PostgreSQL.astro';
 import AddIcon from './icons/Add.astro';
 import SubtractIcon from './icons/Subtract.astro';
 import DotNetIcon from './icons/DotNet.astro';
@@ -28,15 +28,15 @@ const TOOLS = {
 		className: 'text-[#06B6D4] bg-[#051C2B]',
 		icon: TailwindIcon,
 	},
-	FLASK: {
-		name: 'Flask',
-		className: 'bg-white text-[#010101]',
-		icon: FlaskIcon,
+	NEXTJS: {
+		name: 'Next.js',
+		className: 'bg-white text-black',
+		icon: NextjsIcon,
 	},
-	REACT: {
-		name: 'React',
-		className: 'bg-white text-[#61DAFB]',
-		icon: ReactIcon,
+	POSTGRESQL: {
+		name: 'PostgreSQL',
+		className: 'bg-[#10273d] text-white',
+		icon: PostgreSQLIcon,
 	},
 	DOTNET: {
 		name: '.NET',
@@ -74,12 +74,12 @@ const PROJECTS = [
 	{
 		title: 'StockCar Gestión - Sistema de facturación y gestión de inventario',
 		description:
-			'Sistema para Repuestos Stock Car, una empresa dedicada a la venta de repuestos automotores. Actualmente se encuentra en producción dentro de la empresa y en constante actualización.',
+			'Sistema de facturación electrónica (AFIP/ARCA) y gestión de stock para Repuestos Stock Car, una empresa de repuestos automotores. Está en producción y lo sigo manteniendo.',
 		github: undefined,
 		link: undefined,
 		image: project1Image,
 		doc: undefined,
-		tools: [TOOLS.FLASK, TOOLS.REACT],
+		tools: [TOOLS.DJANGO, TOOLS.NEXTJS, TOOLS.POSTGRESQL],
 	},
 	{
 		title:
