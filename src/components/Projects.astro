@@ -1,5 +1,7 @@
 ---
 import { Image } from 'astro:assets';
+import ProjectDialog from './ProjectDialog.astro';
+import StockcarDetail from './projects/StockcarDetail.astro';
 import GitHubIcon from './icons/Github.astro';
 import TailwindIcon from './icons/Tailwind.astro';
 import NextjsIcon from './icons/Nextjs.astro';
@@ -77,6 +79,7 @@ const PROJECTS = [
 			'Sistema de facturación electrónica (AFIP/ARCA) y gestión de stock para Repuestos Stock Car, una empresa de repuestos automotores. Está en producción y lo sigo manteniendo.',
 		github: undefined,
 		link: undefined,
+		detailId: 'project-stockcar',
 		image: project1Image,
 		doc: undefined,
 		tools: [TOOLS.DJANGO, TOOLS.NEXTJS, TOOLS.POSTGRESQL],
@@ -122,7 +125,10 @@ const PROJECTS = [
 	>
 		{
 			PROJECTS.map(
-				({ image, title, description, tools, link, github, doc }, index) => (
+				(
+					{ image, title, description, tools, link, github, doc, detailId },
+					index,
+				) => (
 					<article
 						class:list={[
 							'project-item ds-card ds-glass-panel group flex flex-col overflow-hidden p-5 md:flex-row md:gap-8 md:p-6',
@@ -178,6 +184,17 @@ const PROJECTS = [
 
 								<div class="ds-body mt-4">{description}</div>
 								<footer class="mt-5 flex flex-wrap items-end justify-start gap-3">
+									{detailId && (
+										<button
+											type="button"
+											class="ds-button ds-button-primary"
+											aria-haspopup="dialog"
+											data-project-dialog-open={detailId}
+										>
+											<ReadIcon class="size-6" />
+											Ver detalle
+										</button>
+									)}
 									{github && (
 										<a
 											target="_blank"
@@ -232,6 +249,10 @@ const PROJECTS = [
 			<span data-toggle-label>Ver todos</span>
 		</button>
 	</div>
+
+	<ProjectDialog id="project-stockcar" title="StockCar Gestión">
+		<StockcarDetail />
+	</ProjectDialog>
 </div>
 
 <style>
