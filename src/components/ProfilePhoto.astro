@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import me from '../assets/me.webp';
+
 interface Props {
 	class?: string;
 	frameClass?: string;
@@ -7,7 +10,10 @@ interface Props {
 const { class: className = '', frameClass = 'max-w-[20rem]' } = Astro.props;
 ---
 
-<div class={`group flex justify-center md:justify-end md:self-start ${className}`.trim()} data-profile-photo-card>
+<div
+	class={`group flex justify-center md:justify-end md:self-start ${className}`.trim()}
+	data-profile-photo-card
+>
 	<div class={`relative w-full ${frameClass}`.trim()}>
 		<div
 			class="pointer-events-none absolute -left-2 -top-2 h-10 w-10 border-l-2 border-t-2 border-[var(--color-primary)]/80"
@@ -17,13 +23,21 @@ const { class: className = '', frameClass = 'max-w-[20rem]' } = Astro.props;
 			class="pointer-events-none absolute -bottom-2 -right-2 h-10 w-10 border-b-2 border-r-2 border-[var(--color-primary)]/80"
 		>
 		</div>
-		<div class="ds-glass-panel relative overflow-hidden rounded-[var(--radius-lg)] p-3 sm:p-4">
-			<div class="relative overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-bg-elevated)]">
-				<img
+		<div
+			class="ds-glass-panel relative overflow-hidden rounded-[var(--radius-lg)] p-3 sm:p-4"
+		>
+			<div
+				class="relative overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-bg-elevated)]"
+			>
+				<Image
 					data-profile-photo-image
 					class="aspect-[4/5] w-full object-cover object-top transition duration-500 ease-out [filter:saturate(0.58)_contrast(1.12)_brightness(0.74)] group-hover:scale-[1.01] group-hover:[filter:saturate(1)_contrast(1)_brightness(1)]"
-					src="/me.webp"
+					src={me}
 					alt="Foto de Facundo Joel Rodriguez"
+					widths={[320, 640]}
+					sizes="(min-width: 1024px) 20rem, (min-width: 768px) 18rem, 16rem"
+					loading="eager"
+					fetchpriority="high"
 				/>
 				<div
 					data-profile-photo-overlay
@@ -62,14 +76,17 @@ const { class: className = '', frameClass = 'max-w-[20rem]' } = Astro.props;
 		const setupProfilePhotoTouchState = () => {
 			window.__profilePhotoTouchCleanup?.();
 
-			const cards = Array.from(document.querySelectorAll('[data-profile-photo-card]'));
+			const cards = Array.from(
+				document.querySelectorAll('[data-profile-photo-card]'),
+			);
 
 			if (!cards.length) {
 				window.__profilePhotoTouchCleanup = undefined;
 				return;
 			}
 
-			const supportsTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+			const supportsTouch =
+				'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
 			if (!supportsTouch) {
 				window.__profilePhotoTouchCleanup = undefined;
@@ -116,7 +133,11 @@ const { class: className = '', frameClass = 'max-w-[20rem]' } = Astro.props;
 		};
 
 		if (document.readyState === 'loading') {
-			document.addEventListener('DOMContentLoaded', setupProfilePhotoTouchState, { once: true });
+			document.addEventListener(
+				'DOMContentLoaded',
+				setupProfilePhotoTouchState,
+				{ once: true },
+			);
 		} else {
 			setupProfilePhotoTouchState();
 		}

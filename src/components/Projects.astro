@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import GitHubIcon from './icons/Github.astro';
 import FlaskIcon from './icons/Flask.astro';
 import TailwindIcon from './icons/Tailwind.astro';
@@ -12,6 +13,10 @@ import DjangoIcon from './icons/Django.astro';
 import SolidityIcon from './icons/Solidity.astro';
 import TruffleIcon from './icons/Truffle.astro';
 import ReadIcon from './icons/Read.astro';
+import project1Image from '../assets/projects/1.webp';
+import project2Image from '../assets/projects/2.webp';
+import project3Image from '../assets/projects/3.webp';
+import project4Image from '../assets/projects/4.webp';
 
 const linkButtonClass = 'ds-button ds-button-secondary ds-glass-button';
 
@@ -72,7 +77,7 @@ const PROJECTS = [
 			'Sistema para Repuestos Stock Car, una empresa dedicada a la venta de repuestos automotores. Actualmente se encuentra en producción dentro de la empresa y en constante actualización.',
 		github: 'https://github.com/facurodrij/stockcar-gestion',
 		link: undefined,
-		image: '/projects/1.webp',
+		image: project1Image,
 		doc: undefined,
 		tools: [TOOLS.FLASK, TOOLS.REACT],
 	},
@@ -83,7 +88,7 @@ const PROJECTS = [
 			'Aplicación web integrando una blockchain de prueba mediante Web3.py y un Smart Contract para garantizar la integridad y confiabilidad de las presentaciones digitales de las rendiciones de cuentas municipales.',
 		github: 'https://github.com/facurodrij/TrabajoFinal_LSI',
 		link: undefined,
-		image: '/projects/2.webp',
+		image: project2Image,
 		doc: '/projects/Tesis_LSI_Facundo_Rodriguez.pdf',
 		tools: [TOOLS.SOLIDITY, TOOLS.TRUFFLE, TOOLS.DJANGO, TOOLS.BOOTSTRAP],
 	},
@@ -93,7 +98,7 @@ const PROJECTS = [
 			'Sistema de gestión de reservas de canchas, manejo de eventos y administración de socios para clubes. Integración con la API de MercadoPago para el cobro de reservas, tickets y membresías.',
 		github: 'https://github.com/facurodrij/TrabajoFinal_ASC',
 		link: undefined,
-		image: '/projects/4.webp',
+		image: project4Image,
 		doc: undefined,
 		tools: [TOOLS.DJANGO, TOOLS.BOOTSTRAP, TOOLS.JQUERY],
 	},
@@ -104,7 +109,7 @@ const PROJECTS = [
 			'Aplicación web para la gestión de sueldos y recursos humanos. Parte de la cátedra Recursos Humanos de la Universidad Nacional de Misiones.',
 		github: 'https://github.com/facurodrij/sueldo-rrhh',
 		link: undefined,
-		image: '/projects/3.webp',
+		image: project3Image,
 		doc: undefined,
 		tools: [TOOLS.DOTNET, TOOLS.BOOTSTRAP, TOOLS.JQUERY],
 	},
@@ -128,11 +133,13 @@ const PROJECTS = [
 					>
 						<div class="w-full md:w-1/2">
 							<div class="relative overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-bg-elevated)] transition duration-500 ease-in-out md:group-hover:-translate-y-1 md:group-hover:shadow-2xl">
-								<img
-									alt=""
+								<Image
+									alt={`Captura de ${title}`}
 									class="h-56 w-full object-cover object-top transition duration-500 md:h-full md:scale-105 md:group-hover:scale-100"
-									loading="eager"
+									loading={index === 0 ? 'eager' : 'lazy'}
 									src={image}
+									widths={[480, 800, 1120]}
+									sizes="(min-width: 768px) 34rem, 100vw"
 								/>
 							</div>
 						</div>
