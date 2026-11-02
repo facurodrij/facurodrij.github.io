@@ -4,27 +4,61 @@ const EXPERIENCE = [
 	{
 		id: 'sherpa',
 		date: 'Marzo 2025 - Presente',
+		location: 'Remoto',
 		title: 'Desarrollador Full Stack',
 		company: 'Sherpa.wtf',
 		current: true,
 		description:
-			'Desarrollo y mantenimiento de chatbots especializados para productores y brokers de seguros. Me enfoco en la creación, actualización y optimización de soluciones conversacionales que mejoran la eficiencia y la experiencia del usuario en el sector de seguros.',
+			'Desarrollo y mantengo Genesis, la plataforma de Sherpa que automatiza la creación de chatbots de WhatsApp para productores y brokers de seguros.',
+		highlights: [
+			'Participé en el despliegue y la migración de la plataforma hacia el CRM propio de Sherpa.',
+			'Contribuí a la aprobación de la app en Meta para usar la API de WhatsApp Business y habilitar el Registro Insertado (Embedded Signup).',
+			'Trabajo sobre infraestructura en AWS definida con Terraform y servicios en contenedores Docker.',
+		],
+		tech: [
+			'Node.js',
+			'TypeScript',
+			'WhatsApp Business API',
+			'AWS',
+			'Docker',
+			'Terraform',
+		],
 	},
 	{
 		id: 'stock-car',
-		date: 'Julio 2024 - Febrero 2025',
+		date: 'Julio 2024 - Presente',
+		location: 'Posadas, Misiones · Freelance',
 		title: 'Desarrollador Full Stack',
 		company: 'Repuestos Stock Car',
 		description:
-			'Diseñé, desarrollé e implementé un sistema de facturación y gestión de inventario para gestionar las operaciones y la información de la empresa. Mis responsabilidades incluyeron el análisis de requisitos funcionales, la creación de la arquitectura del sistema y la entrega de una solución full stack.',
+			'Diseñé y construí de punta a punta el sistema de facturación e inventario de una empresa de repuestos automotores, que hoy sigue en producción.',
+		highlights: [
+			'Relevé los requerimientos con el cliente y definí la arquitectura del sistema.',
+			'Desarrollé una API REST en Django y el frontend en Next.js, sobre PostgreSQL.',
+			'Integré la facturación electrónica de AFIP/ARCA con un cliente SOAP propio y PDFs con código QR.',
+			'Lo mantengo en producción sobre Railway, con soporte técnico y mejoras continuas.',
+		],
+		tech: [
+			'Python',
+			'Django',
+			'Next.js',
+			'TypeScript',
+			'PostgreSQL',
+			'Railway',
+		],
 	},
 	{
 		id: 'argentina-programa',
 		date: 'Junio 2023 - Septiembre 2023',
+		location: 'Remoto',
 		title: 'Tutor Docente',
 		company: 'Argentina Programa 4.0',
 		description:
-			'Impartí conocimientos en Inteligencia Artificial con Python - Nivel 1, como parte del Trayecto Formativo Programador Junior en Machine Learning de Argentina Programa 4.0. Este rol me permitió contribuir al desarrollo de futuros profesionales y fortaleció mi experiencia en la enseñanza de tecnologías.',
+			'Tutor del curso Inteligencia Artificial con Python - Nivel 1, dentro del trayecto Programador Junior en Machine Learning.',
+		highlights: [
+			'Acompañé a estudiantes en sus primeros pasos con Python aplicado a IA y machine learning.',
+		],
+		tech: ['Python'],
 		certification: '/experience/argentina-programa-4-0.pdf',
 	},
 ];

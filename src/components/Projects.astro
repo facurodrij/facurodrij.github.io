@@ -1,8 +1,11 @@
 ---
+import { Image } from 'astro:assets';
+import ProjectDialog from './ProjectDialog.astro';
+import StockcarDetail from './projects/StockcarDetail.astro';
 import GitHubIcon from './icons/Github.astro';
-import FlaskIcon from './icons/Flask.astro';
 import TailwindIcon from './icons/Tailwind.astro';
-import ReactIcon from './icons/React.astro';
+import NextjsIcon from './icons/Nextjs.astro';
+import PostgreSQLIcon from './icons/PostgreSQL.astro';
 import AddIcon from './icons/Add.astro';
 import SubtractIcon from './icons/Subtract.astro';
 import DotNetIcon from './icons/DotNet.astro';
@@ -12,6 +15,10 @@ import DjangoIcon from './icons/Django.astro';
 import SolidityIcon from './icons/Solidity.astro';
 import TruffleIcon from './icons/Truffle.astro';
 import ReadIcon from './icons/Read.astro';
+import project1Image from '../assets/projects/1.webp';
+import project2Image from '../assets/projects/2.webp';
+import project3Image from '../assets/projects/3.webp';
+import project4Image from '../assets/projects/4.webp';
 
 const linkButtonClass = 'ds-button ds-button-secondary ds-glass-button';
 
@@ -23,15 +30,15 @@ const TOOLS = {
 		className: 'text-[#06B6D4] bg-[#051C2B]',
 		icon: TailwindIcon,
 	},
-	FLASK: {
-		name: 'Flask',
-		className: 'bg-white text-[#010101]',
-		icon: FlaskIcon,
+	NEXTJS: {
+		name: 'Next.js',
+		className: 'bg-white text-black',
+		icon: NextjsIcon,
 	},
-	REACT: {
-		name: 'React',
-		className: 'bg-white text-[#61DAFB]',
-		icon: ReactIcon,
+	POSTGRESQL: {
+		name: 'PostgreSQL',
+		className: 'bg-[#10273d] text-white',
+		icon: PostgreSQLIcon,
 	},
 	DOTNET: {
 		name: '.NET',
@@ -69,12 +76,13 @@ const PROJECTS = [
 	{
 		title: 'StockCar Gestión - Sistema de facturación y gestión de inventario',
 		description:
-			'Sistema para Repuestos Stock Car, una empresa dedicada a la venta de repuestos automotores. Actualmente se encuentra en producción dentro de la empresa y en constante actualización.',
-		github: 'https://github.com/facurodrij/stockcar-gestion',
+			'Sistema de facturación electrónica (AFIP/ARCA) y gestión de stock para Repuestos Stock Car, una empresa de repuestos automotores. Está en producción y lo sigo manteniendo.',
+		github: undefined,
 		link: undefined,
-		image: '/projects/1.webp',
+		detailId: 'project-stockcar',
+		image: project1Image,
 		doc: undefined,
-		tools: [TOOLS.FLASK, TOOLS.REACT],
+		tools: [TOOLS.DJANGO, TOOLS.NEXTJS, TOOLS.POSTGRESQL],
 	},
 	{
 		title:
@@ -83,7 +91,7 @@ const PROJECTS = [
 			'Aplicación web integrando una blockchain de prueba mediante Web3.py y un Smart Contract para garantizar la integridad y confiabilidad de las presentaciones digitales de las rendiciones de cuentas municipales.',
 		github: 'https://github.com/facurodrij/TrabajoFinal_LSI',
 		link: undefined,
-		image: '/projects/2.webp',
+		image: project2Image,
 		doc: '/projects/Tesis_LSI_Facundo_Rodriguez.pdf',
 		tools: [TOOLS.SOLIDITY, TOOLS.TRUFFLE, TOOLS.DJANGO, TOOLS.BOOTSTRAP],
 	},
@@ -93,7 +101,7 @@ const PROJECTS = [
 			'Sistema de gestión de reservas de canchas, manejo de eventos y administración de socios para clubes. Integración con la API de MercadoPago para el cobro de reservas, tickets y membresías.',
 		github: 'https://github.com/facurodrij/TrabajoFinal_ASC',
 		link: undefined,
-		image: '/projects/4.webp',
+		image: project4Image,
 		doc: undefined,
 		tools: [TOOLS.DJANGO, TOOLS.BOOTSTRAP, TOOLS.JQUERY],
 	},
@@ -104,7 +112,7 @@ const PROJECTS = [
 			'Aplicación web para la gestión de sueldos y recursos humanos. Parte de la cátedra Recursos Humanos de la Universidad Nacional de Misiones.',
 		github: 'https://github.com/facurodrij/sueldo-rrhh',
 		link: undefined,
-		image: '/projects/3.webp',
+		image: project3Image,
 		doc: undefined,
 		tools: [TOOLS.DOTNET, TOOLS.BOOTSTRAP, TOOLS.JQUERY],
 	},
@@ -117,7 +125,10 @@ const PROJECTS = [
 	>
 		{
 			PROJECTS.map(
-				({ image, title, description, tools, link, github, doc }, index) => (
+				(
+					{ image, title, description, tools, link, github, doc, detailId },
+					index,
+				) => (
 					<article
 						class:list={[
 							'project-item ds-card ds-glass-panel group flex flex-col overflow-hidden p-5 md:flex-row md:gap-8 md:p-6',
@@ -128,11 +139,13 @@ const PROJECTS = [
 					>
 						<div class="w-full md:w-1/2">
 							<div class="relative overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-bg-elevated)] transition duration-500 ease-in-out md:group-hover:-translate-y-1 md:group-hover:shadow-2xl">
-								<img
-									alt=""
+								<Image
+									alt={`Captura de ${title}`}
 									class="h-56 w-full object-cover object-top transition duration-500 md:h-full md:scale-105 md:group-hover:scale-100"
-									loading="eager"
+									loading={index === 0 ? 'eager' : 'lazy'}
 									src={image}
+									widths={[480, 800, 1120]}
+									sizes="(min-width: 768px) 34rem, 100vw"
 								/>
 							</div>
 						</div>
@@ -171,6 +184,17 @@ const PROJECTS = [
 
 								<div class="ds-body mt-4">{description}</div>
 								<footer class="mt-5 flex flex-wrap items-end justify-start gap-3">
+									{detailId && (
+										<button
+											type="button"
+											class="ds-button ds-button-primary"
+											aria-haspopup="dialog"
+											data-project-dialog-open={detailId}
+										>
+											<ReadIcon class="size-6" />
+											Ver detalle
+										</button>
+									)}
 									{github && (
 										<a
 											target="_blank"
@@ -225,6 +249,10 @@ const PROJECTS = [
 			<span data-toggle-label>Ver todos</span>
 		</button>
 	</div>
+
+	<ProjectDialog id="project-stockcar" title="StockCar Gestión">
+		<StockcarDetail />
+	</ProjectDialog>
 </div>
 
 <style>

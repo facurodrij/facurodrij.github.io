@@ -6,8 +6,11 @@ interface Props {
 	title: string;
 	company: string;
 	description: string;
+	highlights?: string[];
+	tech?: string[];
 	link?: string;
 	date: string;
+	location?: string;
 	certification?: string;
 	current?: boolean;
 }
@@ -17,8 +20,11 @@ const {
 	title,
 	company,
 	description,
+	highlights = [],
+	tech = [],
 	link,
 	date,
+	location,
 	certification,
 	current = false,
 } = Astro.props;
@@ -62,10 +68,33 @@ const {
 				class="mt-2 inline-flex rounded-[var(--radius-sm)] bg-[var(--color-primary-soft)] px-3 py-1 text-sm font-medium text-[var(--color-heading)]"
 				>{date}</time
 			>
+			{
+				location && (
+					<p class="mt-2 text-sm text-[var(--color-text-muted)]">{location}</p>
+				)
+			}
 		</div>
 	</div>
 	<div class="ds-body relative flex flex-col gap-3 md:col-span-3">
-		{description}
+		<p>{description}</p>
+		{
+			highlights.length > 0 && (
+				<ul class="ds-experience-highlights">
+					{highlights.map((highlight) => (
+						<li>{highlight}</li>
+					))}
+				</ul>
+			)
+		}
+		{
+			tech.length > 0 && (
+				<ul class="ds-experience-tech" aria-label="Tecnologías">
+					{tech.map((item) => (
+						<li>{item}</li>
+					))}
+				</ul>
+			)
+		}
 		{
 			link && (
 				<LinkInline href={link} className="ds-experience-link mt-2 w-fit">
@@ -118,6 +147,46 @@ const {
 </div>
 
 <style>
+	.ds-experience-highlights {
+		display: grid;
+		gap: 0.45rem;
+	}
+
+	.ds-experience-highlights li {
+		position: relative;
+		padding-left: 1.1rem;
+	}
+
+	.ds-experience-highlights li::before {
+		content: '';
+		position: absolute;
+		left: 0.15rem;
+		top: 0.62em;
+		width: 0.35rem;
+		height: 0.35rem;
+		border-radius: 999px;
+		background: var(--color-primary);
+		opacity: 0.8;
+	}
+
+	.ds-experience-tech {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem;
+		margin-top: 0.35rem;
+	}
+
+	.ds-experience-tech li {
+		padding: 0.2rem 0.6rem;
+		border-radius: 999px;
+		border: 1px solid rgba(0, 208, 132, 0.22);
+		background: rgba(0, 208, 132, 0.08);
+		font-family: var(--font-mono);
+		font-size: 0.72rem;
+		line-height: 1.4;
+		color: color-mix(in srgb, var(--color-primary) 78%, white 22%);
+	}
+
 	.ds-experience-item {
 		opacity: 1;
 		transform: translateY(0);
@@ -125,7 +194,11 @@ const {
 		will-change: transform, opacity;
 		border-color: rgba(148, 163, 184, 0.14);
 		background:
-			linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0) 28%),
+			linear-gradient(
+				180deg,
+				rgba(255, 255, 255, 0.05),
+				rgba(255, 255, 255, 0) 28%
+			),
 			linear-gradient(180deg, rgba(10, 17, 31, 0.76), rgba(6, 11, 22, 0.58));
 		box-shadow:
 			0 22px 60px rgba(2, 6, 23, 0.34),

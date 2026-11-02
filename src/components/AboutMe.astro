@@ -1,4 +1,17 @@
 ---
+import { Image, getImage } from 'astro:assets';
+import futbolImage from '../assets/aboutme/futbol.jpeg';
+import playaImage from '../assets/aboutme/playa.jpeg';
+import viajesImage from '../assets/aboutme/viajes.jpeg';
+import asadoImage from '../assets/aboutme/asado.jpeg';
+import posadasImage from '../assets/aboutme/posadas.jpeg';
+
+const posadasBackground = await getImage({
+	src: posadasImage,
+	width: 800,
+	format: 'webp',
+});
+
 const currentPipeline = [
 	{
 		label: 'Desarrollo web',
@@ -38,32 +51,33 @@ const mindsetPrinciples = [
 	{
 		number: '03',
 		title: 'Criterio operativo',
-		detail: 'Diseño pensando en producción: errores, trazabilidad, rendimiento y seguridad.',
+		detail:
+			'Diseño pensando en producción: errores, trazabilidad, rendimiento y seguridad.',
 	},
 ];
 
 const hobbies = [
 	{
-		label: 'Futbol',
-		image: '/aboutme/futbol.jpeg',
-		alt: 'Foto de futbol',
+		label: 'Fútbol',
+		image: futbolImage,
+		alt: 'Foto de fútbol',
 		angle: -12,
 	},
 	{
 		label: 'Relax',
-		image: '/aboutme/playa.jpeg',
+		image: playaImage,
 		alt: 'Foto en la playa',
 		angle: 9,
 	},
 	{
 		label: 'Viajes',
-		image: '/aboutme/viajes.jpeg',
+		image: viajesImage,
 		alt: 'Foto de viaje',
 		angle: -7,
 	},
 	{
 		label: 'Asados',
-		image: '/aboutme/asado.jpeg',
+		image: asadoImage,
 		alt: 'Foto de asado',
 		angle: 13,
 	},
@@ -113,7 +127,10 @@ const hobbiesCount = hobbies.length;
 				</div>
 			</section>
 
-			<section class="aboutme-panel aboutme-location-panel">
+			<section
+				class="aboutme-panel aboutme-location-panel"
+				style={`--location-bg: url('${posadasBackground.src}')`}
+			>
 				<div class="aboutme-location-content">
 					<h3 class="aboutme-location-title">Posadas, Argentina</h3>
 					<p class="aboutme-location-coordinates">27.3671° S, 55.8961° W</p>
@@ -194,10 +211,12 @@ const hobbiesCount = hobbies.length;
 									style={`--i:${index}; --a:${hobby.angle}deg; z-index:${hobbiesCount - index}`}
 									aria-hidden={index === 0 ? 'false' : 'true'}
 								>
-									<img
+									<Image
 										class="aboutme-hobby-image h-56 w-56 max-w-full rounded-[1.4rem] border border-white/10 object-cover shadow-[0_18px_40px_rgba(2,6,23,0.38)] sm:h-[16rem] sm:w-[16rem]"
 										src={hobby.image}
 										alt={hobby.alt}
+										widths={[256, 512]}
+										sizes="(min-width: 640px) 16rem, 14rem"
 										loading={index === 0 ? 'eager' : 'lazy'}
 									/>
 									<h2 class="aboutme-hobby-title text-right text-xl font-semibold tracking-[-0.04em] text-white/95 sm:text-[1.65rem]">
@@ -822,7 +841,7 @@ const hobbiesCount = hobbies.length;
 				rgba(255, 255, 255, 0.08),
 				transparent 48%
 			),
-			url('/aboutme/posadas.jpeg') center center / cover no-repeat;
+			var(--location-bg) center center / cover no-repeat;
 		filter: grayscale(1) contrast(1.02) brightness(0.88);
 		transform: scale(1.01);
 	}
