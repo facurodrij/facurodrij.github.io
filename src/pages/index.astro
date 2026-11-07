@@ -5,7 +5,7 @@ import Hero from '../components/Hero.astro';
 import Technologies from '../components/Technologies.astro';
 import TitleSection from '../components/TitleSection.astro';
 import Projects from '../components/Projects.astro';
-import AboutMe from '../components/AboutMe.astro';
+import AboutTerminal from '../components/AboutTerminal.astro';
 import Experience from '../components/Experience.astro';
 ---
 
@@ -20,10 +20,14 @@ import Experience from '../components/Experience.astro';
 					><span class="ds-section-title-shimmer">Quién soy</span></TitleSection
 				>
 				<p class="ds-body mx-auto mb-8 max-w-2xl text-center">
-					Perfil, enfoque de trabajo e intereses que hoy orientan mi camino en
-					IT.
+					Explorá los archivos o escribí
+					<code
+						class="rounded-md border border-[var(--color-border)] px-1.5 py-0.5 font-[var(--font-mono)] text-[0.9em] text-[var(--color-heading)]"
+						>help</code
+					>
+					en la terminal.
 				</p>
-				<AboutMe />
+				<AboutTerminal />
 			</Container>
 			<Container id="experiencia">
 				<TitleSection
