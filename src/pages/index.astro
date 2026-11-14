@@ -5,7 +5,6 @@ import Hero from '../components/Hero.astro';
 import Technologies from '../components/Technologies.astro';
 import TitleSection from '../components/TitleSection.astro';
 import Projects from '../components/Projects.astro';
-import AboutTerminal from '../components/AboutTerminal.astro';
 import Experience from '../components/Experience.astro';
 ---
 
@@ -19,15 +18,38 @@ import Experience from '../components/Experience.astro';
 				<TitleSection
 					><span class="ds-section-title-shimmer">Quién soy</span></TitleSection
 				>
-				<p class="ds-body mx-auto mb-8 max-w-2xl text-center">
-					Explorá los archivos o escribí
-					<code
-						class="rounded-md border border-[var(--color-border)] px-1.5 py-0.5 font-[var(--font-mono)] text-[0.9em] text-[var(--color-heading)]"
-						>help</code
-					>
-					en la terminal.
-				</p>
-				<AboutTerminal />
+				<div
+					class="ds-body ds-card ds-glass-panel mx-auto max-w-3xl space-y-4 rounded-[var(--radius-lg)] p-6 text-base sm:p-8 sm:text-lg [&_strong]:font-semibold [&_strong]:text-[var(--color-heading)]"
+				>
+					<p>
+						Soy <strong>Licenciado en Sistemas de Información</strong> por la Universidad
+						Nacional de Misiones y desarrollador full stack; trabajo desde
+						<strong>Misiones, Argentina</strong>. Mi foco está en el
+						<strong>backend</strong>, las <strong>integraciones</strong> con servicios
+						de terceros y todo lo que lleva el código a producción:
+						<strong>infraestructura, contenedores y CI/CD</strong>.
+					</p>
+					<p>
+						En <strong>Sherpa</strong> desarrollo con Node.js y TypeScript una plataforma
+						que automatiza la creación de chatbots para brokers de seguros sobre la
+						<strong>Plataforma de WhatsApp Business</strong>. Trabajo con la
+						Cloud API para enviar y recibir mensajes, proceso los webhooks de
+						eventos y estados de entrega, gestiono plantillas de mensajes e
+						implementé el Registro Insertado (Embedded Signup) para que cada
+						cliente conecte su propia cuenta y número. También participé del App
+						Review de Meta que habilitó esos permisos.
+					</p>
+					<p>
+						Como profesional independiente diseñé y construí de punta a punta un
+						sistema de facturación e inventario con
+						<strong>Django, Next.js y PostgreSQL</strong>: relevé los
+						requerimientos con el cliente, definí la arquitectura, integré la
+						facturación electrónica de ARCA con un cliente SOAP propio y lo sigo
+						manteniendo en producción. Puedo llevar un proyecto desde la
+						necesidad del cliente hasta el despliegue, y hacerme cargo de lo que
+						pasa después.
+					</p>
+				</div>
 			</Container>
 			<Container id="experiencia">
 				<TitleSection

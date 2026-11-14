@@ -8,16 +8,20 @@ interface Tool {
 interface Props {
 	tools: Tool[];
 	label?: string;
+	/** Show every name up front, like the TechStack section, instead of on hover. */
+	expanded?: boolean;
 }
 
-const { tools, label } = Astro.props;
+const { tools, label, expanded = false } = Astro.props;
 ---
 
 <ul class="flex w-full flex-wrap gap-2" aria-label={label}>
 	{
 		tools.map(({ name, className, icon: Icon }) => (
 			<li>
-				<span class="project-tech-chip-item">
+				<span
+					class:list={['project-tech-chip-item', expanded && 'is-expanded']}
+				>
 					<span class="project-tech-chip" title={name}>
 						<span class:list={['project-tech-chip__icon', className]}>
 							<Icon class="size-4 shrink-0" />
@@ -57,7 +61,8 @@ const { tools, label } = Astro.props;
 			padding 280ms cubic-bezier(0.22, 1, 0.36, 1);
 	}
 
-	.project-tech-chip-item:hover .project-tech-chip {
+	.project-tech-chip-item:hover .project-tech-chip,
+	.project-tech-chip-item.is-expanded .project-tech-chip {
 		gap: 0.7rem;
 		padding: 0.45rem 0.85rem 0.45rem 0.5rem;
 	}
@@ -86,6 +91,12 @@ const { tools, label } = Astro.props;
 		width: var(--chip-label-width, 8ch);
 		opacity: 1;
 		transform: translateX(0);
+	}
+
+	.project-tech-chip-item.is-expanded .project-tech-chip__label {
+		width: auto;
+		opacity: 1;
+		transform: none;
 	}
 
 	.project-tech-chip__icon {

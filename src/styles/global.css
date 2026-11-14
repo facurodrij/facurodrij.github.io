@@ -29,6 +29,9 @@
 	--background-center-glow-secondary: rgba(8, 24, 56, 0.38);
 	--mouse-x: 50vw;
 	--mouse-y: 35vh;
+	--glass-dot-color: rgba(148, 163, 184, 0.06);
+	--glass-dot-color-spotlight: rgba(248, 250, 252, 0.22);
+	--glass-dot-spread: 3.5px;
 	--shadow-soft: 0 20px 45px rgba(2, 6, 23, 0.42);
 	--shadow-strong: 0 24px 80px rgba(2, 6, 23, 0.52);
 	--radius-lg: 0.75rem;
@@ -259,6 +262,65 @@ body.ds-shell[data-pointer-fine='true'][data-spotlight-active='true']::after {
 		inset 0 1px 0 rgba(255, 255, 255, 0.05);
 	backdrop-filter: blur(18px) saturate(145%);
 	-webkit-backdrop-filter: blur(18px) saturate(145%);
+}
+
+/* The dot grid seen through the glass. The backdrop blur erases the sub-pixel dots, so each
+   panel redraws them softened and very faint. --glass-x/--glass-y (the panel's viewport offset,
+   set by the script in Layout.astro) keep them in register with the fixed grid behind. */
+:is(.ds-glass-panel, .ds-card-glass)[data-glass-dots]::before,
+:is(.ds-glass-panel, .ds-card-glass)[data-glass-dots]::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	border-radius: inherit;
+	pointer-events: none;
+	background-position: calc(var(--glass-x, 0px) * -1)
+		calc(var(--glass-y, 0px) * -1);
+	background-size: var(--background-dot-grid-size)
+		var(--background-dot-grid-size);
+}
+
+:is(.ds-glass-panel, .ds-card-glass)[data-glass-dots]::before {
+	background-image: radial-gradient(
+		circle,
+		var(--glass-dot-color) 0,
+		transparent var(--glass-dot-spread)
+	);
+}
+
+/* Same idea for the dots the cursor lights up. */
+:is(.ds-glass-panel, .ds-card-glass)[data-glass-dots]::after {
+	--glass-mouse-x: calc(var(--mouse-x) - var(--glass-x, 0px));
+	--glass-mouse-y: calc(var(--mouse-y) - var(--glass-y, 0px));
+	background-image: radial-gradient(
+		circle,
+		var(--glass-dot-color-spotlight) 0,
+		transparent var(--glass-dot-spread)
+	);
+	mask-image: radial-gradient(
+		circle var(--background-spotlight-radius) at var(--glass-mouse-x)
+			var(--glass-mouse-y),
+		rgba(0, 0, 0, 0.96) 0%,
+		rgba(0, 0, 0, 0.88) 45%,
+		rgba(0, 0, 0, 0.38) 72%,
+		transparent 100%
+	);
+	-webkit-mask-image: radial-gradient(
+		circle var(--background-spotlight-radius) at var(--glass-mouse-x)
+			var(--glass-mouse-y),
+		rgba(0, 0, 0, 0.96) 0%,
+		rgba(0, 0, 0, 0.88) 45%,
+		rgba(0, 0, 0, 0.38) 72%,
+		transparent 100%
+	);
+	opacity: 0;
+	transition: opacity 180ms ease;
+}
+
+body.ds-shell[data-pointer-fine='true'][data-spotlight-active='true']
+	:is(.ds-glass-panel, .ds-card-glass)[data-glass-dots]::after {
+	opacity: var(--background-spotlight-opacity);
 }
 
 .ds-eyebrow {

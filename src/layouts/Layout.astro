@@ -173,19 +173,77 @@ const imageURL = new URL(image, Astro.site);
 					};
 				};
 
-				if (document.readyState === 'loading') {
-					document.addEventListener(
-						'DOMContentLoaded',
-						setupBackgroundSpotlight,
-						{
-							once: true,
-						},
+				// Glass panels redraw the dot grid softened (see global.css). This keeps each
+				// panel's copy aligned with the fixed grid behind it while it scrolls or animates.
+				const setupGlassDots = () => {
+					window.__glassDotsCleanup?.();
+					window.__glassDotsCleanup = undefined;
+
+					const panels = document.querySelectorAll(
+						'.ds-glass-panel, .ds-card-glass',
 					);
-				} else {
+					if (!panels.length || !('IntersectionObserver' in window)) return;
+
+					const visible = new Set();
+					const last = new WeakMap();
+					let frameId = 0;
+
+					const tick = () => {
+						frameId = 0;
+						const offsets = [];
+						visible.forEach((panel) => {
+							const rect = panel.getBoundingClientRect();
+							offsets.push([
+								panel,
+								`${(rect.left + panel.clientLeft).toFixed(2)}px`,
+								`${(rect.top + panel.clientTop).toFixed(2)}px`,
+							]);
+						});
+						offsets.forEach(([panel, x, y]) => {
+							const key = `${x} ${y}`;
+							if (last.get(panel) === key) return;
+							last.set(panel, key);
+							panel.style.setProperty('--glass-x', x);
+							panel.style.setProperty('--glass-y', y);
+						});
+						if (visible.size) frameId = window.requestAnimationFrame(tick);
+					};
+
+					const observer = new IntersectionObserver((entries) => {
+						entries.forEach((entry) => {
+							if (entry.isIntersecting) visible.add(entry.target);
+							else visible.delete(entry.target);
+						});
+						if (visible.size && !frameId) {
+							frameId = window.requestAnimationFrame(tick);
+						}
+					});
+
+					panels.forEach((panel) => {
+						panel.dataset.glassDots = 'true';
+						observer.observe(panel);
+					});
+
+					window.__glassDotsCleanup = () => {
+						observer.disconnect();
+						if (frameId) window.cancelAnimationFrame(frameId);
+					};
+				};
+
+				const setup = () => {
 					setupBackgroundSpotlight();
+					setupGlassDots();
+				};
+
+				if (document.readyState === 'loading') {
+					document.addEventListener('DOMContentLoaded', setup, {
+						once: true,
+					});
+				} else {
+					setup();
 				}
 
-				document.addEventListener('astro:page-load', setupBackgroundSpotlight);
+				document.addEventListener('astro:page-load', setup);
 			})();
 		</script>
 	</body>

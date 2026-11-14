@@ -1,0 +1,36 @@
+---
+// Line glyphs for concepts that have no logo (architecture styles, patterns, practices).
+const GLYPHS = {
+	rest: 'M7 8h12m0 0-3-3m3 3-3 3M17 16H5m0 0 3-3m-3 3 3 3',
+	solid: 'M12 3 4 7.5v9l8 4.5 8-4.5v-9L12 3ZM4 7.5l8 4.5 8-4.5M12 12v9',
+	mvc: 'M10.9 6.9 6.2 15.8M13.1 6.9l4.7 8.9M7.4 18h9.2M12 3a2.2 2.2 0 1 0 0 4.4A2.2 2.2 0 0 0 12 3ZM5 15.8a2.2 2.2 0 1 0 0 4.4 2.2 2.2 0 0 0 0-4.4ZM19 15.8a2.2 2.2 0 1 0 0 4.4 2.2 2.2 0 0 0 0-4.4Z',
+	webhook: 'M13 3 5 13.5h6L10 21l8-10.5h-6L13 3Z',
+	soap: 'm8 8-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14',
+	iac: 'm12 4 8 4-8 4-8-4 8-4ZM4 12l8 4 8-4M4 16l8 4 8-4',
+	tenancy:
+		'M4 4h6.5v6.5H4zM13.5 4H20v6.5h-6.5zM4 13.5h6.5V20H4zM13.5 13.5H20V20h-6.5z',
+};
+
+interface Props {
+	variant?: keyof typeof GLYPHS;
+	[key: string]: unknown;
+}
+
+const { variant = 'rest', ...rest } = Astro.props;
+---
+
+<svg
+	{...rest}
+	viewBox="0 0 24 24"
+	height="1em"
+	width="1em"
+	fill="none"
+	stroke="currentColor"
+	stroke-width="1.8"
+	stroke-linecap="round"
+	stroke-linejoin="round"
+	aria-hidden="true"
+	xmlns="http://www.w3.org/2000/svg"
+>
+	<path d={GLYPHS[variant]}></path>
+</svg>

@@ -6,22 +6,18 @@ import JavaScriptIcon from './icons/JavaScript.astro';
 import TerraformIcon from './icons/Terraform.astro';
 import NodejsIcon from './icons/Nodejs.astro';
 import ExpressIcon from './icons/Express.astro';
-import JqueryIcon from './icons/Jquery.astro';
 import DjangoIcon from './icons/Django.astro';
 import FlaskIcon from './icons/Flask.astro';
 import PythonIcon from './icons/Python.astro';
-import DotNetIcon from './icons/DotNet.astro';
 import MaterialUiIcon from './icons/MaterialUi.astro';
 import ShadcnIcon from './icons/Shadcn.astro';
 import TailwindIcon from './icons/Tailwind.astro';
-import BootstrapIcon from './icons/Bootstrap.astro';
 import MongoDBIcon from './icons/MongoDB.astro';
 import PostgreSQLIcon from './icons/PostgreSQL.astro';
 import SQLiteIcon from './icons/SQLite.astro';
 import FirebaseIcon from './icons/Firebase.astro';
 import RedisIcon from './icons/Redis.astro';
 import DockerIcon from './icons/Docker.astro';
-import KubernetesIcon from './icons/Kubernetes.astro';
 import AwsIcon from './icons/Aws.astro';
 import GcpIcon from './icons/Gcp.astro';
 import RailwayIcon from './icons/Railway.astro';
@@ -31,11 +27,19 @@ import NotionIcon from './icons/Notion.astro';
 import CursorIcon from './icons/Cursor.astro';
 import OpencodeIcon from './icons/Opencode.astro';
 import LinuxIcon from './icons/Linux.astro';
-import ArchLinuxIcon from './icons/ArchLinux.astro';
-import UbuntuIcon from './icons/Ubuntu.astro';
-import OpenSuseIcon from './icons/OpenSuse.astro';
+import PatternIcon from './icons/Pattern.astro';
 
-const TECHNOLOGY_GROUPS = [
+interface TechItem {
+	name: string;
+	icon: (props: Record<string, unknown>) => unknown;
+	badgeClassName: string;
+	iconProps?: Record<string, string>;
+}
+
+const CONCEPT_GREEN = 'bg-[#06201a] text-[#00d084]';
+const CONCEPT_BLUE = 'bg-[#071c2b] text-[#38bdf8]';
+
+const TECHNOLOGY_GROUPS: { title: string; items: TechItem[] }[] = [
 	{
 		title: 'Lenguajes & Frameworks',
 		items: [
@@ -84,26 +88,11 @@ const TECHNOLOGY_GROUPS = [
 				icon: DjangoIcon,
 				badgeClassName: 'bg-[#092E20] text-white',
 			},
-			{
-				name: 'jQuery',
-				icon: JqueryIcon,
-				badgeClassName: 'bg-white text-[#0868AC]',
-			},
-			{
-				name: '.NET',
-				icon: DotNetIcon,
-				badgeClassName: 'bg-[#512BD4] text-white',
-			},
 		],
 	},
 	{
 		title: 'UI & Animation Libraries',
 		items: [
-			{
-				name: 'Bootstrap',
-				icon: BootstrapIcon,
-				badgeClassName: 'bg-[#7952B3] text-white',
-			},
 			{
 				name: 'Material UI',
 				icon: MaterialUiIcon,
@@ -165,11 +154,6 @@ const TECHNOLOGY_GROUPS = [
 				badgeClassName: 'bg-[#06172f] text-[#2088FF]',
 			},
 			{
-				name: 'Kubernetes',
-				icon: KubernetesIcon,
-				badgeClassName: 'bg-[#071426] text-[#326CE5]',
-			},
-			{
 				name: 'Terraform',
 				icon: TerraformIcon,
 				badgeClassName: 'bg-white text-[#5c4ee5]',
@@ -188,6 +172,53 @@ const TECHNOLOGY_GROUPS = [
 				name: 'Railway',
 				icon: RailwayIcon,
 				badgeClassName: 'bg-[#0b1020] text-white',
+			},
+		],
+	},
+	{
+		title: 'Arquitectura & Patrones',
+		items: [
+			{
+				name: 'APIs RESTful',
+				icon: PatternIcon,
+				iconProps: { variant: 'rest' },
+				badgeClassName: CONCEPT_GREEN,
+			},
+			{
+				name: 'SOLID',
+				icon: PatternIcon,
+				iconProps: { variant: 'solid' },
+				badgeClassName: CONCEPT_BLUE,
+			},
+			{
+				name: 'MVC / MVT',
+				icon: PatternIcon,
+				iconProps: { variant: 'mvc' },
+				badgeClassName: CONCEPT_GREEN,
+			},
+			{
+				name: 'Webhooks',
+				icon: PatternIcon,
+				iconProps: { variant: 'webhook' },
+				badgeClassName: CONCEPT_BLUE,
+			},
+			{
+				name: 'Servicios SOAP',
+				icon: PatternIcon,
+				iconProps: { variant: 'soap' },
+				badgeClassName: CONCEPT_GREEN,
+			},
+			{
+				name: 'Infraestructura como código',
+				icon: PatternIcon,
+				iconProps: { variant: 'iac' },
+				badgeClassName: CONCEPT_BLUE,
+			},
+			{
+				name: 'Single / Multi-tenancy',
+				icon: PatternIcon,
+				iconProps: { variant: 'tenancy' },
+				badgeClassName: CONCEPT_GREEN,
 			},
 		],
 	},
@@ -219,21 +250,6 @@ const TECHNOLOGY_GROUPS = [
 				icon: LinuxIcon,
 				badgeClassName: 'bg-[#111827] text-white',
 			},
-			{
-				name: 'Arch Linux',
-				icon: ArchLinuxIcon,
-				badgeClassName: 'bg-[#071926] text-[#1793D1]',
-			},
-			{
-				name: 'Ubuntu',
-				icon: UbuntuIcon,
-				badgeClassName: 'bg-[#2f1108] text-[#E95420]',
-			},
-			{
-				name: 'openSUSE',
-				icon: OpenSuseIcon,
-				badgeClassName: 'bg-[#0f1a07] text-[#73BA25]',
-			},
 		],
 	},
 ];
@@ -263,21 +279,23 @@ const TECHNOLOGY_GROUPS = [
 					</div>
 
 					<ul class="mt-5 flex flex-wrap gap-2.5">
-						{items.map(({ name, icon: Icon, badgeClassName }, itemIndex) => (
-							<li
-								class="tech-chip-item"
-								style={`--tech-chip-order: ${itemIndex};`}
-								data-tech-chip
-								data-chip-visible="false"
-							>
-								<span class="tech-chip">
-									<span class:list={['tech-chip__icon', badgeClassName]}>
-										<Icon class="size-4 shrink-0" />
+						{items.map(
+							({ name, icon: Icon, badgeClassName, iconProps }, itemIndex) => (
+								<li
+									class="tech-chip-item"
+									style={`--tech-chip-order: ${itemIndex};`}
+									data-tech-chip
+									data-chip-visible="false"
+								>
+									<span class="tech-chip">
+										<span class:list={['tech-chip__icon', badgeClassName]}>
+											<Icon class="size-4 shrink-0" {...iconProps} />
+										</span>
+										<span>{name}</span>
 									</span>
-									<span>{name}</span>
-								</span>
-							</li>
-						))}
+								</li>
+							),
+						)}
 					</ul>
 				</article>
 			))
