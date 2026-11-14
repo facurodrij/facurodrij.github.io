@@ -1,7 +1,8 @@
 ---
 import { Image } from 'astro:assets';
-import ProjectDialog from './ProjectDialog.astro';
-import StockcarDetail from './projects/StockcarDetail.astro';
+import ImageCarousel from './ImageCarousel.astro';
+import TechChips from './TechChips.astro';
+import StockcarArchitecture from './projects/StockcarArchitecture.astro';
 import GitHubIcon from './icons/Github.astro';
 import TailwindIcon from './icons/Tailwind.astro';
 import NextjsIcon from './icons/Nextjs.astro';
@@ -14,11 +15,21 @@ import JQueryIcon from './icons/Jquery.astro';
 import DjangoIcon from './icons/Django.astro';
 import SolidityIcon from './icons/Solidity.astro';
 import TruffleIcon from './icons/Truffle.astro';
+import PythonIcon from './icons/Python.astro';
+import TypeScriptIcon from './icons/TypeScript.astro';
+import MaterialUiIcon from './icons/MaterialUi.astro';
+import DockerIcon from './icons/Docker.astro';
+import CaddyIcon from './icons/Caddy.astro';
+import RailwayIcon from './icons/Railway.astro';
 import ReadIcon from './icons/Read.astro';
-import project1Image from '../assets/projects/1.webp';
 import project2Image from '../assets/projects/2.webp';
 import project3Image from '../assets/projects/3.webp';
 import project4Image from '../assets/projects/4.webp';
+// Screenshots of a local demo with fictitious data (no customer data).
+import stockcarSalesImage from '../assets/projects/stockcar/ventas.webp';
+import stockcarSaleFormImage from '../assets/projects/stockcar/venta-form.webp';
+import stockcarDocumentsImage from '../assets/projects/stockcar/comprobantes.webp';
+import stockcarStockImage from '../assets/projects/stockcar/articulo-movimientos.webp';
 
 const linkButtonClass = 'ds-button ds-button-secondary ds-glass-button';
 
@@ -70,21 +81,103 @@ const TOOLS = {
 		className: 'bg-white',
 		icon: TruffleIcon,
 	},
+	PYTHON: {
+		name: 'Python',
+		className: 'bg-[#0f2236]',
+		icon: PythonIcon,
+	},
+	DRF: {
+		name: 'Django REST Framework',
+		className: 'bg-[#A30000] text-white',
+		icon: DjangoIcon,
+	},
+	TYPESCRIPT: {
+		name: 'TypeScript',
+		className: 'bg-[#0f2236]',
+		icon: TypeScriptIcon,
+	},
+	MUI: {
+		name: 'Material UI',
+		className: 'bg-white',
+		icon: MaterialUiIcon,
+	},
+	DOCKER: {
+		name: 'Docker',
+		className: 'bg-[#E8F4FD]',
+		icon: DockerIcon,
+	},
+	CADDY: {
+		name: 'Caddy',
+		className: 'bg-[#1F88C0] text-white',
+		icon: CaddyIcon,
+	},
+	RAILWAY: {
+		name: 'Railway',
+		className: 'bg-[#13111C]',
+		icon: RailwayIcon,
+	},
 };
+
+const STOCKCAR_SLIDES = [
+	{
+		src: stockcarSalesImage,
+		alt: 'Listado de ventas con facturas A y B, remitos, órdenes pendientes y una nota de crédito',
+		caption:
+			'Listado de ventas: facturas, remitos, órdenes a confirmar y notas de crédito.',
+	},
+	{
+		src: stockcarSaleFormImage,
+		alt: 'Formulario de una Factura A con cliente, punto de venta y seis artículos con precio, IVA y subtotales',
+		caption: 'Carga de una venta con artículos, alícuotas de IVA y subtotales.',
+	},
+	{
+		src: stockcarDocumentsImage,
+		alt: 'Factura A en hoja A4 y Factura B en formato ticket, ambas con CAE y código QR de ARCA',
+		caption: 'Factura A en A4 y Factura B en ticket, con CAE y QR de ARCA.',
+	},
+	{
+		src: stockcarStockImage,
+		alt: 'Detalle de un artículo con stock actual, último costo y precio, y su historial de movimientos por compras y ventas',
+		caption:
+			'Stock por artículo: cada compra y venta queda como movimiento con su saldo.',
+	},
+];
 
 const PROJECTS = [
 	{
+		id: 'stockcar',
 		title: 'StockCar Gestión - Sistema de facturación y gestión de inventario',
 		description:
 			'Sistema de facturación electrónica (AFIP/ARCA) y gestión de stock para Repuestos Stock Car, una empresa de repuestos automotores. Está en producción y lo sigo manteniendo.',
 		github: undefined,
 		link: undefined,
-		detailId: 'project-stockcar',
-		image: project1Image,
+		image: stockcarSalesImage,
+		gallery: STOCKCAR_SLIDES,
 		doc: undefined,
 		tools: [TOOLS.DJANGO, TOOLS.NEXTJS, TOOLS.POSTGRESQL],
+		moreInfo: {
+			features: [
+				'Facturación electrónica AFIP/ARCA',
+				'Ventas y presupuestos',
+				'Stock con historial de movimientos',
+				'Compras con carga asistida por IA',
+				'Clientes y proveedores',
+				'Comprobantes y reportes',
+			],
+			// The card already shows Django, Next.js and PostgreSQL.
+			tools: [
+				TOOLS.PYTHON,
+				TOOLS.DRF,
+				TOOLS.TYPESCRIPT,
+				TOOLS.MUI,
+				TOOLS.DOCKER,
+				TOOLS.CADDY,
+				TOOLS.RAILWAY,
+			],
+		},
 	},
 	{
+		id: 'tesis',
 		title:
 			'Tesis de Grado - Blockchain y Smart Contracts aplicado a la rendición de cuentas municipales (Académico)',
 		description:
@@ -92,20 +185,26 @@ const PROJECTS = [
 		github: 'https://github.com/facurodrij/TrabajoFinal_LSI',
 		link: undefined,
 		image: project2Image,
+		gallery: undefined,
 		doc: '/projects/Tesis_LSI_Facundo_Rodriguez.pdf',
 		tools: [TOOLS.SOLIDITY, TOOLS.TRUFFLE, TOOLS.DJANGO, TOOLS.BOOTSTRAP],
+		moreInfo: undefined,
 	},
 	{
+		id: 'reserva',
 		title: 'RESERVÁ - Sistema de gestión de clubes deportivos (Académico)',
 		description:
 			'Sistema de gestión de reservas de canchas, manejo de eventos y administración de socios para clubes. Integración con la API de MercadoPago para el cobro de reservas, tickets y membresías.',
 		github: 'https://github.com/facurodrij/TrabajoFinal_ASC',
 		link: undefined,
 		image: project4Image,
+		gallery: undefined,
 		doc: undefined,
 		tools: [TOOLS.DJANGO, TOOLS.BOOTSTRAP, TOOLS.JQUERY],
+		moreInfo: undefined,
 	},
 	{
+		id: 'sueldos',
 		title:
 			'Sueldos y RRHH - Sistema de gestión de sueldos y recursos humanos (Académico)',
 		description:
@@ -113,8 +212,10 @@ const PROJECTS = [
 		github: 'https://github.com/facurodrij/sueldo-rrhh',
 		link: undefined,
 		image: project3Image,
+		gallery: undefined,
 		doc: undefined,
 		tools: [TOOLS.DOTNET, TOOLS.BOOTSTRAP, TOOLS.JQUERY],
+		moreInfo: undefined,
 	},
 ];
 ---
@@ -126,111 +227,147 @@ const PROJECTS = [
 		{
 			PROJECTS.map(
 				(
-					{ image, title, description, tools, link, github, doc, detailId },
+					{
+						id,
+						image,
+						gallery,
+						title,
+						description,
+						tools,
+						link,
+						github,
+						doc,
+						moreInfo,
+					},
 					index,
 				) => (
 					<article
 						class:list={[
-							'project-item ds-card ds-glass-panel group flex flex-col overflow-hidden p-5 md:flex-row md:gap-8 md:p-6',
+							'project-item ds-card ds-glass-panel group flex flex-col overflow-hidden p-5 md:p-6',
 							index > 1 && 'hidden',
 						]}
 						data-project-item
 						data-project-hidden={index > 1 ? 'true' : 'false'}
 					>
-						<div class="w-full md:w-1/2">
-							<div class="relative overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-bg-elevated)] transition duration-500 ease-in-out md:group-hover:-translate-y-1 md:group-hover:shadow-2xl">
-								<Image
-									alt={`Captura de ${title}`}
-									class="h-56 w-full object-cover object-top transition duration-500 md:h-full md:scale-105 md:group-hover:scale-100"
-									loading={index === 0 ? 'eager' : 'lazy'}
-									src={image}
-									widths={[480, 800, 1120]}
-									sizes="(min-width: 768px) 34rem, 100vw"
-								/>
+						<div class="flex flex-col md:flex-row md:gap-8">
+							<div class="w-full md:w-1/2">
+								{gallery ? (
+									<ImageCarousel
+										slides={gallery}
+										label={`Capturas de ${title.split(' - ')[0]}`}
+										extraCaption="Arquitectura: Caddy reparte el tráfico entre Next.js y la API de Django, que factura contra AFIP."
+										eager={index === 0}
+									>
+										<StockcarArchitecture slot="extra" />
+									</ImageCarousel>
+								) : (
+									<div class="relative overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-bg-elevated)] transition duration-500 ease-in-out md:group-hover:-translate-y-1 md:group-hover:shadow-2xl">
+										<Image
+											alt={`Captura de ${title}`}
+											class="h-56 w-full object-cover object-top transition duration-500 md:h-full md:scale-105 md:group-hover:scale-100"
+											loading={index === 0 ? 'eager' : 'lazy'}
+											src={image}
+											widths={[480, 800, 1120]}
+											sizes="(min-width: 768px) 34rem, 100vw"
+										/>
+									</div>
+								)}
+							</div>
+
+							<div class="mt-5 w-full md:mt-0 md:w-1/2 md:max-w-lg">
+								<h3
+									data-ui-heading="true"
+									class="text-2xl font-bold text-[var(--color-heading)]"
+								>
+									{title}
+								</h3>
+								<div class="mt-3 flex w-full flex-wrap">
+									<TechChips tools={tools} />
+
+									<div class="ds-body mt-4">{description}</div>
+									<footer class="mt-5 flex flex-wrap items-end justify-start gap-3">
+										{moreInfo && (
+											<button
+												type="button"
+												class="ds-button ds-button-primary"
+												aria-expanded="false"
+												aria-controls={`${id}-more`}
+												data-project-more-toggle
+											>
+												<ReadIcon class="size-6" />
+												<span data-project-more-label>Más info</span>
+												<svg
+													class="project-more__chevron size-4"
+													viewBox="0 0 24 24"
+													aria-hidden="true"
+												>
+													<path d="m6 9 6 6 6-6" />
+												</svg>
+											</button>
+										)}
+										{github && (
+											<a
+												target="_blank"
+												href={github}
+												role="link"
+												class={linkButtonClass}
+											>
+												<GitHubIcon class="size-6" />
+												Code
+											</a>
+										)}
+										{link && (
+											<a
+												target="_blank"
+												href={link}
+												role="link"
+												class={linkButtonClass}
+											>
+												<GitHubIcon class="size-6" />
+												Preview
+											</a>
+										)}
+										{doc && (
+											<a
+												target="_blank"
+												href={doc}
+												role="link"
+												class={linkButtonClass}
+											>
+												<ReadIcon class="size-6" />
+												Leer documento
+											</a>
+										)}
+									</footer>
+								</div>
 							</div>
 						</div>
 
-						<div class="w-full md:w-1/2 md:max-w-lg">
-							<h3
-								data-ui-heading="true"
-								class="text-2xl font-bold text-[var(--color-heading)]"
+						{moreInfo && (
+							<div
+								class="project-more"
+								id={`${id}-more`}
+								data-project-more
+								inert
 							>
-								{title}
-							</h3>
-							<div class="mt-3 flex w-full flex-wrap">
-								<ul class="flex w-full flex-wrap gap-2">
-									{tools.map(({ name, className, icon: Icon }) => (
-										<li>
-											<span class="project-tech-chip-item">
-												<span class="project-tech-chip" title={name}>
-													<span
-														class:list={['project-tech-chip__icon', className]}
-													>
-														<Icon class="size-4 shrink-0" />
-													</span>
-													<span
-														class="project-tech-chip__label"
-														style={`--chip-label-width: ${Math.max(name.length + 1, 6)}ch;`}
-													>
-														<span class="project-tech-chip__label-text">
-															{name}
-														</span>
-													</span>
-												</span>
-											</span>
-										</li>
-									))}
-								</ul>
-
-								<div class="ds-body mt-4">{description}</div>
-								<footer class="mt-5 flex flex-wrap items-end justify-start gap-3">
-									{detailId && (
-										<button
-											type="button"
-											class="ds-button ds-button-primary"
-											aria-haspopup="dialog"
-											data-project-dialog-open={detailId}
-										>
-											<ReadIcon class="size-6" />
-											Ver detalle
-										</button>
-									)}
-									{github && (
-										<a
-											target="_blank"
-											href={github}
-											role="link"
-											class={linkButtonClass}
-										>
-											<GitHubIcon class="size-6" />
-											Code
-										</a>
-									)}
-									{link && (
-										<a
-											target="_blank"
-											href={link}
-											role="link"
-											class={linkButtonClass}
-										>
-											<GitHubIcon class="size-6" />
-											Preview
-										</a>
-									)}
-									{doc && (
-										<a
-											target="_blank"
-											href={doc}
-											role="link"
-											class={linkButtonClass}
-										>
-											<ReadIcon class="size-6" />
-											Leer documento
-										</a>
-									)}
-								</footer>
+								<div class="project-more__clip">
+									<div class="project-more__inner">
+										<section>
+											<h4 data-ui-heading="true">Qué hace</h4>
+											<ul class="project-more__tags">
+												{moreInfo.features.map((feature) => (
+													<li>{feature}</li>
+												))}
+											</ul>
+										</section>
+										<section>
+											<h4 data-ui-heading="true">Tecnologías</h4>
+											<TechChips tools={moreInfo.tools} />
+										</section>
+									</div>
+								</div>
 							</div>
-						</div>
+						)}
 					</article>
 				),
 			)
@@ -249,81 +386,128 @@ const PROJECTS = [
 			<span data-toggle-label>Ver todos</span>
 		</button>
 	</div>
-
-	<ProjectDialog id="project-stockcar" title="StockCar Gestión">
-		<StockcarDetail />
-	</ProjectDialog>
 </div>
 
 <style>
-	.project-tech-chip-item {
-		display: inline-flex;
+	/* Lift the gallery like the static project images do on hover. */
+	@media (min-width: 768px) {
+		.project-item:hover :global([data-carousel-viewport]) {
+			transform: translateY(-0.25rem);
+			box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+		}
 	}
 
-	.project-tech-chip {
-		display: inline-flex;
-		align-items: center;
-		gap: 0;
-		padding: 0.45rem 0.5rem;
-		border-radius: 999px;
-		border: 1px solid rgba(148, 163, 184, 0.16);
-		background: rgba(2, 6, 23, 0.58);
-		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
-		font-size: 0.92rem;
-		font-weight: 500;
-		color: var(--color-text);
-		transition:
-			gap 280ms cubic-bezier(0.22, 1, 0.36, 1),
-			padding 280ms cubic-bezier(0.22, 1, 0.36, 1);
+	.project-more__chevron {
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 2;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+		transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
 	}
 
-	.project-tech-chip-item:hover .project-tech-chip {
-		gap: 0.7rem;
-		padding: 0.45rem 0.85rem 0.45rem 0.5rem;
+	[aria-expanded='true'] > .project-more__chevron {
+		transform: rotate(180deg);
 	}
 
-	.project-tech-chip__label {
-		display: inline-block;
-		width: 0;
-		min-width: 0;
+	/* "Más info" unfolds in place, below the card's media and text. */
+	.project-more {
+		display: grid;
+		grid-template-rows: 0fr;
+		transition: grid-template-rows 560ms cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.project-item.is-open .project-more {
+		grid-template-rows: 1fr;
+	}
+
+	.project-more__clip {
+		min-height: 0;
 		overflow: hidden;
+	}
+
+	.project-more__inner {
+		display: grid;
+		gap: 1.75rem;
+		margin-top: 1.75rem;
+		padding-top: 1.75rem;
+		border-top: 1px solid var(--color-border);
 		opacity: 0;
-		transform: translateX(-0.35rem);
-		will-change: width, opacity, transform;
+		transform: translateY(-0.75rem);
 		transition:
-			width 280ms cubic-bezier(0.22, 1, 0.36, 1),
-			opacity 180ms ease,
-			transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+			opacity 320ms ease,
+			transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
 	}
 
-	.project-tech-chip__label-text {
-		overflow: hidden;
-		white-space: nowrap;
-		min-width: 0;
-	}
-
-	.project-tech-chip-item:hover .project-tech-chip__label {
-		width: var(--chip-label-width, 8ch);
+	.project-item.is-open .project-more__inner {
 		opacity: 1;
-		transform: translateX(0);
+		transform: none;
+		transition-delay: 100ms;
 	}
 
-	.project-tech-chip__icon {
+	.project-more h4 {
+		margin-bottom: 0.85rem;
+		font-size: 1.15rem;
+		font-weight: 700;
+	}
+
+	.project-more__tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	.project-more__tags li {
 		display: inline-flex;
 		align-items: center;
-		justify-content: center;
-		flex-shrink: 0;
-		width: 2rem;
-		height: 2rem;
+		gap: 0.5rem;
+		padding: 0.4rem 0.85rem;
+		border-radius: var(--radius-md);
+		border: 1px solid rgba(148, 163, 184, 0.16);
+		background: rgba(2, 6, 23, 0.5);
+		font-size: 0.92rem;
+		color: var(--color-text);
+	}
+
+	.project-more__tags li::before {
+		content: '';
+		width: 0.4rem;
+		height: 0.4rem;
 		border-radius: 999px;
-		box-shadow:
-			inset 0 1px 0 rgba(255, 255, 255, 0.14),
-			0 10px 24px rgba(2, 6, 23, 0.18);
+		background: var(--color-primary);
 	}
 </style>
 
 <script is:inline>
 	document.querySelectorAll('[data-projects-root]').forEach((root) => {
+		root.querySelectorAll('[data-project-more-toggle]').forEach((button) => {
+			const item = button.closest('[data-project-item]');
+			const panel = document.getElementById(
+				button.getAttribute('aria-controls'),
+			);
+			const label = button.querySelector('[data-project-more-label]');
+			if (!item || !panel) return;
+
+			const setOpen = (open) => {
+				item.classList.toggle('is-open', open);
+				button.setAttribute('aria-expanded', String(open));
+				panel.inert = !open;
+				if (label) label.textContent = open ? 'Menos info' : 'Más info';
+			};
+
+			button.addEventListener('click', () =>
+				setOpen(!item.classList.contains('is-open')),
+			);
+			item.addEventListener('keydown', (event) => {
+				if (event.key !== 'Escape' || !item.classList.contains('is-open')) {
+					return;
+				}
+				if (item.querySelector('dialog[open]')) return;
+				setOpen(false);
+				button.focus();
+			});
+		});
+
 		const toggle = root.querySelector('[data-projects-toggle]');
 		const label = root.querySelector('[data-toggle-label]');
 		const addIcon = root.querySelector('[data-toggle-icon-add]');

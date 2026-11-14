@@ -1,0 +1,172 @@
+---
+// StockCar's architecture, shown as the last slide of its carousel.
+---
+
+<svg
+	class="cs-diagram"
+	viewBox="0 0 760 420"
+	role="img"
+	aria-labelledby="cs-diagram-title cs-diagram-desc"
+>
+	<title id="cs-diagram-title">Arquitectura de StockCar Gestión</title>
+	<desc id="cs-diagram-desc">
+		El navegador se conecta por HTTPS a Caddy, que dentro de Railway envía las
+		páginas a Next.js y las llamadas a /api a Django. Next.js también consulta a
+		Django desde el servidor. Django guarda los datos en PostgreSQL y se
+		comunica por SOAP con los servicios web de AFIP/ARCA.
+	</desc>
+	<defs>
+		<marker
+			id="cs-arrow"
+			viewBox="0 0 10 10"
+			refX="9"
+			refY="5"
+			markerWidth="7"
+			markerHeight="7"
+			orient="auto-start-reverse"
+		>
+			<path d="M0 0L10 5L0 10z" class="cs-d-arrowhead"></path>
+		</marker>
+	</defs>
+
+	<rect x="176" y="16" width="372" height="388" rx="18" class="cs-d-zone"
+	></rect>
+	<text x="196" y="44" class="cs-d-zone-label">Railway</text>
+
+	<g class="cs-d-edges">
+		<path d="M146 162H198" marker-end="url(#cs-arrow)"></path>
+		<path d="M320 150H346V80H370" marker-end="url(#cs-arrow)"></path>
+		<path d="M320 176H346V244H370" marker-end="url(#cs-arrow)"></path>
+		<path d="M448 112V210" marker-end="url(#cs-arrow)"></path>
+		<path d="M448 276V322" marker-end="url(#cs-arrow)"></path>
+		<path d="M524 244H594" marker-end="url(#cs-arrow)"></path>
+	</g>
+
+	<g class="cs-d-edge-labels">
+		<text x="172" y="152" text-anchor="middle">HTTPS</text>
+		<text x="352" y="70">/</text>
+		<text x="340" y="232" text-anchor="end">/api</text>
+		<text x="456" y="166">fetch en el servidor</text>
+		<text x="560" y="234" text-anchor="middle">SOAP</text>
+	</g>
+
+	<g class="cs-d-node">
+		<rect x="16" y="130" width="130" height="64" rx="12"></rect>
+		<text x="81" y="158" text-anchor="middle" class="cs-d-title">Navegador</text
+		>
+		<text x="81" y="178" text-anchor="middle" class="cs-d-sub"
+			>mostrador · admin</text
+		>
+	</g>
+
+	<g class="cs-d-node">
+		<rect x="200" y="130" width="120" height="64" rx="12"></rect>
+		<text x="260" y="158" text-anchor="middle" class="cs-d-title">Caddy</text>
+		<text x="260" y="178" text-anchor="middle" class="cs-d-sub"
+			>proxy · TLS</text
+		>
+	</g>
+
+	<g class="cs-d-node">
+		<rect x="372" y="48" width="152" height="64" rx="12"></rect>
+		<text x="448" y="76" text-anchor="middle" class="cs-d-title">Next.js</text>
+		<text x="448" y="96" text-anchor="middle" class="cs-d-sub"
+			>App Router · MUI</text
+		>
+	</g>
+
+	<g class="cs-d-node cs-d-node--primary">
+		<rect x="372" y="212" width="152" height="64" rx="12"></rect>
+		<text x="448" y="240" text-anchor="middle" class="cs-d-title"
+			>Django + DRF</text
+		>
+		<text x="448" y="260" text-anchor="middle" class="cs-d-sub"
+			>API /api/v1</text
+		>
+	</g>
+
+	<g class="cs-d-node">
+		<rect x="372" y="324" width="152" height="56" rx="12"></rect>
+		<text x="448" y="349" text-anchor="middle" class="cs-d-title"
+			>PostgreSQL</text
+		>
+		<text x="448" y="367" text-anchor="middle" class="cs-d-sub"
+			>datos y sesiones</text
+		>
+	</g>
+
+	<g class="cs-d-node cs-d-node--external">
+		<rect x="596" y="212" width="148" height="64" rx="12"></rect>
+		<text x="670" y="240" text-anchor="middle" class="cs-d-title"
+			>AFIP / ARCA</text
+		>
+		<text x="670" y="260" text-anchor="middle" class="cs-d-sub"
+			>WSAA · WSFEv1 · Padrón</text
+		>
+	</g>
+</svg>
+
+<style>
+	.cs-diagram {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.cs-d-zone {
+		fill: rgba(56, 189, 248, 0.04);
+		stroke: rgba(56, 189, 248, 0.35);
+		stroke-dasharray: 6 6;
+	}
+
+	.cs-d-zone-label {
+		font-family: var(--font-mono);
+		font-size: 13px;
+		fill: var(--color-secondary);
+	}
+
+	.cs-d-edges path {
+		fill: none;
+		stroke: rgba(148, 163, 184, 0.6);
+		stroke-width: 1.5;
+	}
+
+	.cs-d-arrowhead {
+		fill: rgba(148, 163, 184, 0.8);
+	}
+
+	.cs-d-edge-labels text {
+		font-family: var(--font-mono);
+		font-size: 11px;
+		fill: var(--color-text-muted);
+	}
+
+	.cs-d-node rect {
+		fill: rgba(15, 23, 42, 0.92);
+		stroke: rgba(148, 163, 184, 0.3);
+		stroke-width: 1.2;
+	}
+
+	.cs-d-node--primary rect {
+		stroke: var(--color-primary);
+		fill: rgba(0, 208, 132, 0.08);
+	}
+
+	.cs-d-node--external rect {
+		stroke: var(--color-secondary);
+		stroke-dasharray: 4 4;
+	}
+
+	.cs-d-title {
+		font-family: var(--font-heading);
+		font-size: 15px;
+		font-weight: 700;
+		fill: var(--color-heading);
+	}
+
+	.cs-d-sub {
+		font-family: var(--font-mono);
+		font-size: 11px;
+		fill: var(--color-text-muted);
+	}
+</style>

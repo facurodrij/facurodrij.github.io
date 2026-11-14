@@ -1,0 +1,103 @@
+---
+interface Tool {
+	name: string;
+	className: string;
+	icon: (props: Record<string, unknown>) => unknown;
+}
+
+interface Props {
+	tools: Tool[];
+	label?: string;
+}
+
+const { tools, label } = Astro.props;
+---
+
+<ul class="flex w-full flex-wrap gap-2" aria-label={label}>
+	{
+		tools.map(({ name, className, icon: Icon }) => (
+			<li>
+				<span class="project-tech-chip-item">
+					<span class="project-tech-chip" title={name}>
+						<span class:list={['project-tech-chip__icon', className]}>
+							<Icon class="size-4 shrink-0" />
+						</span>
+						<span
+							class="project-tech-chip__label"
+							style={`--chip-label-width: ${Math.max(name.length + 1, 6)}ch;`}
+						>
+							<span class="project-tech-chip__label-text">{name}</span>
+						</span>
+					</span>
+				</span>
+			</li>
+		))
+	}
+</ul>
+
+<style>
+	.project-tech-chip-item {
+		display: inline-flex;
+	}
+
+	.project-tech-chip {
+		display: inline-flex;
+		align-items: center;
+		gap: 0;
+		padding: 0.45rem 0.5rem;
+		border-radius: 999px;
+		border: 1px solid rgba(148, 163, 184, 0.16);
+		background: rgba(2, 6, 23, 0.58);
+		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+		font-size: 0.92rem;
+		font-weight: 500;
+		color: var(--color-text);
+		transition:
+			gap 280ms cubic-bezier(0.22, 1, 0.36, 1),
+			padding 280ms cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.project-tech-chip-item:hover .project-tech-chip {
+		gap: 0.7rem;
+		padding: 0.45rem 0.85rem 0.45rem 0.5rem;
+	}
+
+	.project-tech-chip__label {
+		display: inline-block;
+		width: 0;
+		min-width: 0;
+		overflow: hidden;
+		opacity: 0;
+		transform: translateX(-0.35rem);
+		will-change: width, opacity, transform;
+		transition:
+			width 280ms cubic-bezier(0.22, 1, 0.36, 1),
+			opacity 180ms ease,
+			transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.project-tech-chip__label-text {
+		overflow: hidden;
+		white-space: nowrap;
+		min-width: 0;
+	}
+
+	.project-tech-chip-item:hover .project-tech-chip__label {
+		width: var(--chip-label-width, 8ch);
+		opacity: 1;
+		transform: translateX(0);
+	}
+
+	.project-tech-chip__icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		width: 2rem;
+		height: 2rem;
+		border-radius: 999px;
+		box-shadow:
+			inset 0 1px 0 rgba(255, 255, 255, 0.14),
+			0 10px 24px rgba(2, 6, 23, 0.18);
+	}
+</style>
