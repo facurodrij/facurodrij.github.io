@@ -362,7 +362,7 @@ const PROJECTS = [
 										</section>
 										<section>
 											<h4 data-ui-heading="true">Tecnologías</h4>
-											<TechChips tools={moreInfo.tools} />
+											<TechChips tools={moreInfo.tools} expanded />
 										</section>
 									</div>
 								</div>
@@ -430,8 +430,6 @@ const PROJECTS = [
 		display: grid;
 		gap: 1.75rem;
 		margin-top: 1.75rem;
-		padding-top: 1.75rem;
-		border-top: 1px solid var(--color-border);
 		opacity: 0;
 		transform: translateY(-0.75rem);
 		transition:
