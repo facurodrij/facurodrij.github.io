@@ -241,7 +241,7 @@ const PROJECTS = [
 				'Clientes y proveedores',
 				'Comprobantes y reportes',
 			],
-			// The card already shows Django, Next.js and PostgreSQL.
+			// Extra tools: the card already shows Django, Next.js and PostgreSQL, which "Más info" prepends.
 			tools: [
 				TOOLS.PYTHON,
 				TOOLS.DRF,
@@ -274,7 +274,7 @@ const PROJECTS = [
 				'Validación por ID o hash de transacción',
 				'Presentaciones rectificativas',
 			],
-			// The card already shows Solidity, Truffle, Django and Bootstrap.
+			// Extra tools: the card already shows Solidity, Truffle, Django and Bootstrap, which "Más info" prepends.
 			tools: [TOOLS.PYTHON, TOOLS.SQLITE],
 		},
 	},
@@ -299,7 +299,7 @@ const PROJECTS = [
 				'Cobro online con Mercado Pago',
 				'Estadísticas de recaudación',
 			],
-			// The card already shows Django, Bootstrap and jQuery.
+			// Extra tools: the card already shows Django, Bootstrap and jQuery, which "Más info" prepends.
 			tools: [TOOLS.PYTHON, TOOLS.POSTGRESQL],
 		},
 	},
@@ -470,7 +470,8 @@ const PROJECTS = [
 										</section>
 										<section>
 											<h4 data-ui-heading="true">Tecnologías</h4>
-											<TechChips tools={moreInfo.tools} expanded />
+											{/* Card tools first, then the extra ones listed in moreInfo. */}
+											<TechChips tools={[...tools, ...moreInfo.tools]} expanded />
 										</section>
 									</div>
 								</div>
