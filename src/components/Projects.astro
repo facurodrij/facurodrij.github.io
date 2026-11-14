@@ -16,20 +16,29 @@ import DjangoIcon from './icons/Django.astro';
 import SolidityIcon from './icons/Solidity.astro';
 import TruffleIcon from './icons/Truffle.astro';
 import PythonIcon from './icons/Python.astro';
+import SQLiteIcon from './icons/SQLite.astro';
 import TypeScriptIcon from './icons/TypeScript.astro';
 import MaterialUiIcon from './icons/MaterialUi.astro';
 import DockerIcon from './icons/Docker.astro';
 import CaddyIcon from './icons/Caddy.astro';
 import RailwayIcon from './icons/Railway.astro';
 import ReadIcon from './icons/Read.astro';
-import project2Image from '../assets/projects/2.webp';
 import project3Image from '../assets/projects/3.webp';
-import project4Image from '../assets/projects/4.webp';
-// Screenshots of a local demo with fictitious data (no customer data).
+// Screenshots of local demos with fictitious data (no customer data).
 import stockcarSalesImage from '../assets/projects/stockcar/ventas.webp';
 import stockcarSaleFormImage from '../assets/projects/stockcar/venta-form.webp';
 import stockcarDocumentsImage from '../assets/projects/stockcar/comprobantes.webp';
 import stockcarStockImage from '../assets/projects/stockcar/articulo-movimientos.webp';
+import tesisListImage from '../assets/projects/tesis/rendiciones-listado.webp';
+import tesisUploadImage from '../assets/projects/tesis/rendicion-carga-documentos.webp';
+import tesisSubmittedImage from '../assets/projects/tesis/presentacion-registrada-blockchain.webp';
+import tesisValidationImage from '../assets/projects/tesis/validacion-blockchain.webp';
+import tesisHistoryImage from '../assets/projects/tesis/rendicion-detalle.webp';
+import reservaCalendarImage from '../assets/projects/reserva/reservas-calendario.webp';
+import reservaBookingImage from '../assets/projects/reserva/reservar-cancha.webp';
+import reservaMemberImage from '../assets/projects/reserva/socio-detalle.webp';
+import reservaFeesImage from '../assets/projects/reserva/cuotas-sociales.webp';
+import reservaTicketImage from '../assets/projects/reserva/ticket-qr.webp';
 
 const linkButtonClass = 'ds-button ds-button-secondary ds-glass-button';
 
@@ -85,6 +94,11 @@ const TOOLS = {
 		name: 'Python',
 		className: 'bg-[#0f2236]',
 		icon: PythonIcon,
+	},
+	SQLITE: {
+		name: 'SQLite',
+		className: 'bg-white',
+		icon: SQLiteIcon,
 	},
 	DRF: {
 		name: 'Django REST Framework',
@@ -143,6 +157,67 @@ const STOCKCAR_SLIDES = [
 	},
 ];
 
+const TESIS_SLIDES = [
+	{
+		src: tesisValidationImage,
+		alt: 'Pantalla de validación con los datos de una presentación leídos de la blockchain: fecha, municipio, hashes de los documentos, bloque y dirección del contrato',
+		caption: 'Validación pública por ID de presentación o hash de transacción.',
+	},
+	{
+		src: tesisListImage,
+		alt: 'Listado de rendiciones municipales por año y período, con estados Presentada, En Carga y No Presentada',
+		caption:
+			'Rendiciones por municipio y período, con su estado de presentación.',
+	},
+	{
+		src: tesisUploadImage,
+		alt: 'Formulario de una rendición con selector de documento requerido, carga de archivo y tabla de archivos ya subidos',
+		caption: 'Carga de los documentos requeridos antes de presentar.',
+	},
+	{
+		src: tesisSubmittedImage,
+		alt: 'Aviso de presentación realizada con el ID de presentación, hash de la transacción, hash y número de bloque y dirección del contrato',
+		caption:
+			'Al presentar, los hashes de los archivos se registran en el smart contract.',
+	},
+	{
+		src: tesisHistoryImage,
+		alt: 'Detalle de una rendición con dos presentaciones realizadas, la original y una rectificativa, con sus fechas',
+		caption:
+			'Historial de presentaciones de una rendición, incluida una rectificativa.',
+	},
+];
+
+const RESERVA_SLIDES = [
+	{
+		src: reservaCalendarImage,
+		alt: 'Panel de administración con el calendario semanal de reservas: cada turno muestra la cancha y el cliente',
+		caption:
+			'Agenda semanal de reservas de las canchas en el panel de administración.',
+	},
+	{
+		src: reservaBookingImage,
+		alt: 'Formulario de reserva de cancha con un resumen para confirmar: deporte, cancha, fecha y hora, precio y foto de la cancha',
+		caption:
+			'Reserva online: el socio elige día y horario y confirma cancha y precio.',
+	},
+	{
+		src: reservaMemberImage,
+		alt: 'Detalle de un socio con su carnet digital, datos personales, categoría y estado',
+		caption: 'Ficha del socio con carnet digital, grupo familiar y cuotas.',
+	},
+	{
+		src: reservaFeesImage,
+		alt: 'Listado de cuotas sociales con titular, período, total, vencimiento y estado de pago Pagada o Pendiente',
+		caption: 'Cuotas sociales por período, con pagos y pendientes.',
+	},
+	{
+		src: reservaTicketImage,
+		alt: 'Detalle de un ticket de evento con su código QR, tipo de entrada, estado del pago y fecha de check-in',
+		caption: 'Ticket de un evento con código QR para el control de acceso.',
+	},
+];
+
 const PROJECTS = [
 	{
 		id: 'stockcar',
@@ -153,6 +228,8 @@ const PROJECTS = [
 		link: undefined,
 		image: stockcarSalesImage,
 		gallery: STOCKCAR_SLIDES,
+		architectureCaption:
+			'Arquitectura: Caddy reparte el tráfico entre Next.js y la API de Django, que factura contra AFIP.',
 		doc: undefined,
 		tools: [TOOLS.DJANGO, TOOLS.NEXTJS, TOOLS.POSTGRESQL],
 		moreInfo: {
@@ -184,11 +261,22 @@ const PROJECTS = [
 			'Aplicación web integrando una blockchain de prueba mediante Web3.py y un Smart Contract para garantizar la integridad y confiabilidad de las presentaciones digitales de las rendiciones de cuentas municipales.',
 		github: 'https://github.com/facurodrij/TrabajoFinal_LSI',
 		link: undefined,
-		image: project2Image,
-		gallery: undefined,
+		image: tesisValidationImage,
+		gallery: TESIS_SLIDES,
+		architectureCaption: undefined,
 		doc: '/projects/Tesis_LSI_Facundo_Rodriguez.pdf',
 		tools: [TOOLS.SOLIDITY, TOOLS.TRUFFLE, TOOLS.DJANGO, TOOLS.BOOTSTRAP],
-		moreInfo: undefined,
+		moreInfo: {
+			features: [
+				'Carga de documentos por rendición',
+				'Hash SHA-256 de cada archivo',
+				'Registro en un smart contract',
+				'Validación por ID o hash de transacción',
+				'Presentaciones rectificativas',
+			],
+			// The card already shows Solidity, Truffle, Django and Bootstrap.
+			tools: [TOOLS.PYTHON, TOOLS.SQLITE],
+		},
 	},
 	{
 		id: 'reserva',
@@ -197,11 +285,23 @@ const PROJECTS = [
 			'Sistema de gestión de reservas de canchas, manejo de eventos y administración de socios para clubes. Integración con la API de MercadoPago para el cobro de reservas, tickets y membresías.',
 		github: 'https://github.com/facurodrij/TrabajoFinal_ASC',
 		link: undefined,
-		image: project4Image,
-		gallery: undefined,
+		image: reservaCalendarImage,
+		gallery: RESERVA_SLIDES,
+		architectureCaption: undefined,
 		doc: undefined,
 		tools: [TOOLS.DJANGO, TOOLS.BOOTSTRAP, TOOLS.JQUERY],
-		moreInfo: undefined,
+		moreInfo: {
+			features: [
+				'Reserva de canchas con agenda',
+				'Socios y grupos familiares',
+				'Cuotas sociales con recargo por mora',
+				'Eventos y venta de tickets con QR',
+				'Cobro online con Mercado Pago',
+				'Estadísticas de recaudación',
+			],
+			// The card already shows Django, Bootstrap and jQuery.
+			tools: [TOOLS.PYTHON, TOOLS.POSTGRESQL],
+		},
 	},
 	{
 		id: 'sueldos',
@@ -213,6 +313,7 @@ const PROJECTS = [
 		link: undefined,
 		image: project3Image,
 		gallery: undefined,
+		architectureCaption: undefined,
 		doc: undefined,
 		tools: [TOOLS.DOTNET, TOOLS.BOOTSTRAP, TOOLS.JQUERY],
 		moreInfo: undefined,
@@ -231,6 +332,7 @@ const PROJECTS = [
 						id,
 						image,
 						gallery,
+						architectureCaption,
 						title,
 						description,
 						tools,
@@ -251,15 +353,21 @@ const PROJECTS = [
 					>
 						<div class="flex flex-col md:flex-row md:gap-8">
 							<div class="w-full md:w-1/2">
-								{gallery ? (
+								{gallery && architectureCaption ? (
 									<ImageCarousel
 										slides={gallery}
 										label={`Capturas de ${title.split(' - ')[0]}`}
-										extraCaption="Arquitectura: Caddy reparte el tráfico entre Next.js y la API de Django, que factura contra AFIP."
+										extraCaption={architectureCaption}
 										eager={index === 0}
 									>
 										<StockcarArchitecture slot="extra" />
 									</ImageCarousel>
+								) : gallery ? (
+									<ImageCarousel
+										slides={gallery}
+										label={`Capturas de ${title.split(' - ')[0]}`}
+										eager={index === 0}
+									/>
 								) : (
 									<div class="relative overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-bg-elevated)] transition duration-500 ease-in-out md:group-hover:-translate-y-1 md:group-hover:shadow-2xl">
 										<Image
