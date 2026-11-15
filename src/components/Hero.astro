@@ -41,6 +41,15 @@ const profileSummary = [
 	},
 ];
 
+// Rotating taglines for the typewriter badge above the name. The first one is
+// server-rendered, so it's what shows without JS or with reduced motion.
+const heroTaglines = [
+	'2+ años de experiencia',
+	'Licenciado en Sistemas',
+	'Construyendo con IA',
+	'Desde Misiones, Argentina',
+];
+
 const terminalCommands = [
 	{
 		command: 'cat ./profile.yml',
@@ -54,8 +63,12 @@ const terminalCommands = [
 	<div class="grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.95fr)] md:items-center lg:gap-14">
 		<div>
 			<span class="mb-5 inline-flex items-center gap-3 font-[var(--font-heading)] text-xs font-semibold uppercase tracking-[0.22em] text-[var(--color-primary)]">
-				<span class="h-2 w-2 rounded-full bg-[var(--color-primary)]"></span>
-				2+ años de experiencia
+				<span class="h-2 w-2 shrink-0 rounded-full bg-[var(--color-primary)]"></span>
+				<span class="sr-only">{heroTaglines.join(' · ')}</span>
+				<span class="inline-flex items-center" aria-hidden="true">
+					<span data-hero-typewriter data-messages={JSON.stringify(heroTaglines)}>{heroTaglines[0]}</span>
+					<span class="hero-typewriter-caret ml-1 inline-block h-[1.1em] w-[2px] bg-[var(--color-primary)]"></span>
+				</span>
 			</span>
 
 			<p class="font-[var(--font-heading)] text-sm font-semibold uppercase tracking-[0.22em] text-[var(--color-text-soft)] sm:text-base">
@@ -221,8 +234,14 @@ const terminalCommands = [
 			height: 0.34rem;
 		}
 
-		.ds-terminal-caret {
+		.ds-terminal-caret,
+		.hero-typewriter-caret {
 			animation: terminal-caret-blink 1s steps(1, end) infinite;
+		}
+
+		/* Keep the caret solid while characters are being typed or erased. */
+		[data-typing] + .hero-typewriter-caret {
+			animation: none;
 		}
 
 		.hero-terminal-aura {
@@ -313,9 +332,64 @@ const terminalCommands = [
 				animation: none;
 			}
 
-			.ds-terminal-caret {
+			.ds-terminal-caret,
+			.hero-typewriter-caret {
 				animation: none;
 			}
 		}
 	</style>
 </section>
+
+<script>
+	// Typewriter for the hero badge: types each tagline, holds it, erases it and
+	// moves on to the next one, looping forever. Skipped under reduced motion.
+	const TYPE_MS = 70;
+	const ERASE_MS = 35;
+	const HOLD_MS = 2200;
+	const GAP_MS = 400;
+
+	const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+	const runTypewriter = async (el: HTMLElement) => {
+		const messages: string[] = JSON.parse(el.dataset.messages ?? '[]');
+		if (messages.length < 2) return;
+
+		// The first message is already rendered; start by holding it.
+		let index = 0;
+		let text = messages[0];
+
+		while (el.isConnected) {
+			await sleep(HOLD_MS);
+			el.dataset.typing = '';
+			while (text.length > 0 && el.isConnected) {
+				text = text.slice(0, -1);
+				el.textContent = text;
+				await sleep(ERASE_MS);
+			}
+			delete el.dataset.typing;
+			await sleep(GAP_MS);
+
+			index = (index + 1) % messages.length;
+			const next = messages[index];
+			el.dataset.typing = '';
+			while (text.length < next.length && el.isConnected) {
+				text = next.slice(0, text.length + 1);
+				el.textContent = text;
+				await sleep(TYPE_MS);
+			}
+			delete el.dataset.typing;
+		}
+	};
+
+	const setupHeroTypewriter = () => {
+		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+		document
+			.querySelectorAll<HTMLElement>('[data-hero-typewriter]:not([data-typewriter-ready])')
+			.forEach((el) => {
+				el.dataset.typewriterReady = '';
+				void runTypewriter(el);
+			});
+	};
+
+	document.addEventListener('astro:page-load', setupHeroTypewriter);
+</script>
