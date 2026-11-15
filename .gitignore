@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # agent infrastructure
 .atl/
+
+# claude
+.claude/
