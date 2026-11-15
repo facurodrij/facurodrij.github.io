@@ -1,5 +1,6 @@
 ---
 import LinkInline from './LinkInline.astro';
+import TechChips from './TechChips.astro';
 
 interface Props {
 	id?: string;
@@ -7,7 +8,11 @@ interface Props {
 	company: string;
 	description: string;
 	highlights?: string[];
-	tech?: string[];
+	tech?: {
+		name: string;
+		className: string;
+		icon: (props: Record<string, unknown>) => unknown;
+	}[];
 	link?: string;
 	date: string;
 	location?: string;
@@ -88,11 +93,9 @@ const {
 		}
 		{
 			tech.length > 0 && (
-				<ul class="ds-experience-tech" aria-label="Tecnologías">
-					{tech.map((item) => (
-						<li>{item}</li>
-					))}
-				</ul>
+				<div class="mt-1.5">
+					<TechChips tools={tech} label="Tecnologías" expanded />
+				</div>
 			)
 		}
 		{
@@ -167,24 +170,6 @@ const {
 		border-radius: 999px;
 		background: var(--color-primary);
 		opacity: 0.8;
-	}
-
-	.ds-experience-tech {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.4rem;
-		margin-top: 0.35rem;
-	}
-
-	.ds-experience-tech li {
-		padding: 0.2rem 0.6rem;
-		border-radius: 999px;
-		border: 1px solid rgba(0, 208, 132, 0.22);
-		background: rgba(0, 208, 132, 0.08);
-		font-family: var(--font-mono);
-		font-size: 0.72rem;
-		line-height: 1.4;
-		color: color-mix(in srgb, var(--color-primary) 78%, white 22%);
 	}
 
 	.ds-experience-item {

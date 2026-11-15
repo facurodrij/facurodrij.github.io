@@ -1,5 +1,75 @@
 ---
 import ExperienceItem from './ExperienceItem.astro';
+import AwsIcon from './icons/Aws.astro';
+import DjangoIcon from './icons/Django.astro';
+import DockerIcon from './icons/Docker.astro';
+import NextjsIcon from './icons/Nextjs.astro';
+import NodejsIcon from './icons/Nodejs.astro';
+import PostgreSQLIcon from './icons/PostgreSQL.astro';
+import PythonIcon from './icons/Python.astro';
+import RailwayIcon from './icons/Railway.astro';
+import TerraformIcon from './icons/Terraform.astro';
+import TypeScriptIcon from './icons/TypeScript.astro';
+import WhatsappIcon from './icons/Whatsapp.astro';
+
+// Badge colors match the Technologies section.
+const TOOLS = {
+	NODEJS: {
+		name: 'Node.js',
+		className: 'bg-[#101a0c] text-[#83CD29]',
+		icon: NodejsIcon,
+	},
+	TYPESCRIPT: {
+		name: 'TypeScript',
+		className: 'bg-[#3178C6] text-white',
+		icon: TypeScriptIcon,
+	},
+	WHATSAPP: {
+		name: 'WhatsApp Business API',
+		className: 'bg-[#0b2a1c] text-[#25D366]',
+		icon: WhatsappIcon,
+	},
+	AWS: {
+		name: 'AWS',
+		className: 'bg-white text-[#252f3e]',
+		icon: AwsIcon,
+	},
+	DOCKER: {
+		name: 'Docker',
+		className: 'bg-[#031f33] text-[#2496ED]',
+		icon: DockerIcon,
+	},
+	TERRAFORM: {
+		name: 'Terraform',
+		className: 'bg-white text-[#5c4ee5]',
+		icon: TerraformIcon,
+	},
+	PYTHON: {
+		name: 'Python',
+		className: 'bg-[#0f172a] text-white',
+		icon: PythonIcon,
+	},
+	DJANGO: {
+		name: 'Django',
+		className: 'bg-[#092E20] text-white',
+		icon: DjangoIcon,
+	},
+	NEXTJS: {
+		name: 'Next.js',
+		className: 'bg-white text-black',
+		icon: NextjsIcon,
+	},
+	POSTGRESQL: {
+		name: 'PostgreSQL',
+		className: 'bg-[#10273d] text-white',
+		icon: PostgreSQLIcon,
+	},
+	RAILWAY: {
+		name: 'Railway',
+		className: 'bg-[#0b1020] text-white',
+		icon: RailwayIcon,
+	},
+};
 const EXPERIENCE = [
 	{
 		id: 'sherpa',
@@ -17,12 +87,12 @@ const EXPERIENCE = [
 			'Trabajo sobre infraestructura en AWS definida con Terraform y servicios en contenedores Docker.',
 		],
 		tech: [
-			'Node.js',
-			'TypeScript',
-			'WhatsApp Business API',
-			'AWS',
-			'Docker',
-			'Terraform',
+			TOOLS.NODEJS,
+			TOOLS.TYPESCRIPT,
+			TOOLS.WHATSAPP,
+			TOOLS.AWS,
+			TOOLS.DOCKER,
+			TOOLS.TERRAFORM,
 		],
 	},
 	{
@@ -40,12 +110,12 @@ const EXPERIENCE = [
 			'Lo mantengo en producción sobre Railway, con soporte técnico y mejoras continuas.',
 		],
 		tech: [
-			'Python',
-			'Django',
-			'Next.js',
-			'TypeScript',
-			'PostgreSQL',
-			'Railway',
+			TOOLS.PYTHON,
+			TOOLS.DJANGO,
+			TOOLS.NEXTJS,
+			TOOLS.TYPESCRIPT,
+			TOOLS.POSTGRESQL,
+			TOOLS.RAILWAY,
 		],
 	},
 	{
@@ -59,7 +129,7 @@ const EXPERIENCE = [
 		highlights: [
 			'Acompañé a estudiantes en sus primeros pasos con Python aplicado a IA y machine learning.',
 		],
-		tech: ['Python'],
+		tech: [TOOLS.PYTHON],
 		certification: '/experience/argentina-programa-4-0.pdf',
 	},
 ];
