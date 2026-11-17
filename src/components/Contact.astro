@@ -1,0 +1,221 @@
+---
+import FileTextIcon from './icons/FileText.astro';
+import GithubIcon from './icons/Github.astro';
+import LinkedInIcon from './icons/LinkedIn.astro';
+
+const email = 'facurodri00@gmail.com';
+
+const links = [
+	{ label: 'CV (PDF)', href: '/curriculum_vitae.pdf', icon: FileTextIcon },
+	{ label: 'GitHub', href: 'https://github.com/facurodrij', icon: GithubIcon },
+	{
+		label: 'LinkedIn',
+		href: 'https://www.linkedin.com/in/facundo-joel-rodriguez/',
+		icon: LinkedInIcon,
+	},
+];
+---
+
+<div class="max-w-3xl">
+	<h2
+		data-ui-heading="true"
+		class="text-balance text-3xl font-semibold leading-tight text-[var(--color-heading)] sm:text-4xl"
+	>
+		Si es el tipo de desarrollador que estás buscando, hablemos.
+	</h2>
+
+	<div class="mt-6 flex items-center gap-2">
+		<a
+			href={`mailto:${email}`}
+			class="contact-email min-w-0 break-all text-lg text-[var(--color-primary)] sm:text-2xl"
+			data-email-text>{email}</a
+		>
+		<button
+			type="button"
+			class="contact-copy"
+			aria-label="Copiar email"
+			title="Copiar email"
+			data-copy-email={email}
+			data-copied="false"
+			hidden
+		>
+			<svg
+				class="contact-copy__icon contact-copy__icon--copy"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="1.85"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				aria-hidden="true"
+			>
+				<rect x="9" y="9" width="12" height="12" rx="2"></rect>
+				<path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"
+				></path>
+			</svg>
+			<svg
+				class="contact-copy__icon contact-copy__icon--done"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				aria-hidden="true"
+			>
+				<path d="m5 12 5 5 9-10"></path>
+			</svg>
+		</button>
+		<span class="sr-only" aria-live="polite" data-copy-status></span>
+	</div>
+
+	<ul class="mt-5 flex flex-wrap gap-2.5">
+		{
+			links.map(({ label, href, icon: Icon }) => (
+				<li>
+					<a
+						href={href}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="contact-link"
+						aria-label={label}
+						title={label}
+					>
+						<Icon class="size-4 shrink-0" />
+					</a>
+				</li>
+			))
+		}
+	</ul>
+</div>
+
+<style>
+	.contact-email {
+		text-decoration: underline;
+		text-decoration-color: rgba(0, 208, 132, 0.5);
+		text-decoration-thickness: 1.5px;
+		text-underline-offset: 7px;
+	}
+
+	.contact-email:hover,
+	.contact-email:focus-visible {
+		text-decoration-color: currentColor;
+	}
+
+	.contact-link {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.25rem;
+		height: 2.25rem;
+		border-radius: 999px;
+		border: 1px solid rgba(148, 163, 184, 0.2);
+		background: rgba(2, 6, 23, 0.82);
+		color: var(--color-text);
+	}
+
+	.contact-link:hover,
+	.contact-link:focus-visible {
+		border-color: rgba(0, 208, 132, 0.46);
+		background: rgba(0, 208, 132, 0.12);
+		color: var(--color-heading);
+		outline: none;
+		transform: translateY(-1px);
+	}
+
+	.contact-copy {
+		display: inline-flex;
+		flex-shrink: 0;
+		align-items: center;
+		justify-content: center;
+		width: 2rem;
+		height: 2rem;
+		border-radius: var(--radius-sm);
+		color: var(--color-text-muted);
+	}
+
+	.contact-copy[hidden] {
+		display: none;
+	}
+
+	.contact-copy:hover,
+	.contact-copy:focus-visible {
+		color: var(--color-heading);
+		background: rgba(148, 163, 184, 0.1);
+	}
+
+	.contact-copy__icon {
+		width: 1rem;
+		height: 1rem;
+	}
+
+	.contact-copy__icon--done,
+	.contact-copy[data-copied='true'] .contact-copy__icon--copy {
+		display: none;
+	}
+
+	.contact-copy[data-copied='true'] {
+		color: var(--color-primary);
+	}
+
+	.contact-copy[data-copied='true'] .contact-copy__icon--done {
+		display: block;
+	}
+</style>
+
+<script>
+	// Copy-to-clipboard for the contact email. The button stays hidden when the
+	// Clipboard API isn't available, so the mailto link is the only option. If
+	// the browser denies the write, the email text gets selected instead so it
+	// can be copied by hand.
+	const RESET_MS = 2000;
+
+	const selectText = (el: HTMLElement | null | undefined) => {
+		const selection = window.getSelection();
+		if (!el || !selection) return false;
+		const range = document.createRange();
+		range.selectNodeContents(el);
+		selection.removeAllRanges();
+		selection.addRange(range);
+		return true;
+	};
+
+	const setupCopyEmail = () => {
+		if (!navigator.clipboard) return;
+
+		document
+			.querySelectorAll<HTMLButtonElement>(
+				'[data-copy-email]:not([data-copy-ready])',
+			)
+			.forEach((button) => {
+				button.dataset.copyReady = '';
+				button.hidden = false;
+
+				const status =
+					button.parentElement?.querySelector<HTMLElement>(
+						'[data-copy-status]',
+					);
+				const emailText =
+					button.parentElement?.querySelector<HTMLElement>('[data-email-text]');
+				let resetTimer: number | undefined;
+
+				button.addEventListener('click', async () => {
+					try {
+						await navigator.clipboard.writeText(button.dataset.copyEmail ?? '');
+						button.dataset.copied = 'true';
+						if (status) status.textContent = 'Email copiado al portapapeles';
+					} catch {
+						if (!selectText(emailText)) return;
+						if (status) status.textContent = 'Email seleccionado para copiar';
+					}
+					window.clearTimeout(resetTimer);
+					resetTimer = window.setTimeout(() => {
+						button.dataset.copied = 'false';
+						if (status) status.textContent = '';
+					}, RESET_MS);
+				});
+			});
+	};
+
+	document.addEventListener('astro:page-load', setupCopyEmail);
+</script>

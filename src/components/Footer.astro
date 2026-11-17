@@ -1,8 +1,4 @@
 ---
-import GithubIcon from './icons/Github.astro';
-import LinkedInIcon from './icons/LinkedIn.astro';
-import MailIcon from './icons/Mail.astro';
-
 const footerYear = 2026;
 ---
 
@@ -15,39 +11,13 @@ const footerYear = 2026;
 		</p>
 
 		<p class="footer-band__license">
-			Hecho con
-			<span class="footer-band__heart" aria-hidden="true">❤</span>
-			usando Astro & Tailwind.
+			<a
+				href="https://github.com/facurodrij/facurodrij.github.io"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="footer-band__source-link">Ver el código de este sitio</a
+			>
 		</p>
-
-		<div class="footer-band__links" aria-label="Enlaces de contacto">
-			<a
-				href="https://github.com/facurodrij"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="footer-band__icon-link"
-				aria-label="GitHub"
-			>
-				<GithubIcon class="size-4" />
-			</a>
-			<a
-				href="https://www.linkedin.com/in/facundo-joel-rodriguez/"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="footer-band__icon-link"
-				aria-label="LinkedIn"
-			>
-				<LinkedInIcon class="size-4" />
-			</a>
-			<a
-				id="contacto"
-				href="mailto:facurodri00@gmail.com"
-				class="footer-band__icon-link"
-				aria-label="Contacto por email"
-			>
-				<MailIcon class="size-4" />
-			</a>
-		</div>
 	</div>
 </footer>
 
@@ -104,59 +74,22 @@ const footerYear = 2026;
 		text-align: center;
 	}
 
-	.footer-band__heart {
-		display: inline-block;
-		margin-inline: 0.28rem;
-		color: #ef4444;
-		transform-origin: center;
-		animation: footer-heartbeat 1500ms ease-in-out infinite;
+	.footer-band__source-link {
+		text-decoration: underline;
+		text-decoration-color: rgba(148, 163, 184, 0.3);
+		text-underline-offset: 3px;
 	}
 
-	@keyframes footer-heartbeat {
-		0%,
-		100% {
-			transform: translateY(1px) scale(1);
-			color: #7f1d1d;
-		}
-
-		50% {
-			transform: translateY(1px) scale(1.14);
-			color: #ef4444;
-		}
-	}
-
-	.footer-band__links {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		gap: 0.65rem;
-	}
-
-	.footer-band__icon-link {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		width: 2rem;
-		height: 2rem;
-		border-radius: 999px;
-		border: 1px solid rgba(148, 163, 184, 0.2);
-		background: rgba(2, 6, 23, 0.82);
-		color: var(--color-text);
-	}
-
-	.footer-band__icon-link:hover,
-	.footer-band__icon-link:focus-visible {
-		border-color: rgba(56, 189, 248, 0.46);
-		background: rgba(56, 189, 248, 0.14);
+	.footer-band__source-link:hover,
+	.footer-band__source-link:focus-visible {
 		color: var(--color-heading);
-		outline: none;
-		transform: translateY(-1px);
+		text-decoration-color: currentColor;
 	}
 
 	@media (min-width: 860px) {
 		.footer-band__inner {
 			min-height: 6rem;
-			grid-template-columns: 1fr auto 1fr;
+			grid-template-columns: 1fr auto;
 			padding-block: 1.35rem;
 		}
 
@@ -164,15 +97,8 @@ const footerYear = 2026;
 			justify-content: flex-start;
 		}
 
-		.footer-band__links {
-			justify-content: flex-end;
-		}
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.footer-band__heart {
-			animation: none;
-			color: #ef4444;
+		.footer-band__license {
+			text-align: right;
 		}
 	}
 </style>

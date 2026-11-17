@@ -6,6 +6,7 @@ import Technologies from '../components/Technologies.astro';
 import TitleSection from '../components/TitleSection.astro';
 import Projects from '../components/Projects.astro';
 import Experience from '../components/Experience.astro';
+import Contact from '../components/Contact.astro';
 ---
 
 <Layout title="Facundo Rodriguez — Full Stack Developer">
@@ -53,31 +54,26 @@ import Experience from '../components/Experience.astro';
 			</Container>
 			<Container id="experiencia">
 				<TitleSection
-					><span class="text-[var(--color-heading)]">Mi</span>
-					<span class="ds-section-title-shimmer">Recorrido</span></TitleSection
+					><span class="ds-section-title-shimmer">Experiencia</span
+					></TitleSection
 				>
-				<p class="ds-body mx-auto mb-8 max-w-2xl text-center">
-					Recorrido profesional construyendo soluciones web, productos y
-					arquitecturas orientadas a impacto real.
-				</p>
 				<Experience />
 			</Container>
 			<Container id="tecnologias">
 				<TitleSection
-					><span class="text-[var(--color-heading)]">Mi</span>
-					<span class="ds-section-title-shimmer">TechStack</span></TitleSection
+					><span class="ds-section-title-shimmer">Tecnologías</span
+					></TitleSection
 				>
 				<Technologies />
 			</Container>
 			<Container id="proyectos">
 				<TitleSection
-					><span class="text-[var(--color-heading)]">Mis</span>
-					<span class="ds-section-title-shimmer">Proyectos</span></TitleSection
+					><span class="ds-section-title-shimmer">Proyectos</span></TitleSection
 				>
-				<p class="ds-body mx-auto mb-8 max-w-2xl text-center">
-					Algunos de mis trabajos más destacados.
-				</p>
 				<Projects />
+			</Container>
+			<Container id="contacto">
+				<Contact />
 			</Container>
 		</div>
 	</main>

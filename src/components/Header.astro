@@ -5,6 +5,8 @@ const navItems = [
 		label: 'sobre-mi',
 		url: '/#sobre-mi',
 		section: 'sobre-mi',
+		// Hidden on narrow screens so five links fit; it's right below the hero.
+		hideOnNarrow: true,
 	},
 	{
 		title: 'Experiencia',
@@ -13,8 +15,10 @@ const navItems = [
 		section: 'experiencia',
 	},
 	{
-		title: 'Skills',
-		label: 'skills',
+		title: 'Tecnologías',
+		// Shorter label on phones so the nav fits in one row.
+		shortTitle: 'Stack',
+		label: 'tecnologias',
 		url: '/#tecnologias',
 		section: 'tecnologias',
 	},
@@ -23,6 +27,12 @@ const navItems = [
 		label: 'proyectos',
 		url: '/#proyectos',
 		section: 'proyectos',
+	},
+	{
+		title: 'Contacto',
+		label: 'contacto',
+		url: '/#contacto',
+		section: 'contacto',
 	},
 ];
 ---
@@ -35,12 +45,22 @@ const navItems = [
 		{
 			navItems.map((link) => (
 				<a
-					class="header-link"
+					class:list={[
+						'header-link',
+						{ 'header-link--hide-narrow': link.hideOnNarrow },
+					]}
 					aria-label={link.label}
 					href={link.url}
 					data-section={link.section}
 				>
-					{link.title}
+					{link.shortTitle ? (
+						<>
+							<span class="header-link__full">{link.title}</span>
+							<span class="header-link__short">{link.shortTitle}</span>
+						</>
+					) : (
+						link.title
+					)}
 				</a>
 			))
 		}
@@ -102,6 +122,20 @@ const navItems = [
 					}
 				}
 
+				// The last section can be too short to reach the viewport center, so
+				// once the page is scrolled to the bottom, highlight it anyway.
+				const atBottom =
+					window.innerHeight + window.scrollY >=
+					document.documentElement.scrollHeight - 2;
+				const last = tracked[tracked.length - 1];
+				if (
+					atBottom &&
+					last &&
+					last.section.getBoundingClientRect().top < window.innerHeight
+				) {
+					activeId = last.section.id;
+				}
+
 				setActive(activeId);
 			};
 
@@ -158,6 +192,26 @@ const navItems = [
 		letter-spacing: 0.02em;
 		white-space: nowrap;
 		color: var(--color-text-muted);
+	}
+
+	.header-link__short {
+		display: none;
+	}
+
+	@media (max-width: 559px) {
+		.header-link--hide-narrow {
+			display: none;
+		}
+	}
+
+	@media (max-width: 479px) {
+		.header-link__full {
+			display: none;
+		}
+
+		.header-link__short {
+			display: inline;
+		}
 	}
 
 	@media (max-width: 400px) {
