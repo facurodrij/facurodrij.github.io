@@ -152,6 +152,8 @@ const EXPERIENCE = [
 </ol>
 
 <style>
+	/* Timeline segment from each marker down to the next one. It lights up
+	   like the card outlines as the reader scrolls past it. */
 	.ds-experience-row::before {
 		content: '';
 		position: absolute;
@@ -159,70 +161,35 @@ const EXPERIENCE = [
 		top: 1.9rem;
 		bottom: -3.15rem;
 		width: 2px;
-		will-change: opacity;
-		background: linear-gradient(
-			180deg,
-			rgba(56, 189, 248, 0.08) 0%,
-			rgba(56, 189, 248, 0.16) 20%,
-			rgba(56, 189, 248, 0.22) 50%,
-			rgba(56, 189, 248, 0.18) 76%,
-			rgba(56, 189, 248, 0.08) 90%,
-			rgba(56, 189, 248, 0.02) 100%
-		);
-		opacity: 0.38;
-		box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.04);
-		transition: opacity 180ms ease;
+		border-radius: 999px;
+		background: rgba(var(--color-primary-rgb), 0.18);
+		transition:
+			background 260ms ease,
+			box-shadow 260ms ease;
 	}
 
-	.ds-experience-row[data-timeline-state='past']::before,
+	.ds-experience-row[data-timeline-state='past']::before {
+		background: rgba(var(--color-primary-rgb), 0.85);
+		box-shadow:
+			0 0 6px rgba(var(--color-primary-rgb), 0.6),
+			0 0 16px rgba(var(--color-primary-rgb), 0.25);
+	}
+
+	/* The active segment fades out toward the next item, like a progress bar. */
 	.ds-experience-row[data-timeline-state='active']::before {
 		background: linear-gradient(
 			180deg,
-			rgba(56, 189, 248, 0.12) 0%,
-			rgba(56, 189, 248, 0.28) 18%,
-			rgba(56, 189, 248, 0.4) 50%,
-			rgba(56, 189, 248, 0.28) 76%,
-			rgba(56, 189, 248, 0.12) 90%,
-			rgba(56, 189, 248, 0.03) 100%
+			rgba(var(--color-primary-rgb), 0.9) 0%,
+			rgba(var(--color-primary-rgb), 0.55) 45%,
+			rgba(var(--color-primary-rgb), 0.18) 100%
 		);
-		opacity: 1;
-		box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.1);
-	}
-
-	.ds-experience-row.is-current::before {
-		background: linear-gradient(
-			180deg,
-			rgba(var(--color-primary-rgb), 0.12) 0%,
-			rgba(var(--color-primary-rgb), 0.28) 26%,
-			rgba(56, 189, 248, 0.24) 74%,
-			rgba(56, 189, 248, 0.1) 90%,
-			rgba(56, 189, 248, 0.03) 100%
-		);
-		box-shadow: 0 0 0 1px rgba(var(--color-primary-rgb), 0.06);
-	}
-
-	.ds-experience-row.is-current[data-timeline-state='past']::before,
-	.ds-experience-row.is-current[data-timeline-state='active']::before {
-		background: linear-gradient(
-			180deg,
-			rgba(var(--color-primary-rgb), 0.18) 0%,
-			rgba(var(--color-primary-rgb), 0.34) 24%,
-			rgba(56, 189, 248, 0.3) 72%,
-			rgba(56, 189, 248, 0.12) 90%,
-			rgba(56, 189, 248, 0.04) 100%
-		);
-		opacity: 1;
-		box-shadow: 0 0 0 1px rgba(var(--color-primary-rgb), 0.1);
+		box-shadow:
+			0 0 6px rgba(var(--color-primary-rgb), 0.45),
+			0 0 16px rgba(var(--color-primary-rgb), 0.18);
 	}
 
 	.ds-experience-row:last-child::before {
 		bottom: 0;
-	}
-
-	@media (min-width: 768px) {
-		.ds-experience-row::before {
-			left: -0.4rem;
-		}
 	}
 </style>
 

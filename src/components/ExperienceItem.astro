@@ -62,14 +62,6 @@ const moreId = `experience-${(id ?? `${company}-${date}`)
 
 	<div class="relative md:col-span-2">
 		<div>
-			{
-				current && (
-					<span class="ds-eyebrow mb-4 w-fit border-[rgba(var(--color-primary-rgb),0.28)] bg-[linear-gradient(135deg,rgba(var(--color-primary-rgb),0.18),rgba(56,189,248,0.12))] text-[0.7rem]">
-						Actual
-					</span>
-				)
-			}
-
 			<h3
 				data-ui-heading="true"
 				class="text-xl font-bold text-[var(--color-heading)] md:text-[1.4rem]"
@@ -256,47 +248,37 @@ const moreId = `experience-${(id ?? `${company}-${date}`)
 		opacity: 0.8;
 	}
 
+	/* Hollow ring by default; filled once passed; the active one glows. The
+	   background-colored spread cuts the line around each marker. */
 	.ds-experience-marker {
 		z-index: 1;
-		background: color-mix(in srgb, var(--color-secondary) 68%, #08101f 32%);
-		box-shadow:
-			0 0 0 6px var(--color-bg),
-			0 0 0 7px rgba(56, 189, 248, 0.12);
+		background: var(--color-bg);
+		border: 2px solid rgba(var(--color-primary-rgb), 0.5);
+		box-shadow: 0 0 0 4px var(--color-bg);
 		transition:
-			transform 220ms ease,
-			background-color 220ms ease,
-			opacity 220ms ease;
+			transform 260ms ease,
+			background-color 260ms ease,
+			border-color 260ms ease,
+			box-shadow 260ms ease;
+	}
+
+	.ds-experience-item[data-timeline-state='past'] .ds-experience-marker {
+		background: var(--color-primary);
+		border-color: var(--color-primary);
+		box-shadow:
+			0 0 0 4px var(--color-bg),
+			0 0 8px rgba(var(--color-primary-rgb), 0.55);
 	}
 
 	.ds-experience-item[data-active='true'] .ds-experience-marker,
-	.ds-experience-item[data-timeline-state='past']:hover .ds-experience-marker,
 	.ds-experience-item:hover .ds-experience-marker {
-		background: var(--color-secondary);
-		transform: scale(1.12);
-		box-shadow:
-			0 0 0 6px var(--color-bg),
-			0 0 0 8px rgba(56, 189, 248, 0.18);
-	}
-
-	.ds-experience-item.is-current .ds-experience-marker {
-		background: color-mix(in srgb, var(--color-primary) 72%, #08101f 28%);
-		box-shadow:
-			0 0 0 6px var(--color-bg),
-			0 0 0 7px rgba(var(--color-primary-rgb), 0.16);
-	}
-
-	.ds-experience-item.is-current[data-active='true'] .ds-experience-marker {
 		background: var(--color-primary);
+		border-color: var(--color-primary-light);
+		transform: scale(1.15);
 		box-shadow:
-			0 0 0 6px var(--color-bg),
-			0 0 0 10px rgba(var(--color-primary-rgb), 0.2);
-	}
-
-	.ds-experience-item.is-current:hover .ds-experience-marker {
-		background: var(--color-primary);
-		box-shadow:
-			0 0 0 6px var(--color-bg),
-			0 0 0 10px rgba(var(--color-primary-rgb), 0.2);
+			0 0 0 4px var(--color-bg),
+			0 0 10px rgba(var(--color-primary-rgb), 0.85),
+			0 0 26px rgba(var(--color-primary-rgb), 0.4);
 	}
 
 	:global(.ds-experience-link) {
