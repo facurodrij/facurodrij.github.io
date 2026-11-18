@@ -14,8 +14,24 @@
 	--color-text: rgba(226, 232, 240, 0.96);
 	--color-text-muted: #94a3b8;
 	--color-heading: #f8fafc;
-	--color-primary: #00d084;
-	--color-primary-soft: rgba(0, 208, 132, 0.16);
+	/* Midnight purple accent. Change --color-primary-rgb to retint the site. */
+	--color-primary-rgb: 155, 77, 255;
+	--color-primary: rgb(var(--color-primary-rgb));
+	--color-primary-soft: rgba(var(--color-primary-rgb), 0.16);
+	--color-primary-light: #dcc4ff;
+	--color-primary-deep: #6d28d9;
+	--color-primary-deeper: #5517c7;
+	/* Neon outline for glass cards: a thin purple line plus a soft glow. */
+	--neon-border: rgba(var(--color-primary-rgb), 0.5);
+	--neon-border-strong: rgba(var(--color-primary-rgb), 0.85);
+	--neon-glow:
+		0 0 10px rgba(var(--color-primary-rgb), 0.22),
+		0 0 28px rgba(var(--color-primary-rgb), 0.1),
+		inset 0 0 12px rgba(var(--color-primary-rgb), 0.06);
+	--neon-glow-strong:
+		0 0 12px rgba(var(--color-primary-rgb), 0.38),
+		0 0 36px rgba(var(--color-primary-rgb), 0.18),
+		inset 0 0 16px rgba(var(--color-primary-rgb), 0.1);
 	--color-secondary: #38bdf8;
 	--color-secondary-soft: rgba(56, 189, 248, 0.18);
 	--color-support: #64748b;
@@ -84,8 +100,14 @@ select {
 		transform 180ms ease;
 }
 
+/* Tailwind v4's preflight resets buttons to the default cursor. */
+button:not(:disabled),
+[role='button']:not([aria-disabled='true']) {
+	cursor: pointer;
+}
+
 ::selection {
-	background: rgba(0, 208, 132, 0.28);
+	background: rgba(var(--color-primary-rgb), 0.28);
 	color: #f8fafc;
 }
 
@@ -243,13 +265,24 @@ body.ds-shell[data-pointer-fine='true'][data-spotlight-active='true']::after {
 	position: relative;
 	isolation: isolate;
 	background: rgba(11, 18, 32, 0.68);
-	border: 1px solid rgba(148, 163, 184, 0.16);
+	border: 1px solid var(--neon-border);
 	box-shadow:
 		0 22px 60px rgba(2, 6, 23, 0.34),
 		inset 0 1px 0 rgba(255, 255, 255, 0.05),
 		inset 0 -1px 0 rgba(2, 6, 23, 0.22);
 	backdrop-filter: blur(24px) saturate(140%);
 	-webkit-backdrop-filter: blur(24px) saturate(140%);
+	transition: box-shadow 220ms ease;
+}
+
+/* The neon glow only lights up on hover; at rest the card keeps just the line. */
+.ds-glass-panel:hover,
+.ds-card-glass:hover {
+	box-shadow:
+		0 22px 60px rgba(2, 6, 23, 0.34),
+		var(--neon-glow),
+		inset 0 1px 0 rgba(255, 255, 255, 0.05),
+		inset 0 -1px 0 rgba(2, 6, 23, 0.22);
 }
 
 .ds-glass-button {
@@ -333,7 +366,7 @@ body.ds-shell[data-pointer-fine='true'][data-spotlight-active='true']
 	background: linear-gradient(
 		135deg,
 		rgba(56, 189, 248, 0.12),
-		rgba(0, 208, 132, 0.12)
+		rgba(var(--color-primary-rgb), 0.12)
 	);
 	font-family: var(--font-heading);
 	font-size: 0.75rem;
@@ -359,13 +392,13 @@ body.ds-shell[data-pointer-fine='true'][data-spotlight-active='true']
 .ds-section-title-shimmer {
 	background-image: linear-gradient(
 		115deg,
-		#059669 0%,
-		#00d084 18%,
-		#bbf7d0 34%,
-		#00d084 52%,
-		#047857 70%,
-		#00d084 86%,
-		#bbf7d0 100%
+		var(--color-primary-deep) 0%,
+		var(--color-primary) 18%,
+		var(--color-primary-light) 34%,
+		var(--color-primary) 52%,
+		var(--color-primary-deeper) 70%,
+		var(--color-primary) 86%,
+		var(--color-primary-light) 100%
 	);
 	background-size: 200% 100%;
 	-webkit-background-clip: text;
@@ -387,7 +420,7 @@ body.ds-shell[data-pointer-fine='true'][data-spotlight-active='true']
 
 .ds-section-title svg {
 	color: var(--color-primary);
-	filter: drop-shadow(0 0 18px rgba(0, 208, 132, 0.24));
+	filter: drop-shadow(0 0 18px rgba(var(--color-primary-rgb), 0.24));
 }
 
 .ds-body {
@@ -436,41 +469,29 @@ body.ds-shell[data-pointer-fine='true'][data-spotlight-active='true']
 }
 
 .ds-button-primary {
-	background:
-		linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0)),
-		linear-gradient(135deg, rgba(0, 208, 132, 0.24), rgba(0, 208, 132, 0.12));
-	border-color: rgba(255, 255, 255, 0.12);
+	background: transparent;
+	border-color: var(--neon-border);
+	color: var(--color-primary-light);
+}
+
+/* Same neon language as the glass cards: no lift, just a tint and glow. */
+.ds-button-primary:hover,
+.ds-button-primary:focus-visible {
+	background: rgba(var(--color-primary-rgb), 0.12);
+	border-color: var(--neon-border-strong);
 	color: var(--color-heading);
-	box-shadow:
-		0 18px 48px rgba(2, 6, 23, 0.35),
-		0 16px 30px rgba(0, 208, 132, 0.12);
-	backdrop-filter: blur(20px);
+	box-shadow: var(--neon-glow);
 }
 
-.ds-button-primary:hover {
-	transform: translateY(-1px);
-	background:
-		linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0)),
-		linear-gradient(135deg, rgba(0, 208, 132, 0.34), rgba(0, 208, 132, 0.18));
-	border-color: rgba(255, 255, 255, 0.18);
-	box-shadow:
-		0 20px 52px rgba(2, 6, 23, 0.38),
-		0 18px 34px rgba(0, 208, 132, 0.18);
-}
-
+/* Secondary buttons: purple outline; hover only brightens the line (no glow). */
 .ds-button-secondary {
 	color: var(--color-text);
-	border-color: rgba(148, 163, 184, 0.16);
+	border-color: var(--neon-border);
 }
 
-.ds-button-secondary:hover {
-	transform: translateY(-1px);
-	border-color: rgba(56, 189, 248, 0.26);
-	background: rgba(22, 32, 52, 0.82);
-	color: var(--color-heading);
-	box-shadow:
-		0 18px 40px rgba(2, 6, 23, 0.3),
-		0 0 0 1px rgba(56, 189, 248, 0.08);
+.ds-button-secondary:hover,
+.ds-button-secondary:focus-visible {
+	border-color: var(--neon-border-strong);
 }
 
 .ds-button-icon {

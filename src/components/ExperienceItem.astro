@@ -1,6 +1,7 @@
 ---
 import LinkInline from './LinkInline.astro';
 import TechChips from './TechChips.astro';
+import ReadIcon from './icons/Read.astro';
 
 interface Props {
 	id?: string;
@@ -33,6 +34,15 @@ const {
 	certification,
 	current = false,
 } = Astro.props;
+
+// Everything but the summary paragraph sits behind "Más info".
+const hasMore =
+	highlights.length > 0 || tech.length > 0 || Boolean(link || certification);
+const moreId = `experience-${(id ?? `${company}-${date}`)
+	.toLowerCase()
+	.normalize('NFD')
+	.replace(/[^a-z0-9]+/g, '-')
+	.replace(/^-|-$/g, '')}-more`;
 ---
 
 <div
@@ -54,7 +64,7 @@ const {
 		<div>
 			{
 				current && (
-					<span class="ds-eyebrow mb-4 w-fit border-[rgba(0,208,132,0.28)] bg-[linear-gradient(135deg,rgba(0,208,132,0.18),rgba(56,189,248,0.12))] text-[0.7rem]">
+					<span class="ds-eyebrow mb-4 w-fit border-[rgba(var(--color-primary-rgb),0.28)] bg-[linear-gradient(135deg,rgba(var(--color-primary-rgb),0.18),rgba(56,189,248,0.12))] text-[0.7rem]">
 						Actual
 					</span>
 				)
@@ -83,73 +93,147 @@ const {
 	<div class="ds-body relative flex flex-col gap-3 md:col-span-3">
 		<p>{description}</p>
 		{
-			highlights.length > 0 && (
-				<ul class="ds-experience-highlights">
-					{highlights.map((highlight) => (
-						<li>{highlight}</li>
-					))}
-				</ul>
-			)
-		}
-		{
-			tech.length > 0 && (
-				<div class="mt-1.5">
-					<TechChips tools={tech} label="Tecnologías" expanded />
-				</div>
-			)
-		}
-		{
-			link && (
-				<LinkInline href={link} className="ds-experience-link mt-2 w-fit">
-					Saber más{' '}
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						class="icon icon-tabler icon-tabler-chevron-right w-5"
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						stroke-width="2"
-						stroke="currentColor"
-						fill="none"
-						stroke-linecap="round"
-						stroke-linejoin="round"
+			hasMore && (
+				<>
+					<button
+						type="button"
+						class="ds-button ds-button-primary mt-1 w-fit"
+						aria-expanded="false"
+						aria-controls={moreId}
+						data-experience-more-toggle
 					>
-						<>
-							<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-							<path d="M9 6l6 6l-6 6" />
-						</>
-					</svg>
-				</LinkInline>
-			)
-		}
-		{
-			certification && (
-				<LinkInline href={certification} className="ds-experience-link w-fit">
-					Ver certificado{' '}
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						class="icon icon-tabler icon-tabler-chevron-right w-5"
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						stroke-width="2"
-						stroke="currentColor"
-						fill="none"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<>
-							<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-							<path d="M9 6l6 6l-6 6" />
-						</>
-					</svg>
-				</LinkInline>
+						<ReadIcon class="size-6" />
+						<span data-experience-more-label>Más info</span>
+						<svg
+							class="experience-more__chevron size-4"
+							viewBox="0 0 24 24"
+							aria-hidden="true"
+						>
+							<path d="m6 9 6 6 6-6" />
+						</svg>
+					</button>
+					<div id={moreId} class="experience-more" data-experience-more inert>
+						<div class="experience-more__clip">
+							<div class="experience-more__inner">
+								{highlights.length > 0 && (
+									<ul class="ds-experience-highlights">
+										{highlights.map((highlight) => (
+											<li>{highlight}</li>
+										))}
+									</ul>
+								)}
+								{tech.length > 0 && (
+									<div class="mt-1.5">
+										<TechChips tools={tech} label="Tecnologías" expanded />
+									</div>
+								)}
+								{link && (
+									<LinkInline
+										href={link}
+										className="ds-experience-link mt-2 w-fit"
+									>
+										Saber más{' '}
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											class="icon icon-tabler icon-tabler-chevron-right w-5"
+											width="24"
+											height="24"
+											viewBox="0 0 24 24"
+											stroke-width="2"
+											stroke="currentColor"
+											fill="none"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+										>
+											<>
+												<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+												<path d="M9 6l6 6l-6 6" />
+											</>
+										</svg>
+									</LinkInline>
+								)}
+								{certification && (
+									<LinkInline
+										href={certification}
+										className="ds-experience-link w-fit"
+									>
+										Ver certificado{' '}
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											class="icon icon-tabler icon-tabler-chevron-right w-5"
+											width="24"
+											height="24"
+											viewBox="0 0 24 24"
+											stroke-width="2"
+											stroke="currentColor"
+											fill="none"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+										>
+											<>
+												<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+												<path d="M9 6l6 6l-6 6" />
+											</>
+										</svg>
+									</LinkInline>
+								)}
+							</div>
+						</div>
+					</div>
+				</>
 			)
 		}
 	</div>
 </div>
 
 <style>
+	.experience-more__chevron {
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 2;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+		transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	[aria-expanded='true'] > .experience-more__chevron {
+		transform: rotate(180deg);
+	}
+
+	/* Same unfold as the projects' "Más info": rows animate 0fr -> 1fr. */
+	.experience-more {
+		display: grid;
+		grid-template-rows: 0fr;
+		transition: grid-template-rows 560ms cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.ds-experience-item.is-open .experience-more {
+		grid-template-rows: 1fr;
+	}
+
+	.experience-more__clip {
+		min-height: 0;
+		overflow: hidden;
+	}
+
+	.experience-more__inner {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		padding-top: 0.5rem;
+		opacity: 0;
+		transform: translateY(-0.75rem);
+		transition:
+			opacity 320ms ease,
+			transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.ds-experience-item.is-open .experience-more__inner {
+		opacity: 1;
+		transform: none;
+		transition-delay: 100ms;
+	}
+
 	.ds-experience-highlights {
 		display: grid;
 		gap: 0.45rem;
@@ -170,180 +254,6 @@ const {
 		border-radius: 999px;
 		background: var(--color-primary);
 		opacity: 0.8;
-	}
-
-	.ds-experience-item {
-		opacity: 1;
-		transform: translateY(0);
-		transform-origin: left center;
-		will-change: transform, opacity;
-		border-color: rgba(148, 163, 184, 0.14);
-		background:
-			linear-gradient(
-				180deg,
-				rgba(255, 255, 255, 0.05),
-				rgba(255, 255, 255, 0) 28%
-			),
-			linear-gradient(180deg, rgba(10, 17, 31, 0.76), rgba(6, 11, 22, 0.58));
-		box-shadow:
-			0 22px 60px rgba(2, 6, 23, 0.34),
-			inset 0 1px 0 rgba(255, 255, 255, 0.05),
-			inset 0 -1px 0 rgba(2, 6, 23, 0.22);
-		backdrop-filter: blur(24px) saturate(140%);
-		-webkit-backdrop-filter: blur(24px) saturate(140%);
-		transition:
-			opacity 260ms ease,
-			transform 260ms ease,
-			border-color 260ms ease,
-			box-shadow 260ms ease;
-	}
-
-	.ds-experience-item[data-timeline-state='future'][data-revealed='true'] {
-		opacity: 0.54;
-	}
-
-	.ds-experience-item[data-active='true'] {
-		opacity: 1;
-		transform: translateY(0) scale(1.015);
-		border-color: rgba(56, 189, 248, 0.34);
-		background:
-			radial-gradient(
-				circle at top left,
-				rgba(56, 189, 248, 0.14),
-				transparent 38%
-			),
-			linear-gradient(180deg, rgba(13, 23, 41, 0.84), rgba(8, 14, 28, 0.66));
-		box-shadow:
-			0 30px 80px rgba(2, 6, 23, 0.48),
-			0 0 0 1px rgba(56, 189, 248, 0.2);
-	}
-
-	.ds-experience-item[data-timeline-state='past']:hover {
-		opacity: 1;
-		transform: translateY(-3px) scale(1.015);
-		border-color: rgba(56, 189, 248, 0.34);
-		background:
-			radial-gradient(
-				circle at top left,
-				rgba(56, 189, 248, 0.14),
-				transparent 38%
-			),
-			linear-gradient(180deg, rgba(13, 23, 41, 0.84), rgba(8, 14, 28, 0.66));
-		box-shadow:
-			0 30px 80px rgba(2, 6, 23, 0.48),
-			0 0 0 1px rgba(56, 189, 248, 0.2);
-	}
-
-	.ds-experience-item.is-current {
-		border-color: rgba(0, 208, 132, 0.22);
-		box-shadow:
-			0 24px 64px rgba(2, 6, 23, 0.36),
-			0 0 0 1px rgba(0, 208, 132, 0.14);
-	}
-
-	.ds-experience-item.is-current[data-active='true'] {
-		border-color: rgba(0, 208, 132, 0.42);
-		background:
-			radial-gradient(
-				circle at top left,
-				rgba(0, 208, 132, 0.18),
-				transparent 40%
-			),
-			linear-gradient(180deg, rgba(11, 24, 28, 0.84), rgba(7, 16, 20, 0.66));
-		box-shadow:
-			0 32px 84px rgba(2, 6, 23, 0.52),
-			0 0 0 1px rgba(0, 208, 132, 0.24);
-	}
-
-	.ds-experience-item.is-current:hover {
-		border-color: rgba(0, 208, 132, 0.42);
-		background:
-			radial-gradient(
-				circle at top left,
-				rgba(0, 208, 132, 0.18),
-				transparent 40%
-			),
-			linear-gradient(180deg, rgba(11, 24, 28, 0.84), rgba(7, 16, 20, 0.66));
-		box-shadow:
-			0 32px 84px rgba(2, 6, 23, 0.52),
-			0 0 0 1px rgba(0, 208, 132, 0.24);
-	}
-
-	.ds-experience-item
-		:is(
-			[data-ui-heading='true'],
-			h4,
-			time,
-			.ds-body,
-			:global(.ds-experience-link)
-		) {
-		transition:
-			opacity 220ms ease,
-			color 220ms ease;
-	}
-
-	.ds-experience-item[data-timeline-state='future']
-		:is([data-ui-heading='true'], h4, time, .ds-body) {
-		opacity: 0.68;
-	}
-
-	.ds-experience-item[data-timeline-state='future']
-		:global(.ds-experience-link) {
-		opacity: 0.76;
-	}
-
-	.ds-experience-item[data-timeline-state='future'] h4 {
-		color: color-mix(in srgb, var(--color-primary) 68%, white 32%);
-	}
-
-	.ds-experience-item[data-timeline-state='past']
-		:is(
-			[data-ui-heading='true'],
-			h4,
-			time,
-			.ds-body,
-			:global(.ds-experience-link)
-		) {
-		opacity: 1;
-		filter: none;
-	}
-
-	.ds-experience-item[data-active='true']
-		:is(
-			[data-ui-heading='true'],
-			h4,
-			time,
-			.ds-body,
-			:global(.ds-experience-link)
-		) {
-		opacity: 1;
-		filter: none;
-	}
-
-	.ds-experience-item[data-timeline-state='past']:hover
-		:is(
-			[data-ui-heading='true'],
-			h4,
-			time,
-			.ds-body,
-			:global(.ds-experience-link)
-		) {
-		opacity: 1;
-		filter: none;
-	}
-
-	.ds-experience-item:hover {
-		opacity: 0.8;
-		transform: translateY(-3px);
-		border-color: rgba(255, 255, 255, 0.14);
-		box-shadow:
-			0 26px 60px rgba(2, 6, 23, 0.38),
-			0 0 0 1px rgba(255, 255, 255, 0.03);
-	}
-
-	.ds-experience-item[data-active='true']:hover {
-		opacity: 1;
-		transform: translateY(-3px) scale(1.015);
 	}
 
 	.ds-experience-marker {
@@ -372,40 +282,21 @@ const {
 		background: color-mix(in srgb, var(--color-primary) 72%, #08101f 28%);
 		box-shadow:
 			0 0 0 6px var(--color-bg),
-			0 0 0 7px rgba(0, 208, 132, 0.16);
+			0 0 0 7px rgba(var(--color-primary-rgb), 0.16);
 	}
 
 	.ds-experience-item.is-current[data-active='true'] .ds-experience-marker {
 		background: var(--color-primary);
 		box-shadow:
 			0 0 0 6px var(--color-bg),
-			0 0 0 10px rgba(0, 208, 132, 0.2);
+			0 0 0 10px rgba(var(--color-primary-rgb), 0.2);
 	}
 
 	.ds-experience-item.is-current:hover .ds-experience-marker {
 		background: var(--color-primary);
 		box-shadow:
 			0 0 0 6px var(--color-bg),
-			0 0 0 10px rgba(0, 208, 132, 0.2);
-	}
-
-	.ds-experience-item[data-active='true'] time {
-		background: rgba(56, 189, 248, 0.18);
-		color: var(--color-heading);
-	}
-
-	.ds-experience-item[data-timeline-state='past']:hover time {
-		background: rgba(56, 189, 248, 0.18);
-		color: var(--color-heading);
-	}
-
-	.ds-experience-item.is-current[data-active='true'] time {
-		background: rgba(0, 208, 132, 0.18);
-	}
-
-	.ds-experience-item.is-current:hover time {
-		background: rgba(0, 208, 132, 0.18);
-		color: var(--color-heading);
+			0 0 0 10px rgba(var(--color-primary-rgb), 0.2);
 	}
 
 	:global(.ds-experience-link) {
@@ -448,12 +339,6 @@ const {
 	}
 
 	@media (prefers-reduced-motion: reduce) {
-		.ds-experience-item {
-			opacity: 1;
-			transform: none;
-		}
-
-		.ds-experience-item:hover,
 		.ds-experience-item[data-active='true'] .ds-experience-marker,
 		.ds-experience-item:hover .ds-experience-marker,
 		:global(.ds-experience-link:hover) :global(svg),
@@ -462,3 +347,43 @@ const {
 		}
 	}
 </style>
+
+<script>
+	// "Más info" toggle for each experience card: shows the highlights, tech
+	// chips and links below the summary paragraph. Escape closes it again.
+	const setupExperienceMore = () => {
+		document
+			.querySelectorAll<HTMLButtonElement>(
+				'[data-experience-more-toggle]:not([data-ready])',
+			)
+			.forEach((button) => {
+				button.dataset.ready = '';
+				const item = button.closest<HTMLElement>('[data-experience-item]');
+				const panel = document.getElementById(
+					button.getAttribute('aria-controls') ?? '',
+				);
+				const label = button.querySelector('[data-experience-more-label]');
+				if (!item || !panel) return;
+
+				const setOpen = (open: boolean) => {
+					item.classList.toggle('is-open', open);
+					button.setAttribute('aria-expanded', String(open));
+					panel.inert = !open;
+					if (label) label.textContent = open ? 'Menos info' : 'Más info';
+				};
+
+				button.addEventListener('click', () =>
+					setOpen(!item.classList.contains('is-open')),
+				);
+				item.addEventListener('keydown', (event) => {
+					if (event.key !== 'Escape' || !item.classList.contains('is-open')) {
+						return;
+					}
+					setOpen(false);
+					button.focus();
+				});
+			});
+	};
+
+	document.addEventListener('astro:page-load', setupExperienceMore);
+</script>

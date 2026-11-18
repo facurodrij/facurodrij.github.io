@@ -92,7 +92,7 @@ const links = [
 <style>
 	.contact-email {
 		text-decoration: underline;
-		text-decoration-color: rgba(0, 208, 132, 0.5);
+		text-decoration-color: rgba(var(--color-primary-rgb), 0.5);
 		text-decoration-thickness: 1.5px;
 		text-underline-offset: 7px;
 	}
@@ -109,18 +109,21 @@ const links = [
 		width: 2.25rem;
 		height: 2.25rem;
 		border-radius: 999px;
-		border: 1px solid rgba(148, 163, 184, 0.2);
+		border: 1px solid var(--neon-border);
 		background: rgba(2, 6, 23, 0.82);
 		color: var(--color-text);
+		transition: border-color 180ms ease;
 	}
 
+	/* Same as the secondary buttons: hover only brightens the outline. */
 	.contact-link:hover,
 	.contact-link:focus-visible {
-		border-color: rgba(0, 208, 132, 0.46);
-		background: rgba(0, 208, 132, 0.12);
-		color: var(--color-heading);
+		border-color: var(--neon-border-strong);
+	}
+
+	.contact-link:focus-visible {
 		outline: none;
-		transform: translateY(-1px);
+		box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
 	}
 
 	.contact-copy {

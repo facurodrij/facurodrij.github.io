@@ -192,27 +192,27 @@ const EXPERIENCE = [
 	.ds-experience-row.is-current::before {
 		background: linear-gradient(
 			180deg,
-			rgba(0, 208, 132, 0.12) 0%,
-			rgba(0, 208, 132, 0.28) 26%,
+			rgba(var(--color-primary-rgb), 0.12) 0%,
+			rgba(var(--color-primary-rgb), 0.28) 26%,
 			rgba(56, 189, 248, 0.24) 74%,
 			rgba(56, 189, 248, 0.1) 90%,
 			rgba(56, 189, 248, 0.03) 100%
 		);
-		box-shadow: 0 0 0 1px rgba(0, 208, 132, 0.06);
+		box-shadow: 0 0 0 1px rgba(var(--color-primary-rgb), 0.06);
 	}
 
 	.ds-experience-row.is-current[data-timeline-state='past']::before,
 	.ds-experience-row.is-current[data-timeline-state='active']::before {
 		background: linear-gradient(
 			180deg,
-			rgba(0, 208, 132, 0.18) 0%,
-			rgba(0, 208, 132, 0.34) 24%,
+			rgba(var(--color-primary-rgb), 0.18) 0%,
+			rgba(var(--color-primary-rgb), 0.34) 24%,
 			rgba(56, 189, 248, 0.3) 72%,
 			rgba(56, 189, 248, 0.12) 90%,
 			rgba(56, 189, 248, 0.04) 100%
 		);
 		opacity: 1;
-		box-shadow: 0 0 0 1px rgba(0, 208, 132, 0.1);
+		box-shadow: 0 0 0 1px rgba(var(--color-primary-rgb), 0.1);
 	}
 
 	.ds-experience-row:last-child::before {

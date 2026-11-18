@@ -9,9 +9,6 @@ import ExpressIcon from './icons/Express.astro';
 import DjangoIcon from './icons/Django.astro';
 import FlaskIcon from './icons/Flask.astro';
 import PythonIcon from './icons/Python.astro';
-import MaterialUiIcon from './icons/MaterialUi.astro';
-import ShadcnIcon from './icons/Shadcn.astro';
-import TailwindIcon from './icons/Tailwind.astro';
 import MongoDBIcon from './icons/MongoDB.astro';
 import PostgreSQLIcon from './icons/PostgreSQL.astro';
 import SQLiteIcon from './icons/SQLite.astro';
@@ -36,7 +33,7 @@ interface TechItem {
 	iconProps?: Record<string, string>;
 }
 
-const CONCEPT_GREEN = 'bg-[#06201a] text-[#00d084]';
+const CONCEPT_PURPLE = 'bg-[#170a33] text-[var(--color-primary)]';
 const CONCEPT_BLUE = 'bg-[#071c2b] text-[#38bdf8]';
 
 const TECHNOLOGY_GROUPS: { title: string; items: TechItem[] }[] = [
@@ -87,26 +84,6 @@ const TECHNOLOGY_GROUPS: { title: string; items: TechItem[] }[] = [
 				name: 'Django',
 				icon: DjangoIcon,
 				badgeClassName: 'bg-[#092E20] text-white',
-			},
-		],
-	},
-	{
-		title: 'UI & Animation Libraries',
-		items: [
-			{
-				name: 'Material UI',
-				icon: MaterialUiIcon,
-				badgeClassName: 'bg-[#08131d] text-[#1FA6CA]',
-			},
-			{
-				name: 'Tailwind CSS',
-				icon: TailwindIcon,
-				badgeClassName: 'bg-[#041c29] text-[#06B6D4]',
-			},
-			{
-				name: 'shadcn/ui',
-				icon: ShadcnIcon,
-				badgeClassName: 'bg-white text-black',
 			},
 		],
 	},
@@ -182,7 +159,7 @@ const TECHNOLOGY_GROUPS: { title: string; items: TechItem[] }[] = [
 				name: 'APIs RESTful',
 				icon: PatternIcon,
 				iconProps: { variant: 'rest' },
-				badgeClassName: CONCEPT_GREEN,
+				badgeClassName: CONCEPT_PURPLE,
 			},
 			{
 				name: 'SOLID',
@@ -194,7 +171,7 @@ const TECHNOLOGY_GROUPS: { title: string; items: TechItem[] }[] = [
 				name: 'MVC / MVT',
 				icon: PatternIcon,
 				iconProps: { variant: 'mvc' },
-				badgeClassName: CONCEPT_GREEN,
+				badgeClassName: CONCEPT_PURPLE,
 			},
 			{
 				name: 'Webhooks',
@@ -206,7 +183,7 @@ const TECHNOLOGY_GROUPS: { title: string; items: TechItem[] }[] = [
 				name: 'Servicios SOAP',
 				icon: PatternIcon,
 				iconProps: { variant: 'soap' },
-				badgeClassName: CONCEPT_GREEN,
+				badgeClassName: CONCEPT_PURPLE,
 			},
 			{
 				name: 'Infraestructura como código',
@@ -218,7 +195,7 @@ const TECHNOLOGY_GROUPS: { title: string; items: TechItem[] }[] = [
 				name: 'Single / Multi-tenancy',
 				icon: PatternIcon,
 				iconProps: { variant: 'tenancy' },
-				badgeClassName: CONCEPT_GREEN,
+				badgeClassName: CONCEPT_PURPLE,
 			},
 		],
 	},
@@ -255,14 +232,11 @@ const TECHNOLOGY_GROUPS: { title: string; items: TechItem[] }[] = [
 ];
 ---
 
-<section class="space-y-8" data-tech-root data-tech-enhanced="false">
+<section class="space-y-8">
 	<div class="grid gap-5">
 		{
 			TECHNOLOGY_GROUPS.map(({ title, items }) => (
-				<article
-					class="tech-category ds-card ds-glass-panel rounded-[var(--radius-lg)] p-5 sm:p-6"
-					data-tech-group
-				>
+				<article class="tech-category ds-card ds-glass-panel rounded-[var(--radius-lg)] p-5 sm:p-6">
 					<div class="flex items-center gap-3">
 						<h3
 							data-ui-heading="true"
@@ -273,23 +247,16 @@ const TECHNOLOGY_GROUPS: { title: string; items: TechItem[] }[] = [
 					</div>
 
 					<ul class="mt-5 flex flex-wrap gap-2.5">
-						{items.map(
-							({ name, icon: Icon, badgeClassName, iconProps }, itemIndex) => (
-								<li
-									class="tech-chip-item"
-									style={`--tech-chip-order: ${itemIndex};`}
-									data-tech-chip
-									data-chip-visible="false"
-								>
-									<span class="tech-chip">
-										<span class:list={['tech-chip__icon', badgeClassName]}>
-											<Icon class="size-4 shrink-0" {...iconProps} />
-										</span>
-										<span>{name}</span>
+						{items.map(({ name, icon: Icon, badgeClassName, iconProps }) => (
+							<li>
+								<span class="tech-chip">
+									<span class:list={['tech-chip__icon', badgeClassName]}>
+										<Icon class="size-4 shrink-0" {...iconProps} />
 									</span>
-								</li>
-							),
-						)}
+									<span>{name}</span>
+								</span>
+							</li>
+						))}
 					</ul>
 				</article>
 			))
@@ -298,41 +265,6 @@ const TECHNOLOGY_GROUPS: { title: string; items: TechItem[] }[] = [
 </section>
 
 <style>
-	.tech-category {
-		border-color: rgba(255, 255, 255, 0.08);
-	}
-
-	[data-tech-root][data-tech-enhanced='true']
-		[data-tech-chip][data-chip-visible='false'] {
-		opacity: 0;
-		transform: translateY(18px);
-		filter: blur(4px);
-		transition: none;
-		will-change: opacity, transform, filter;
-	}
-
-	[data-tech-root][data-tech-enhanced='true']
-		[data-tech-chip][data-chip-visible='true'] {
-		opacity: 1;
-		transform: translateY(0) scale(1);
-		filter: blur(0);
-		animation: tech-chip-fade-up 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
-	}
-
-	@keyframes tech-chip-fade-up {
-		0% {
-			opacity: 0;
-			transform: translateY(18px);
-			filter: blur(4px);
-		}
-
-		100% {
-			opacity: 1;
-			transform: translateY(0);
-			filter: blur(0);
-		}
-	}
-
 	.tech-chip {
 		display: inline-flex;
 		align-items: center;
@@ -358,110 +290,4 @@ const TECHNOLOGY_GROUPS: { title: string; items: TechItem[] }[] = [
 			inset 0 1px 0 rgba(255, 255, 255, 0.14),
 			0 10px 24px rgba(2, 6, 23, 0.18);
 	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.tech-chip-item {
-			opacity: 1;
-			transform: none;
-			filter: none;
-			animation: none;
-			transition: none;
-		}
-	}
 </style>
-
-<script is:inline>
-	(() => {
-		const setupTechnologiesReveal = () => {
-			window.__technologiesRevealCleanup?.();
-
-			const root = document.querySelector('[data-tech-root]');
-			if (!root) return;
-
-			const groups = Array.from(root.querySelectorAll('[data-tech-group]'));
-			if (!groups.length) return;
-			const cleanupTimers = new WeakMap();
-			const getChips = (group) =>
-				Array.from(group.querySelectorAll('[data-tech-chip]'));
-
-			const clearGroupTimers = (group) => {
-				const timerIds = cleanupTimers.get(group) || [];
-				timerIds.forEach((timerId) => window.clearTimeout(timerId));
-				cleanupTimers.set(group, []);
-			};
-
-			const setChipsVisibility = (group, visible) => {
-				getChips(group).forEach((chip) => {
-					chip.dataset.chipVisible = String(visible);
-				});
-			};
-
-			const prefersReducedMotion = window.matchMedia(
-				'(prefers-reduced-motion: reduce)',
-			).matches;
-
-			if (prefersReducedMotion || !('IntersectionObserver' in window)) {
-				root.dataset.techEnhanced = 'false';
-				groups.forEach((group) => {
-					setChipsVisibility(group, true);
-				});
-				window.__technologiesRevealCleanup = undefined;
-				return;
-			}
-
-			const observer = new IntersectionObserver(
-				(entries) => {
-					entries.forEach((entry) => {
-						const group = entry.target;
-						const chips = getChips(group);
-
-						clearGroupTimers(group);
-
-						if (!entry.isIntersecting) {
-							setChipsVisibility(group, false);
-							return;
-						}
-
-						const timerIds = chips.map((chip, index) =>
-							window.setTimeout(
-								() => {
-									chip.dataset.chipVisible = 'true';
-								},
-								80 + index * 80,
-							),
-						);
-
-						cleanupTimers.set(group, timerIds);
-					});
-				},
-				{
-					threshold: 0.2,
-					rootMargin: '0px 0px -10% 0px',
-				},
-			);
-
-			root.dataset.techEnhanced = 'true';
-			groups.forEach((group) => {
-				setChipsVisibility(group, false);
-				observer.observe(group);
-			});
-
-			window.__technologiesRevealCleanup = () => {
-				groups.forEach((group) => {
-					clearGroupTimers(group);
-				});
-				observer.disconnect();
-			};
-		};
-
-		if (document.readyState === 'loading') {
-			document.addEventListener('DOMContentLoaded', setupTechnologiesReveal, {
-				once: true,
-			});
-		} else {
-			setupTechnologiesReveal();
-		}
-
-		document.addEventListener('astro:page-load', setupTechnologiesReveal);
-	})();
-</script>
